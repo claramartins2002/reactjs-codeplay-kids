@@ -37,7 +37,7 @@ img {
 }
 .navBar .logo img {
   float: left;
-  max-height: 90px;
+  max-height: 120px;
 }
 
 
@@ -161,7 +161,7 @@ li {
 }
 
 .header__middle__logo img{
-  max-width: 90px;
+  max-width: 120px;
   margin: 7px 0 0 0;
 }
 

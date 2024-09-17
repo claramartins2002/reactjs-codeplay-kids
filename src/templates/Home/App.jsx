@@ -1,8 +1,9 @@
+import Login from "../Login";
 
 function App() {
   return (
 
-<h1>página inicial</h1>  );
+<Login></Login>  );
 }
 
 export default App;

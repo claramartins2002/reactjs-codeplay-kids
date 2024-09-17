@@ -7,6 +7,7 @@ import {BrowserRouter,Route, Routes} from "react-router-dom";
 import Estudos from './templates/Estudos';
 import Jogos from './templates/Jogos';
 import "@fontsource/irish-grover"; // Defaults to weight 400
+import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
