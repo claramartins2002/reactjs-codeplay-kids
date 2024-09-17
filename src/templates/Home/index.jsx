@@ -1,9 +1,10 @@
 import Login from "../Login";
 
-function App() {
+function Home() {
   return (
 
+//to do: add role loggedIn
 <Login></Login>  );
 }
 
-export default App;
+export default Home;

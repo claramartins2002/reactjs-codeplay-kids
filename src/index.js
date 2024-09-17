@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './templates/Home/App';
+import Home from './templates/Home/index';
 import reportWebVitals from './reportWebVitals';
 import Navbarmenu from './components/menu';
 import {BrowserRouter,Route, Routes} from "react-router-dom";
@@ -15,13 +15,14 @@ root.render(
      <div>
       <BrowserRouter>
 
-        {/* Add Menu Component */}
+        {/* to do: role loggedIn for visible navbar */}
+  
         <Navbarmenu />
         
         <Routes> 
           <Route path="/Jogos" element={<Jogos/>}/>
           <Route path="/Estudos" element={<Estudos/>}/>
-          <Route path="/" element={<App/>}/>
+          <Route path="/" element={<Home/>}/>
 
           
       </Routes>
