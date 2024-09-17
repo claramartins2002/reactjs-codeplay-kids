@@ -1,13 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import App from './templates/Home/App';
 import reportWebVitals from './reportWebVitals';
+import Navbarmenu from './components/menu';
+import {BrowserRouter,Route, Routes} from "react-router-dom";
+import Estudos from './templates/Estudos';
+import Jogos from './templates/Jogos';
+import "@fontsource/irish-grover"; // Defaults to weight 400
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+     <div>
+      <BrowserRouter>
+
+        {/* Add Menu Component */}
+        <Navbarmenu />
+        
+        <Routes> 
+          <Route path="/Jogos" element={<Jogos/>}/>
+          <Route path="/Estudos" element={<Estudos/>}/>
+          <Route path="/" element={<App/>}/>
+
+          
+      </Routes>
+      </BrowserRouter>
+
+    </div>
   </React.StrictMode>
 );
 
