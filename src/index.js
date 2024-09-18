@@ -1,34 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Home from './templates/Home/index';
 import reportWebVitals from './reportWebVitals';
-import Navbarmenu from './components/menu';
-import {BrowserRouter,Route, Routes} from "react-router-dom";
-import Estudos from './templates/Estudos';
-import Jogos from './templates/Jogos';
 import "@fontsource/irish-grover"; // Defaults to weight 400
 import './index.css';
+import { AuthProvider } from './AuthContext'; 
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-     <div>
-      <BrowserRouter>
-
-        {/* to do: role loggedIn for visible navbar */}
-  
-        <Navbarmenu />
-        
-        <Routes> 
-          <Route path="/Jogos" element={<Jogos/>}/>
-          <Route path="/Estudos" element={<Estudos/>}/>
-          <Route path="/" element={<Home/>}/>
-
-          
-      </Routes>
-      </BrowserRouter>
-
-    </div>
+    <AuthProvider>  
+    <App/>
+</AuthProvider>
   </React.StrictMode>
 );
 

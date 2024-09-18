@@ -1,10 +1,11 @@
-import Login from "../Login";
+
 
 function Home() {
   return (
 
-//to do: add role loggedIn
-<Login></Login>  );
+<h1>página inicial</h1>
+)
 }
+
 
 export default Home;

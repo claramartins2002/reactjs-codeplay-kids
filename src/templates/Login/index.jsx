@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import {
   MDBBtn,
@@ -12,7 +12,17 @@ import {
 from 'mdb-react-ui-kit';
 import "@fontsource/irish-grover"; // Defaults to weight 400
 import './styles.css';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../AuthContext';
 function Login() {
+
+    const { login } = useContext(AuthContext); // Pega a função de login do contexto
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    login();
+    navigate('/'); // Redireciona para a home após login
+  };
   return (
 
       <MDBRow className='d-flex justify-content-center align-items-center h-100'>
@@ -27,7 +37,7 @@ function Login() {
               <MDBInput wrapperClass='mb-4 w-100' label='Senha' id='formControlLg' type='password' size="lg"/>
 
 
-              <MDBBtn size='lg' id="btn-login">
+              <MDBBtn size='lg' id="btn-login" onClick={handleLogin}>
                 Entrar
               </MDBBtn>
 

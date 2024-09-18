@@ -1,12 +1,22 @@
-import React,{useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import React,{useContext, useState} from 'react';
+import {NavLink, useNavigate} from 'react-router-dom';
 import {FiAlignRight,FiXCircle } from "react-icons/fi";
 import logo from '../../img/logo.png';
 import { MdVideogameAsset, MdMenuBook, MdHome } from 'react-icons/md';
 
 import './styles.css';
+import { AuthContext } from '../../AuthContext';
 
 const Navbarmenu = () => {
+
+    const { logout } = useContext(AuthContext); // Pega a função de login do contexto
+    const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login'); // Redireciona para a home após login
+  };
+
 
     const [isMenu, setisMenu] = useState(false);
     const [isResponsiveclose, setResponsiveclose] = useState(false);
@@ -53,6 +63,11 @@ const Navbarmenu = () => {
                         </li>
                         <li className="menu-item " >
                         <NavLink  className='is-active' to={`/Estudos`}><MdMenuBook/> Estudos </NavLink> 
+                        </li>
+
+                        {/* a ideia é colocar o logout no menu do professor, aqui não ficou bom (mas funciona) */}
+                        <li className="menu-item " >
+                        <NavLink  className='is-active' onClick={handleLogout} > Logout </NavLink> 
                         </li>
                     </ul>
                     </nav>     
