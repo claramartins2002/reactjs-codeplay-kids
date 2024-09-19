@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+body {
+    margin: auto;
+    padding: 0px;
+    overflow-x: hidden;
+    background-repeat: repeat;
+    font-family: 'Inter', sans-serif;
+    display: grid;
+  }
+.container_prof {
+  background-color: #7ad487;
+  font-family: 'Irish Grover';
+  font-size: 25pt;
+  color: white;
+  width: 100%;
+  height: 50px;
+	padding-right:15px;
+	padding-left:15px;
+	margin-right:7%;
+	margin-left:7%;
+}
+
+.header__middle_prof {
+    display: flex;
+    width: 100%;
+    float: left;
+    border-bottom: 1px dashed lavender;
+    position: relative;
+    height: 50px;
+  }
+  .header__middle__icon{
+    width: 20%;
+    float: left;
+  }
+  .header__middle__text {
+    width: 80%;
+    float: left;
+    text-align: left;
+  }
+
+  .bm-item {
+    display: inline-block;
+    text-decoration: none;
+    margin-bottom: 10px;
+    color: white;
+    transition: color 0.2s;
+    padding: 5px;
+    font-size: 18pt;;
+  }
+  .bm-item:hover {
+    color: rgb(225, 225, 225);
+  }
+  .bm-cross-button {
+    height: 24px;
+    width: 24px;
+  }
+  .bm-cross {
+    background: white;
+  }
+  .bm-menu {
+    background: #7ad487;
+    margin-left: -5%;
+    padding: 15px;
+    padding-top: 30%;;
+    font-size: 1.15em;
+  }
+  .bm-item-list {
+    color: white;
+  }
+  

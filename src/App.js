@@ -17,7 +17,7 @@ function App() {
   return (
 <div>
     <Router>
-            {isAuthenticated && <Navbarmenu />} {/* Navbar só aparece se o usuário estiver logado */}
+            {isAuthenticated && <div><Navbarmenu /></div>} {/* Navbar só aparece se o usuário estiver logado */}
 
       <Routes>
 
