@@ -1,0 +1,16 @@
+#h2-txt-atividades-card {
+    font-family: 'Irish Grover';
+    font-size: 18pt;
+}
+#container-atividades-card {
+    padding: 20px;
+    background-color: #fbb2ce;
+    border: 1px solid #fc6fa9;
+    width: '150px';
+    height: '150px';
+    margin: 1%;
+ }
+ img {
+    max-width: 100px;
+    height: 100px;
+  }
