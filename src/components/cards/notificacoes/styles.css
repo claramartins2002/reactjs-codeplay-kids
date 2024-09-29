@@ -1,0 +1,11 @@
+#h2-txt-notificacoes-card {
+    font-family: 'Irish Grover';
+    font-size: 22pt;
+    color: #73b8f5;
+}
+#container-notificacoes-card {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 18px solid #73b8f5;
+    margin: 1%;
+ }
