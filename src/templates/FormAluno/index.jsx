@@ -11,9 +11,11 @@ import {
 from 'mdb-react-ui-kit';
 import "@fontsource/irish-grover"; // Defaults to weight 400
 import './styles.css';
+import NavbarProf from '../../components/menu-prof';
 
 function FormAluno() {
     return (<>
+    <NavbarProf/>
  <MDBContainer>
       <form className='form-container'>
       <h2 className="fw-bold mb-2 text-center" id="h2-txt-aluno" >Editar/Inserir perfil do aluno</h2>
