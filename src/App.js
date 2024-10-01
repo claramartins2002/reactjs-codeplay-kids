@@ -9,6 +9,7 @@ import Login from './templates/Login';
 import FormAluno from './templates/FormAluno';
 import Dashboard from './templates/Dashboard';
 import Overview from './templates/Overview';
+import Turmas from './templates/Turmas';
 
 function App() {
   const { isAuthenticated, loading } = useContext(AuthContext); // Acessa o estado de autenticação e carregamento
@@ -32,6 +33,8 @@ function App() {
         <Route path="/Overview" element={isAuthenticated ? <Overview /> : <Navigate to="/login" />} />
 
         <Route path="/Relatorios" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/Turmas" element={isAuthenticated ? <Turmas /> : <Navigate to="/login" />} />
+
         <Route path="/alunos/editar" element={isAuthenticated ? <FormAluno/> : <Navigate to="/login" />} />
 
       </Routes>

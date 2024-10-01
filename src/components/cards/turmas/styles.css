@@ -1,0 +1,14 @@
+#h2-turma {
+    font-family: 'Irish Grover';
+    color: transparent; /* Preenchimento transparente */
+    -webkit-text-stroke: 1px white; /* Contorno branco */
+    margin: 3%;
+    font-size: 30pt;
+}
+
+img {
+    width: 250px;
+    height: 100px;
+    margin-bottom: 0;
+    margin-left: 20%;
+  }

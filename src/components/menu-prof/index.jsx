@@ -12,9 +12,9 @@ const NavbarProf = () => {
 
         <Menu>
         <a id="dashboard" className="menu-item" href="/Overview"><MdOutlineHome /> Overview</a>
-        <a id="turmas" className="menu-item" href="/alunos/editar"><MdPeople /> Minhas turmas</a>
+        <a id="turmas" className="menu-item" href="/Turmas"><MdPeople /> Minhas turmas</a>
         <a id="relatorios" className="menu-item" href="/Relatorios"><MdOutlineLeaderboard /> Relatórios</a>
-        <a id="notificacoes" className="menu-item" href="/Notificacoes"><MdNotificationsNone /> Notificações</a>
+        <a id="notificacoes" className="menu-item" href="/Atividades"><MdNotificationsNone /> Atividades</a>
       </Menu> 
       <MdDensityMedium/>   Olá Prof Gisele
 	    </div>
