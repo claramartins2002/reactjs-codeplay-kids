@@ -1,0 +1,16 @@
+#h2-txt-alunos-card {
+    font-family: 'Irish Grover';
+    color: grey;
+}
+#container-aluno-card {
+    padding: 20px;
+    background-color: #c2f0eb;
+    border: 1px solid #8bebe3;
+    width: '150px';
+    height: '150px';
+    margin: 1%;
+ }
+ img {
+    width: 100px;
+    height: 100px;
+  }

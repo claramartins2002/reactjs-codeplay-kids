@@ -1,0 +1,27 @@
+#h2-txt-notificacoes-card {
+    font-family: 'Irish Grover';
+    font-size: 22pt;
+    color: #73b8f5;
+}
+#container-notificacoes-card {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 18px solid #73b8f5;
+    margin: 1%;
+    font-family: 'Irish Grover';
+    font-size: 16pt;
+    text-align: left;
+ }
+
+ .icon {
+    font-size: 30px;
+  }
+.pill-notification {
+    background-color: #fdecb0;
+    border-radius: 12px;
+    border: none;
+    margin: 1%;
+    font-family: 'Coming Soon', cursive;
+    font-size: 12pt;
+    color: grey;
+}

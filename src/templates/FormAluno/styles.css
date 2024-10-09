@@ -1,0 +1,40 @@
+body {
+    margin: auto;
+    padding: 0px;
+    overflow-x: hidden;
+    background-repeat: repeat;
+    font-family: 'Inter', sans-serif;
+    display: grid;
+  }
+#h2-txt-aluno {
+    font-family: 'Irish Grover';
+    color: gray;
+    margin-top: 200px;
+}
+#btn-salvar{
+   background-color: #ff8543;
+   color: white;
+   border: 2px solid #ff8543;
+   margin: 1%;
+   text-transform: capitalize;
+    font-size: 15pt;
+
+}
+#btn-cancelar{
+    color: #ff8543;
+    border: 2px solid #ff8543;
+    margin: 1%;
+    text-transform: capitalize;
+    font-size: 15pt;
+
+
+
+ }
+.form-container{
+    background-color: white;
+    text-shadow: none;
+    padding: 5%;
+    font-family: 'Irish Grover';
+
+}
+

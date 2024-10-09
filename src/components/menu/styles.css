@@ -7,7 +7,7 @@ body {
   font-family: 'Inter', sans-serif;
   display: grid;
 }
-.container {
+.menu-container {
   background-color: #ff8543;
   font-family: 'Irish Grover';
   text-shadow: 2px 2px grey;
@@ -15,7 +15,7 @@ body {
 	padding-right:15px;
 	padding-left:15px;
 	margin-right:auto;
-	margin-left:auto
+	margin-left:auto;
 }
 
 img {

@@ -1,0 +1,31 @@
+#h2-txt-minhas-atividades-card {
+    font-family: 'Irish Grover';
+    font-size: 22pt;
+    color: #ff9c67;
+    margin: 1%;
+}
+#container-minhas-atividades-card {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 18px solid #ff9c67;
+    margin: 1%;
+ }
+
+ #span-data-atividades {
+        padding: 3%;
+        color: #7ad487;
+        font-size: 14pt;
+        font-family: 'Coming Soon', cursive;
+
+ }
+#span-atividades {
+    padding: 1%;
+    color: #7ad487;
+    font-size: 18pt;
+}
+h6 {
+    color: #7ad487;
+    text-align: right;
+    font-family: 'Coming Soon', cursive;
+
+}
