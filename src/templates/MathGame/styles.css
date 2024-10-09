@@ -1,0 +1,95 @@
+.container-math-game {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 90%;
+}
+
+.box-math-game {
+  background-color: #f9fafb;
+  border: 2px solid #e4e7eb;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.title {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.text {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.option {
+  margin: 0 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #f39c12;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 20px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.option:hover {
+  background-color: #d35400;
+}
+
+.btn {
+  margin-top: 40px;
+  padding: 5px 30px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 21px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #2980b9;
+}
+
+.score {
+  margin-top: 40px;
+  font-weight: bold;
+  font-size: 28px;
+  color: #27ae60;
+}
+
+.timer {
+  margin-top: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 24px;
+  color: red;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}

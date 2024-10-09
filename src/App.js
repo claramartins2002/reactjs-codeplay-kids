@@ -6,6 +6,12 @@ import Home from './templates/Home';
 import Estudos from './templates/Estudos';
 import Jogos from './templates/Jogos';
 import Login from './templates/Login';
+import MemoryCardGame from './templates/MemoryCardGame';
+import PuzzleGame from './templates/QuebraCabeca';
+import DndExample from './templates/DndExample';
+import MathGame from './templates/MathGame';
+import CrossWord from './templates/Crossword';
+import CacaPalavras from './templates/CacaPalavras';
 
 function App() {
   const { isAuthenticated, loading } = useContext(AuthContext); // Acessa o estado de autenticação e carregamento
@@ -21,12 +27,19 @@ function App() {
 
       <Routes>
 
-        {/* Rotas */}
+        {/* Rotas Menu*/}
         <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/" />} /> {/* Impede de ir para login se já estiver autenticado */}
         <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
         <Route path="/estudos" element={isAuthenticated ? <Estudos /> : <Navigate to="/login" />} />
         <Route path="/jogos" element={isAuthenticated ? <Jogos /> : <Navigate to="/login" />} />
 
+        {/* Rotas Jogos*/}
+        <Route path="/jogos/jogo-da-memoria" element={isAuthenticated ? <MemoryCardGame /> : <Navigate to="/login" />} />
+        <Route path="/jogos/quebra-cabeca" element={isAuthenticated ? <PuzzleGame /> : <Navigate to="/login" />} />
+        <Route path="/jogos/drag-n-drop" element={isAuthenticated ? <DndExample /> : <Navigate to="/login" />} />
+        <Route path="/jogos/math-game" element={isAuthenticated ? <MathGame /> : <Navigate to="/login" />} />
+        <Route path="/jogos/crossword" element={isAuthenticated ? <CrossWord /> : <Navigate to="/login" />} />
+        <Route path="/jogos/caca-palavras" element={isAuthenticated ? <CacaPalavras /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
 

@@ -1,0 +1,40 @@
+.ways-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.way-option {
+  cursor: pointer;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: black;
+}
+
+.way-text {
+  text-decoration: none;
+}
+
+.way-text.line-through {
+  text-decoration: line-through;
+}
+
+.answer-words-container {
+  display: flex;
+  justify-content: center;
+}
+
+.answer-word {
+  margin-top: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+  color: black;
+}
+
+.answer-text {
+  text-decoration: none;
+}
+
+.answer-text.line-through {
+  text-decoration: line-through;
+}
