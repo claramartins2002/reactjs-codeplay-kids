@@ -12,6 +12,10 @@ import DndExample from './templates/DndExample';
 import MathGame from './templates/MathGame';
 import CrossWord from './templates/Crossword';
 import CacaPalavras from './templates/CacaPalavras';
+import FormAluno from './templates/FormAluno';
+import Dashboard from './templates/Dashboard';
+import Overview from './templates/Overview';
+import Turmas from './templates/Turmas';
 
 function App() {
   const { isAuthenticated, loading } = useContext(AuthContext); // Acessa o estado de autenticação e carregamento
@@ -32,6 +36,12 @@ function App() {
         <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
         <Route path="/estudos" element={isAuthenticated ? <Estudos /> : <Navigate to="/login" />} />
         <Route path="/jogos" element={isAuthenticated ? <Jogos /> : <Navigate to="/login" />} />
+        <Route path="/Overview" element={isAuthenticated ? <Overview /> : <Navigate to="/login" />} />
+
+        <Route path="/Relatorios" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
+        <Route path="/Turmas" element={isAuthenticated ? <Turmas /> : <Navigate to="/login" />} />
+
+        <Route path="/alunos/editar" element={isAuthenticated ? <FormAluno/> : <Navigate to="/login" />} />
 
         {/* Rotas Jogos*/}
         <Route path="/jogos/jogo-da-memoria" element={isAuthenticated ? <MemoryCardGame /> : <Navigate to="/login" />} />

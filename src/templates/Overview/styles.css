@@ -1,0 +1,14 @@
+#h2-txt-overview {
+    font-family: 'Irish Grover';
+    color: white;
+    background-color: #b270a8;
+}
+#container-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+  }
+  #box-overview {
+    padding: 20px;
+    background-color: #fbf7f5;
+  }
+
