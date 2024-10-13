@@ -8,9 +8,9 @@ body {
   display: grid;
 }
 .menu-container {
-  background-color: #ff8543;
+  background-color: #7AD487;
   font-family: 'Irish Grover';
-  text-shadow: 2px 2px grey;
+  /*text-shadow: 2px 2px grey;*/
   width: 100%;
 	padding-right:15px;
 	padding-left:15px;
@@ -63,9 +63,21 @@ ul.main-menu>li.menu-item:first-child {
 li {
   list-style-type: none;
 }
+.menu-item > button {
+  font-size: 30px;
+  position: relative;
+  display: block;
+  border: none;
+  width: 45px;
+  height: 45px;
+  margin: 5px;
+  border-radius: 30px;
+  color: #fff;
+  background-color: rgba(229, 242, 210, .5);
+}
 .menu-item a {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 500;
   line-height: 40px;
   position: relative;
   display: block;
@@ -73,16 +85,29 @@ li {
   margin: 27px 17px;
   text-decoration: none;
   cursor: pointer;
+  padding: 0 10px 0 10px;
+  border-radius: 20px;
 }
-.header__middle__logo{
-  width: 20%;
-  display: inline-block;
-  float: left;
+.header__middle__logo {
+  width: 10% !important; /* Mantém o logo ocupando 20% da largura */
+  display: flex; /* Alinha o conteúdo do logo */
+  align-items: center; /* Centraliza verticalmente o logo */
 }
 .header__middle__menus {
-  width: 70%;
-  display: inline-block;
-  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70% !important;
+}
+.header__end__menus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20% !important;
+}
+.header__end__menus > .menu-item {
+  display: flex;
+  align-items: center;
 }
 .menu-item.menu__qqqitem a{
   margin: 27px 10px;
@@ -95,11 +120,12 @@ li {
   border-left: 1px solid lavender;
 }
 .header__middle {
-  display: flex;
+  display: flex; /* Adiciona flexbox */
+  justify-content: space-between; /* Garante que haja espaço entre o logo e os menus */
+  align-items: center; /* Alinha verticalmente no centro */
   width: 100%;
-  float: left;
-  border-bottom: 1px dashed lavender;
   position: relative;
+  border-bottom: 1rem solid #ff8543;
 }
 .header__middle__logo > a > h1 {
   color: #07a8ff;
@@ -155,12 +181,17 @@ li {
   margin: 7px 27px;
 }
 .menu-item:hover > a{
-  color: #07a8ff !important;
+  background-color: rgba(229, 242, 210, .5);
+  color: #FFF;
 }
-.menu-item .sub__menus li:hover a{
-  color: #07a8ff !important;
+.menu-item:hover > .is-active {
+  color: #FF8543 !important;
+  background-color: #FFFFFF; 
 }
-
+.is-active {
+  color: #FF8543 !important;
+  background-color: #FFFFFF;
+}
 .header__middle__logo img{
   max-width: 120px;
   margin: 7px 0 0 0;
@@ -172,7 +203,7 @@ li {
 .header__middle__menus {width: 20%;}
 .header__middle__logo img {max-width: 197px;margin: 7px 0 0 0;}
 .main-nav .menubar__button:hover {background-color: #f44336;}
-.main-nav .menu-item:hover > a {color: #07a8ff !important}
+/*.main-nav .menu-item:hover > a {color: #07a8ff !important}*/
 .main-nav .menubar__button {
   display: block!important;
   float: right;

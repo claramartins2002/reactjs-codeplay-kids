@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap');
+
+.card-container {
+  width: 180px;
+  height: 220px;
+  background-color: #c8b7f9;
+  border-radius: 15px;
+  padding: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.game-icon {
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 21px;
+  font-family: 'Irish Grover', sans-serif;
+  color: #fff;
+  margin: 0;
+}
+
+.categoria {
+  font-size: 14px;
+  font-family: 'Coming Soon', sans-serif;
+  color: #f0e3ff;
+  margin: 0;
+}
+
+.details {
+  display: flex;
+  font-family: 'Coming Soon', sans-serif;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.data, .horario {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}

@@ -16,6 +16,8 @@ import FormAluno from './templates/FormAluno';
 import Dashboard from './templates/Dashboard';
 import Overview from './templates/Overview';
 import Turmas from './templates/Turmas';
+import Atividades from './templates/Atividades';
+import Turma from './templates/OverviewTurma';
 
 function App() {
   const { isAuthenticated, loading } = useContext(AuthContext); // Acessa o estado de autenticação e carregamento
@@ -37,6 +39,8 @@ function App() {
         <Route path="/estudos" element={isAuthenticated ? <Estudos /> : <Navigate to="/login" />} />
         <Route path="/jogos" element={isAuthenticated ? <Jogos /> : <Navigate to="/login" />} />
         <Route path="/Overview" element={isAuthenticated ? <Overview /> : <Navigate to="/login" />} />
+        <Route path="/atividades" element={isAuthenticated ? <Atividades /> : <Navigate to="/login" />} />
+        <Route path="/turmas/1" element={isAuthenticated ? <Turma /> : <Navigate to="/login" />} />
 
         <Route path="/Relatorios" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/Turmas" element={isAuthenticated ? <Turmas /> : <Navigate to="/login" />} />

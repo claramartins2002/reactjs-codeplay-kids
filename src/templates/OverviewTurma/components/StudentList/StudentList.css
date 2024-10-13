@@ -1,0 +1,70 @@
+.student-list-container {
+  padding: 20px;
+  background-color: #f0f8ff;
+}
+
+.student-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8c0e0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.search-bar input {
+  padding: 5px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.actions .add-btn, .actions .import-btn {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.student-table th, .student-table td {
+  text-align: left;
+  padding: 10px;
+}
+
+.student-table th {
+  background-color: #e0f7fa;
+}
+
+.student-info {
+  display: flex;
+  align-items: center;
+}
+
+.student-info .avatar {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.student-name.orange { color: orange; }
+.student-name.blue { color: blue; }
+.student-name.green { color: green; }
+.student-name.purple { color: purple; }
+
+.student-status.orange { color: orange; }
+.student-status.blue { color: blue; }
+.student-status.green { color: green; }
+.student-status.purple { color: purple; }
+
+.details-icons .icon {
+  margin-right: 10px;
+  cursor: pointer;
+}
