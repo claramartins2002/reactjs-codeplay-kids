@@ -1,0 +1,113 @@
+.schedule-container {
+  background-color: #ffb980;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5em;
+  color: #fff;
+}
+
+
+.date-range {
+  display: flex;
+  align-items: center;
+}
+
+.date-range input,
+.date-range select {
+  margin: 0 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.week-days {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.day {
+  margin-bottom: 15px;
+}
+
+.day .date {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.date-activity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.activity {
+  background-color: #FFF;
+  padding: 10px;
+  border: 1px solid #D1C4E9;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.activity a {
+  color: #6a4cb8;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.info-activity {
+  color: #555;
+  margin: 5px 0;
+  font-size: 0.9em;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 15px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.agendada {
+  font-family: 'Coming Soon';
+  background-color: #b0c4ff;
+}
+
+.concluida {
+  font-family: 'Coming Soon';
+  background-color: #a2e5a8;
+}
+
+.view-activities {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.view-activities button {
+  background-color: #ff7d00;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 22px;
+  font-family: 'Irish Grover', sans-serif;
+}

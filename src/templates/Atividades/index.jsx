@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import { Tabs, Tab } from '@mui/material';
 import { FiPlus } from "react-icons/fi";
 import './styles.css';
 import AtividadeCard from './components/AtividadeCard';
-import Tabs from './components/Tabs';
 import FormCriarAtividade from './components/FormCriarAtividade';
 
 const Atividades = () => {
-  const [selectedTab, setSelectedTab] = useState('Criadas');
+  // Define a aba inicial como "Criadas" (índice 0)
+  const [selectedTab, setSelectedTab] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
-
 
   // Array de objetos de atividades
   const atividades = [
@@ -47,9 +47,15 @@ const Atividades = () => {
     }
   ];
 
-  // Função para filtrar atividades com base na aba ativa (Criadas ou Finalizadas) e no termo de busca
+  const handleChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
+
   const atividadesFiltradas = atividades
-    .filter(atividade => atividade.status === selectedTab)
+    .filter(atividade => 
+      (selectedTab === 0 && atividade.status === 'Criadas') ||
+      (selectedTab === 1 && atividade.status === 'Finalizadas')
+    )
     .filter(atividade => 
       atividade.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
       atividade.categoria.toLowerCase().includes(searchTerm.toLowerCase())
@@ -57,12 +63,27 @@ const Atividades = () => {
 
   return (
     <div className="atividades-container">
-      {/* Separador Criadas / Finalizadas com transição de glider */}
+      {/* Tabs de "Criadas" e "Finalizadas" */}
       <Tabs
-        selectedTab={selectedTab}
-        setSelectedTab={setSelectedTab}
-        tabs={['Criadas', 'Finalizadas']}
-      />
+        value={selectedTab}
+        onChange={handleChange}
+        sx={{
+          '& .MuiTab-root': {
+            fontFamily: 'Coming Soon',
+            fontSize: '1.1rem',
+            color: '#000',
+            '&.Mui-selected': {
+              color: '#7AD487',
+            },
+          },
+          '& .MuiTabs-indicator': {
+            backgroundColor: '#7AD487',
+          },
+        }}
+      >
+        <Tab label="Criadas" />
+        <Tab label="Finalizadas" />
+      </Tabs>
 
       {/* Campo de busca com ícone */}
       <div className="search-bar">
@@ -76,7 +97,7 @@ const Atividades = () => {
 
       {/* Renderizar atividades filtradas */}
       <div className="atividades-list">
-        <h2>{selectedTab === 'Criadas' ? 'Aqui estão as atividades já criadas!' : 'Aqui estão as atividades finalizadas!'}</h2>
+        <h2>{selectedTab === 0 ? 'Aqui estão as atividades já criadas!' : 'Aqui estão as atividades finalizadas!'}</h2>
         <div className="atividade-cards-container">
           {atividadesFiltradas.length > 0 ? (
             atividadesFiltradas.map((atividade) => (
@@ -89,13 +110,13 @@ const Atividades = () => {
       </div>
 
       {/* Botão de Nova Atividade */}
-      {selectedTab === 'Criadas' && (
+      {selectedTab === 0 && (
         <button 
-        className="nova-atividade-btn animate" 
-        onClick={() => setIsFormOpen(true)}
-      >
-        <FiPlus /> Nova atividade
-      </button>
+          className="nova-atividade-btn animate" 
+          onClick={() => setIsFormOpen(true)}
+        >
+          <FiPlus /> Nova atividade
+        </button>
       )}
 
       {/* Formulário de Criar Atividade (Modal) */}

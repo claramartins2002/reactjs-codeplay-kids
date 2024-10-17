@@ -89,15 +89,15 @@ li {
   border-radius: 20px;
 }
 .header__middle__logo {
-  width: 10% !important; /* Mantém o logo ocupando 20% da largura */
-  display: flex; /* Alinha o conteúdo do logo */
-  align-items: center; /* Centraliza verticalmente o logo */
+  width: 15% !important;
+  display: flex;
+  align-items: center;
 }
 .header__middle__menus {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70% !important;
+  width: 65% !important;
 }
 .header__end__menus {
   display: flex;
@@ -120,9 +120,9 @@ li {
   border-left: 1px solid lavender;
 }
 .header__middle {
-  display: flex; /* Adiciona flexbox */
-  justify-content: space-between; /* Garante que haja espaço entre o logo e os menus */
-  align-items: center; /* Alinha verticalmente no centro */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   position: relative;
   border-bottom: 1rem solid #ff8543;

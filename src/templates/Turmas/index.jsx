@@ -1,7 +1,8 @@
 import TurmasCard from "../../components/cards/turmas";
 import NavbarProf from "../../components/menu-prof";
 
-function Turmas() {
+const Turmas = () => {
+  
   return (
     <>
       <NavbarProf/>

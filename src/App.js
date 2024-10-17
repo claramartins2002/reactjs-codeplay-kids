@@ -6,12 +6,12 @@ import Home from './templates/Home';
 import Estudos from './templates/Estudos';
 import Jogos from './templates/Jogos';
 import Login from './templates/Login';
-import MemoryCardGame from './templates/MemoryCardGame';
-import PuzzleGame from './templates/QuebraCabeca';
-import DndExample from './templates/DndExample';
-import MathGame from './templates/MathGame';
-import CrossWord from './templates/Crossword';
-import CacaPalavras from './templates/CacaPalavras';
+import MemoryCardGame from './templates/JogosAtividades/MemoryCardGame';
+import PuzzleGame from './templates/JogosAtividades/QuebraCabeca';
+import DndExample from './templates/JogosAtividades/DndExample';
+import MathGame from './templates/JogosAtividades/MathGame';
+import CrossWord from './templates/JogosAtividades/Crossword';
+import CacaPalavras from './templates/JogosAtividades/CacaPalavras';
 import FormAluno from './templates/FormAluno';
 import Dashboard from './templates/Dashboard';
 import Overview from './templates/Overview';
@@ -40,7 +40,7 @@ function App() {
         <Route path="/jogos" element={isAuthenticated ? <Jogos /> : <Navigate to="/login" />} />
         <Route path="/Overview" element={isAuthenticated ? <Overview /> : <Navigate to="/login" />} />
         <Route path="/atividades" element={isAuthenticated ? <Atividades /> : <Navigate to="/login" />} />
-        <Route path="/turmas/1" element={isAuthenticated ? <Turma /> : <Navigate to="/login" />} />
+        <Route path="/turmas/:id" element={isAuthenticated ? <Turma /> : <Navigate to="/login" />} />
 
         <Route path="/Relatorios" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/Turmas" element={isAuthenticated ? <Turmas /> : <Navigate to="/login" />} />
