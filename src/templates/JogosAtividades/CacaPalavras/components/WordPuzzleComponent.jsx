@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./WordPuzzleComponent.css";
+
 export const WordPuzzleComponent = (props) => {
   const {
     markedBackgroundColor,
     selectedBackgroundColor,
     hoveredBackgroundColor,
     backgroundColor,
-    fontFamily,
-    fontWeight,
     fontSize,
     markedForeColor,
     selectedForeColor,
@@ -18,6 +17,7 @@ export const WordPuzzleComponent = (props) => {
   const {
     answerWords,
     matrix,
+    isGameActive,
     isSelecting,
     setIsSelecting,
     availablePaths,
@@ -55,32 +55,23 @@ export const WordPuzzleComponent = (props) => {
   }, [isSelecting]);
 
   const addLetterToSelectedWords = (letter) => {
-    if (isSelecting) {
-      const result = isSelected(letter);
-      const before = selectedLetters.slice(-1)[0];
-      if (result === false && isConnected(letter, before)) {
+    if (isGameActive && isSelecting && !isSelected(letter)) {
+      const lastSelected = selectedLetters.slice(-1)[0];
+      if (isConnected(letter, lastSelected)) {
         setSelectedLetters([...selectedLetters, letter]);
-      } else {
-        const before = selectedLetters.slice(-1)[0];
-        if (isBeforeSelect(letter, before)) {
-          removeLetterFromList(before);
-        }
+      } else if (isBeforeSelect(letter, lastSelected)) {
+        removeLetterFromList(lastSelected);
       }
     }
   };
 
   const isAnswer = (param) => {
     const selectedWord = param.map((x) => x.letter).join("");
-    let found = false;
-    for (let i = 0; i < answerWords.length; i++) {
-      const element = answerWords[i];
-      if (selectedWord === element) {
-        found = true;
-        markLetters(param);
-        break;
-      }
+    if (answerWords.includes(selectedWord)) {
+      markLetters(param);
+      return true;
     }
-    return found;
+    return false;
   };
 
   const markLetters = (param) => {
@@ -103,168 +94,80 @@ export const WordPuzzleComponent = (props) => {
     setSelectedLetters(tmp);
   };
 
-  const isBeforeSelect = (letter, before) => {
-    let result = false;
-    if (
-      (letter.column + 1 === before.column && letter.row === before.row) ||
-      (letter.column - 1 === before.column && letter.row === before.row) ||
-      (letter.row + 1 === before.row && letter.column === before.column) ||
-      (letter.row - 1 === before.row && letter.column === before.column)
-    ) {
-      result = true;
-    }
-
-    return result;
-  };
+  const isBeforeSelect = (letter, before) => (
+    (letter.column + 1 === before.column && letter.row === before.row) || // right
+    (letter.column - 1 === before.column && letter.row === before.row) || // left
+    (letter.row + 1 === before.row && letter.column === before.column) || // down
+    (letter.row - 1 === before.row && letter.column === before.column)    // up
+  );
 
   const isConnected = (letter, before) => {
-    let result = false;
     if (selectedLetters.length < 1) {
-      result = true;
-    } else if (selectedLetters.length === 1 && isBeforeSelect(letter, before)) {
-      setPath(chosePath(letter));
-      result = true;
-    } else {
-      if (
-        path === "right2left" &&
-        isAvailablePath(path) &&
-        before.row === letter.row &&
-        before.column - 1 === letter.column
-      ) {
-        result = true;
-      } else if (
-        path === "left2right" &&
-        isAvailablePath(path) &&
-        before.row === letter.row &&
-        before.column + 1 === letter.column
-      ) {
-        result = true;
-      } else if (
-        path === "top2bottom" &&
-        isAvailablePath(path) &&
-        before.column === letter.column &&
-        before.row + 1 === letter.row
-      ) {
-        result = true;
-      } else if (
-        path === "bottom2top" &&
-        isAvailablePath(path) &&
-        before.column === letter.column &&
-        before.row - 1 === letter.row
-      ) {
-        result = true;
-      } else {
-        result = false;
-        setSelectedLetters([]);
-      }
+      return true;
     }
-    return result;
-  };
+  
+    if (selectedLetters.length === 1 && isBeforeSelect(letter, before)) {
+      setPath(chosePath(letter));
+      return true;
+    }
+  
+    const directions = {
+      "right2left": before.row === letter.row && before.column - 1 === letter.column,
+      "left2right": before.row === letter.row && before.column + 1 === letter.column,
+      "top2bottom": before.column === letter.column && before.row + 1 === letter.row,
+      "bottom2top": before.column === letter.column && before.row - 1 === letter.row
+    };
+  
+    if (directions[path] && isAvailablePath(path)) {
+      return true;
+    }
+  
+    setSelectedLetters([]);
+    return false;
+  };  
 
   const chosePath = (item) => {
-    let result = "left2right";
     const lastLetter = selectedLetters.slice(-2)[0];
-    const letter = item !== undefined ? item : selectedLetters.slice(-1)[0];
-    if (
-      lastLetter.row === letter.row &&
-      lastLetter.column - 1 === letter.column
-    ) {
-      result = "right2left";
-    } else if (
-      lastLetter.row === letter.row &&
-      lastLetter.column + 1 === letter.column
-    ) {
-      result = "left2right";
-    } else if (
-      lastLetter.column === letter.column &&
-      lastLetter.row + 1 === letter.row
-    ) {
-      result = "top2bottom";
-    } else if (
-      lastLetter.column === letter.column &&
-      lastLetter.row - 1 === letter.row
-    ) {
-      result = "bottom2top";
+    const letter = item || selectedLetters.slice(-1)[0];
+  
+    if (lastLetter.row === letter.row) {
+      return lastLetter.column > letter.column ? "right2left" : "left2right";
+    } else {
+      return lastLetter.row > letter.row ? "bottom2top" : "top2bottom";
     }
-
-    return result;
   };
 
   const addFirstLetter = (letter) => {
-    setSelectedLetters([letter]);
-  };
-
-  const isSelected = (searched) => {
-    let found = false;
-
-    if (selectedLetters.length > 0) {
-      for (let i = 0; i < selectedLetters.length; i++) {
-        const element = selectedLetters[i];
-        if (
-          searched.row === element.row &&
-          searched.column === element.column
-        ) {
-          found = true;
-          break;
-        }
-      }
+    if (isGameActive) {
+      setSelectedLetters([letter]);
     }
-
-    return found;
   };
 
-  const isAvailablePath = (searched) => {
-    let found = false;
+  const isSelected = (searched) => selectedLetters.some(element => 
+    searched.row === element.row && searched.column === element.column
+  );
+  
+  const isAvailablePath = (searched) => availablePaths.includes(searched);
 
-    if (availablePaths.length > 0) {
-      for (let i = 0; i < availablePaths.length; i++) {
-        const element = availablePaths[i];
-        if (searched === element) {
-          found = true;
-          break;
-        }
-      }
-    }
-
-    return found;
-  };
-
-  const isMarked = (searched) => {
-    let found = false;
-
-    if (markedLetters.length > 0) {
-      for (let i = 0; i < markedLetters.length; i++) {
-        const element = markedLetters[i];
-        if (
-          searched.row === element.row &&
-          searched.column === element.column
-        ) {
-          found = true;
-          break;
-        }
-      }
-    }
-
-    return found;
-  };
+  const isMarked = (searched) => markedLetters.some(element => 
+    searched.row === element.row && searched.column === element.column
+  );
 
   return (
     <div className="root">
       <table onMouseLeave={() => setIsSelecting(false)}>
         <tbody>
-          {data.map((i, row) => {
-            return (
+          {data.map((i, row) => (
               <tr>
-                {i.map((j, column) => {
-                  return (
+                {i.map((j, column) => (
                     <td
                       onMouseLeave={() => setHover()}
                       onMouseEnter={() => {
-                        addLetterToSelectedWords(j);
+                        if (isGameActive) addLetterToSelectedWords(j);
                         setHover(j);
                       }}
                       onMouseDown={() => {
-                        addFirstLetter(j);
+                        if (isGameActive) addFirstLetter(j);
                         setIsSelecting(true);
                       }}
                       onMouseUp={() => setIsSelecting(false)}
@@ -297,11 +200,9 @@ export const WordPuzzleComponent = (props) => {
                         {j.letter}
                       </h3>
                     </td>
-                  );
-                })}
+                ))}
               </tr>
-            );
-          })}
+          ))}
         </tbody>
       </table>
     </div>

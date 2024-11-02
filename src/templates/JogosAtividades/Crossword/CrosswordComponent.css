@@ -1,0 +1,20 @@
+.crossword-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin: 0;
+}
+
+.clue {
+  font-size: 12px;
+}
+
+.direction .header {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+div.clues {
+  height: 50vh;
+  overflow-y: scroll;
+}

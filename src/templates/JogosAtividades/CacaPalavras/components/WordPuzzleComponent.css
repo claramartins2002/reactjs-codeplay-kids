@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   margin-top: 5%;
-
+  flex-direction: column;
 }
 
 * {
@@ -13,13 +13,6 @@
   user-select: none;
 }
 
-/* p {
-  -webkit-user-select: text;
-  -khtml-user-select: text;
-  -moz-user-select: text;
-  -o-user-select: text;
-  user-select: text;
-} */
 
 .letter-wrapper {
   /* background: rgb(1, 146, 98); */
@@ -46,5 +39,5 @@ tr,
 td {
   border: 1px inset rgb(255, 255, 255);
   border-collapse: collapse;
- 
+  margin: auto;
 }

@@ -68,7 +68,7 @@ const Navbarmenu = () => {
 
               <ul className={boxClass.join(' ')}>
                 <li className="menu-item " >
-                  <NavLink className={({ isActive }) => isActive ? 'is-active' : ''} to={`/`}><PiHouse /> Overview </NavLink> 
+                  <NavLink className={({ isActive }) => isActive ? 'is-active' : ''} to={`/Overview`}><PiHouse /> Overview </NavLink> 
                 </li> 
 
                 <li className="menu-item " >

@@ -173,6 +173,7 @@ const StudentList = ({studentsData}) => {
                     padding: '20px',
                     backgroundColor: '#fffdf9',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+                    maxWidth: '900px'
                   },
                 }}
               >

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
 import './styles.css';
+import { MdOutlineWatchLater } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 const { RangePicker } = DatePicker;
 
@@ -49,6 +51,8 @@ const Schedule = () => {
   const [dateRange, setDateRange] = useState([dayjs('2024-09-16'), dayjs('2024-09-20')]);
   const [filteredActivities, setFilteredActivities] = useState([]);
 
+  const navigate = useNavigate();
+
   // Função para filtrar atividades com base nas datas selecionadas
   const filterActivities = () => {
     const [start, end] = dateRange;
@@ -94,7 +98,7 @@ const Schedule = () => {
                 <a href="#">{atividade.nome}</a>
                 <div className="date-activity">
                   <p className='info-activity'>{atividade.turma}</p>
-                  <span className='info-activity'>{atividade.horario}</span>
+                  <span className='info-activity'><MdOutlineWatchLater style={{width: '20px', height: '20px',}}/> {atividade.horario}</span>
                   <button className={`status ${atividade.status}`}>
                     {atividade.status === 'agendada' ? 'Agendada' : 'Concluída'}
                   </button>
@@ -107,7 +111,7 @@ const Schedule = () => {
           <p>Nenhuma atividade encontrada para o período selecionado.</p>
         )}
         <div className="view-activities">
-          <button>Ver atividades</button>
+          <button onClick={() => navigate('/atividades')}>Ver atividades</button>
         </div>
       </div>
     </div>

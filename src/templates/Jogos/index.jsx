@@ -34,6 +34,26 @@ function Jogos() {
           <h2>Caça Palavras</h2> 
         </NavLink>
       </div>
+      <div className='jogo-card green'>
+        <NavLink className='is-active' to={`/jogos/shape-color`}> 
+          <h2>Formas Geométricas e Cores</h2> 
+        </NavLink>
+      </div>
+      <div className='jogo-card purple'>
+        <NavLink className='is-active' to={`/jogos/imagem-palavra-associacao`}> 
+          <h2>Jogo das imagens</h2> 
+        </NavLink>
+      </div>
+      <div className='jogo-card yellow'>
+        <NavLink className='is-active' to={`/jogos/drawing`}> 
+          <h2>Desenhar</h2> 
+        </NavLink>
+      </div>
+      <div className='jogo-card green'>
+        <NavLink className='is-active' to={`/jogos/counting`}> 
+          <h2>Jogo de Contagem</h2> 
+        </NavLink>
+      </div>
     </div> 
   )
 }

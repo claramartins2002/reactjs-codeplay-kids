@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Tabs, Tab } from '@mui/material';
-import { FiPlus } from "react-icons/fi";
+import { Tabs, Tab, Button } from '@mui/material';
+import { Add } from '@mui/icons-material';
 import './styles.css';
 import AtividadeCard from './components/AtividadeCard';
 import FormCriarAtividade from './components/FormCriarAtividade';
@@ -10,6 +10,18 @@ const Atividades = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const stylesButton = {
+    backgroundColor: '#7fe287',
+    color: '#fff',
+    fontSize: '21px',
+    margin: '20px',
+    fontFamily: 'Irish Grover',
+    padding: '10px 20px',
+    borderRadius: '30px',
+    boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+    textTransform: 'none',
+  };
 
   // Array de objetos de atividades
   const atividades = [
@@ -111,12 +123,9 @@ const Atividades = () => {
 
       {/* Botão de Nova Atividade */}
       {selectedTab === 0 && (
-        <button 
-          className="nova-atividade-btn animate" 
-          onClick={() => setIsFormOpen(true)}
-        >
-          <FiPlus /> Nova atividade
-        </button>
+        <Button variant="contained" startIcon={<Add />} sx={stylesButton} onClick={() => setIsFormOpen(true)}>
+         Nova atividade
+        </Button>
       )}
 
       {/* Formulário de Criar Atividade (Modal) */}

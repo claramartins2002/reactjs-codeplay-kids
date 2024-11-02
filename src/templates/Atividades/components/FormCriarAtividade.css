@@ -11,6 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   z-index: 1000;
   padding: 20px; /* Adicione um padding para evitar bordas coladas */
 }
@@ -35,16 +36,13 @@
   background-color: #7AD487;
   border-radius: 10px 10px 0 0;
   padding: 10px;
-  position: absolute;
-  top: -10%; /* Posição acima do formulário */
-  left: 50%;
   transform: translateX(-50%);
   z-index: 1; /* Garantir que o título fique acima */
   display: flex;
   justify-content: center;
   align-items: center;
   border: 3px solid #7AD487;
-  width: 60%;
+  margin-left: 12%;
 }
 
 .form-header img {
@@ -121,16 +119,6 @@
   font-size: 1.2rem; /* Ícones também escaláveis */
 }
 
-.btn-criar {
-  background-color:#7AD487;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 30px;
-  width: 30%;
-  font-size: 1.3rem; /* Fonte ligeiramente maior para botões */
-}
-
 .btn-criar:hover {
   background-color: #45a049;
 }
@@ -188,4 +176,9 @@ select:focus,
 textarea:focus {
   outline: 2px solid #4caf50;
   outline-offset: 2px;
+}
+
+.stepper-buttons {
+  gap: 10px;
+  display: flex;
 }

@@ -6,14 +6,15 @@ import {
   MDBCardText,
   MDBCardFooter,
   MDBRow,
-  MDBCol,
-  MDBBtn
+  MDBCol
 } from 'mdb-react-ui-kit';
+import IconButton from '@mui/material/IconButton';
 import alfabeto from '../../../img/cubes_cover.png';
 import geometric from '../../../img/shapes_cover.png';
 import numeros from '../../../img/numbers_cover.png';
-import { IoArrowForwardCircleOutline } from "react-icons/io5";
+import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import './styles.css';
+import ColorUtils from '../../../utils/Colors';
 
 function TurmasCard() {
   const turmas = [
@@ -27,16 +28,6 @@ function TurmasCard() {
     { id: 3, nome: '2º ano B', periodo: '4° bimestre', },
     { id: 4, nome: '2º ano D', periodo: '2° bimestre', },
     { id: 5, nome: '3º ano A', periodo: '1° bimestre', }
-  ];
-
-  const cores = [
-    '#90CAF9',
-    '#CE93D8',
-    '#F48FB1',
-    '#9FA8DA',
-    '#81D4FA',
-    '#A5D6A7',
-    '#FFE082'
   ];
 
   const imagens = [
@@ -55,7 +46,7 @@ function TurmasCard() {
       {turmas.map((turma, index) => (
         <MDBCol key={index}>
           <MDBCard className='w-100 hover-shadow' style={{ 
-            backgroundColor: cores[Math.floor(Math.random() * cores.length)], 
+            backgroundColor: ColorUtils.getRandomColor(200), 
             borderRadius: '1rem', 
             maxWidth: '400px', 
             margin: '20px auto' 
@@ -70,10 +61,10 @@ function TurmasCard() {
               </MDBCardText>
             </MDBCardBody>
             <MDBCardFooter style={{ display: 'flex', justifyContent: 'flex-end', backgroundColor: 'transparent' }}>
-              <NavLink to={`/turmas/${turma.id}`} state={{ dataTurma: turma }}>
-                <MDBBtn tag='a' color='none' className='m-1' style={{ padding: 0 }}>
-                  <IoArrowForwardCircleOutline style={{ color: '#FFF', fontSize: '30pt' }} />
-                </MDBBtn>
+              <NavLink to={`/turmas/${turma.id}`} state={{ dataTurma: turma }}>               
+                <IconButton aria-label="navigate to class">
+                  <ArrowCircleRightOutlinedIcon sx={{color: '#FFF', fontSize: '30px'}}/>
+                </IconButton>
               </NavLink>
             </MDBCardFooter>
           </MDBCard>
