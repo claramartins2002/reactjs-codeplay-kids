@@ -13,7 +13,6 @@ import CacaPalavras from './templates/JogosAtividades/CacaPalavras';
 import FormAluno from './templates/FormAluno';
 import Dashboard from './templates/Dashboard';
 import Overview from './templates/Overview';
-import Turmas from './templates/Turmas';
 import Atividades from './templates/Atividades';
 import Turma from './templates/OverviewTurma';
 import MathGame from './templates/JogosAtividades/MathGame2/MathGame';
@@ -22,6 +21,8 @@ import ShapeColorGame from './templates/JogosAtividades/ShapeColorGame/ShapeColo
 import CountingGame from './templates/JogosAtividades/CountingGame/CountingGame';
 import DrawingApp from './templates/JogosAtividades/Drawing/DrawingApp'
 import CrosswordComponent from './templates/JogosAtividades/Crossword';
+import StoreGame from './templates/JogosAtividades/StoreGame/components/StoreGame';
+import Turmas from './templates/Turmas/Turmas';
 
 function App() {
   const { isAuthenticated, loading } = useContext(AuthContext); // Acessa o estado de autenticação e carregamento
@@ -62,6 +63,7 @@ function App() {
         <Route path="/jogos/shape-color" element={isAuthenticated ? <ShapeColorGame /> : <Navigate to="/login" />} />
         <Route path="/jogos/counting" element={isAuthenticated ? <CountingGame /> : <Navigate to="/login" />} />
         <Route path="/jogos/drawing" element={isAuthenticated ? <DrawingApp /> : <Navigate to="/login" />} />
+        <Route path="/jogos/store" element={isAuthenticated ? <StoreGame /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
 

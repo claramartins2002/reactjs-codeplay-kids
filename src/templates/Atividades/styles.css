@@ -67,6 +67,12 @@
   flex-wrap: wrap;
 }
 
+.header-atividades-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .nova-atividade-btn {
   margin-top: 20px;
   background-color: #7AD487;
@@ -87,6 +93,7 @@
   margin: 10px 0;
   display: flex;
   justify-content: center;
+  width: 30%;
 }
 
 .search-bar input {
@@ -97,4 +104,9 @@
   border-radius: 4px;
   font-size: 16px;
   font-family: 'Coming Soon', sans-serif;
+}
+
+.search-bar input:focus {
+  outline: 2px solid #4caf50;
+  outline-offset: 2px;
 }

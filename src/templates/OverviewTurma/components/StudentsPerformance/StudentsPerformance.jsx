@@ -12,9 +12,7 @@ import {
   Tooltip,
   IconButton
 } from '@mui/material';
-import { ExpandMore } from '@mui/icons-material';
-import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { ExpandMore, MenuBookOutlined, InfoOutlined } from '@mui/icons-material';
 import { Line } from 'react-chartjs-2';
 
 const subjectsData = [
@@ -124,10 +122,6 @@ const StudentPerformance = ({ student }) => {
         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
       }}
     >
-      <Typography variant="h6" style={{ color: student.statusColor, fontWeight: 'bold', fontFamily: 'Irish Grover', fontSize: '20px' }}>
-        Desempenho de {student.name}
-      </Typography>
-
       <div>
         {subjectsData.map((subject) => (
           <Accordion
@@ -146,7 +140,7 @@ const StudentPerformance = ({ student }) => {
             >
               <Stack direction="row" alignItems="center" spacing={2}>
                 <Avatar sx={{ bgcolor: subject.fontColor }}>
-                  <MenuBookOutlinedIcon />
+                  <MenuBookOutlined />
                 </Avatar>
                 <Typography variant="h6" style={{ fontWeight: 'bold', color: subject.fontColor, fontFamily: 'Irish Grover' }}>
                   {subject.name}
@@ -161,7 +155,7 @@ const StudentPerformance = ({ student }) => {
                       <Typography variant="body2" style={{ fontWeight: 'bold', color: '#424242' }}>Atividades Finalizadas</Typography>
                       <Tooltip title="Quantidade de atividades concluídas pelo aluno.">
                         <IconButton size="small">
-                          <InfoOutlinedIcon fontSize="small" />
+                          <InfoOutlined fontSize="small" />
                         </IconButton>
                       </Tooltip>
                     </Stack>
@@ -172,7 +166,7 @@ const StudentPerformance = ({ student }) => {
                       <Typography variant="body2" style={{ fontWeight: 'bold', color: '#424242' }}>Persistência e Resiliência</Typography>
                       <Tooltip title="Indicador de esforço e resiliência ao completar atividades.">
                         <IconButton size="small">
-                          <InfoOutlinedIcon fontSize="small" />
+                          <InfoOutlined fontSize="small" />
                         </IconButton>
                       </Tooltip>
                     </Stack>

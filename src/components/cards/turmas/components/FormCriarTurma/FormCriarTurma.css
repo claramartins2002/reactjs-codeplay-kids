@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap');
+
+/* Estilos gerais e para dispositivos maiores */
+.form-turmas-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+  padding: 20px; /* Adicione um padding para evitar bordas coladas */
+}
+
+.form-turmas-container {
+  background-color: #FFF;
+  border-radius: 12px;
+  padding: 20px;
+  width: 400px;
+  max-width: 100%; /* Garante que não ultrapasse o tamanho da tela */
+  position: relative;
+  border: #ff8543 solid 1rem;
+  border-top-width: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-turmas-container form {
+  margin-top: 10px;
+}
+
+.form-turmas-header {
+  background-color: #ff8543;
+  border-radius: 10px 10px 0 0;
+  padding: 10px;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #ff8543;
+  margin: 0 auto 0 50%;
+  font-family: 'Irish Grover', sans-serif;
+}
+
+.form-turmas-header img {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px 0 0;
+}
+
+.form-turmas-header h2 {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+.form-turmas-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Definir o tamanho mínimo da tela para desktops */
+@media (min-width: 768px) {
+  .form-turmas-container {
+    width: 50vw; /* Ajusta a largura de acordo com a tela */
+    max-width: 600px;
+  }
+}
+
+/* Responsividade para dispositivos menores (mobile) */
+@media (max-width: 767px) {
+  .form-turmas-container {
+    width: 90vw; 
+    padding: 15px;
+  }
+
+  .btn-criar {
+    font-size: 16px;
+  }
+
+  .btn-fechar {
+    font-size: 14px;
+  }
+}
+
+.form-turmas-group {
+  margin-bottom: 15px;
+  font-family: 'Coming Soon', sans-serif;
+}
+
+.form-turmas-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem; /* Usa rem para tamanho de fonte */
+}
+
+.form-turmas-group input,
+.form-turmas-group select,
+.form-turmas-group textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1rem; /* Usa rem para responsividade */
+}
+
+.input-with-icon {
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon input {
+  flex: 1;
+  padding: 10px; /* Ajusta o padding */
+}
+
+.input-with-icon svg {
+  margin-right: 8px;
+  font-size: 1.2rem; /* Ícones também escaláveis */
+}
+
+.btn-fechar {
+  background: none;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Media query para telas pequenas */
+@media (max-width: 480px) {
+  .form-turmas-container {
+    width: 95vw; /* O formulário ocupa quase toda a largura da tela */
+    padding: 10px;
+  }
+
+  .form-turmas-group label {
+    font-size: 0.9rem;
+  }
+
+  .form-turmas-group input,
+  .form-turmas-group select,
+  .form-turmas-group textarea {
+    font-size: 0.9rem;
+  }
+
+  .input-with-icon svg {
+    font-size: 1rem; /* Ajusta o tamanho dos ícones para telas menores */
+  }
+
+  .btn-criar {
+    padding: 10px;
+    font-size: 1rem; /* Reduz ligeiramente o tamanho da fonte */
+  }
+
+  .btn-fechar {
+    font-size: 12px;
+  }
+}
+
+/* Melhorar a visibilidade de foco para acessibilidade */
+.form-turmas-group input:focus,
+.form-turmas-group select:focus,
+.form-turmas-group textarea:focus {
+  outline: 2px solid #ff8543;
+  outline-offset: 2px;
+}

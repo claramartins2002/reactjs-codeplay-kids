@@ -1,67 +1,78 @@
-import update from 'immutability-helper'
-import { memo, useCallback, useEffect, useState } from 'react'
-import { ItemTypes } from '../utils/ItemTypes'
-import { Dustbin } from './Dustbin'
-import { Box } from './Box'
-import Squirtle from '../images/squirtle.png'
-import Charmander from '../images/charmander.png'
-import Bulbasaur from '../images/bulbasaur.png'
-import Pikachu from '../images/pikachu.png'
+import update from 'immutability-helper';
+import { memo, useCallback, useEffect, useState } from 'react';
+import { Dustbin } from './Dustbin';
+import { Box } from './Box';
+
+const response = [
+  { name: 'Maçã', type: 'Maçã', urlFront: 'https://cdn-icons-png.freepik.com/128/1038/1038574.png', urlShadow: 'https://cdn-icons-png.freepik.com/128/1038/1038625.png' },
+  { name: 'Banana', type: 'Banana', urlFront: 'https://cdn-icons-png.freepik.com/128/3373/3373057.png', urlShadow: 'https://cdn-icons-png.freepik.com/128/3373/3373054.png' },
+  { name: 'Uva', type: 'Uva', urlFront: 'https://cdn-icons-png.freepik.com/128/8719/8719094.png', urlShadow: 'https://cdn-icons-png.freepik.com/128/8719/8719095.png' },
+  { name: 'Melancia', type: 'Melancia', urlFront: 'https://cdn-icons-png.freepik.com/128/522/522666.png', urlShadow: 'https://cdn-icons-png.freepik.com/128/522/522768.png' }
+];
+
+// Função para embaralhar a lista de boxes
+function shuffleArray(array) {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+}
 
 export const Container = memo(function Container() {
-  const [dustbins, setDustbins] = useState([
-    { accepts: [ItemTypes.GRASS], lastDroppedItem: null },
-    { accepts: [ItemTypes.WATER], lastDroppedItem: null },
-    { accepts: [ItemTypes.FIRE], lastDroppedItem: null },
-    { accepts: [ItemTypes.THUNDER], lastDroppedItem: null },
-  ])
+  const initialDustbins = response.map(item => ({
+    accepts: [item.type],
+    lastDroppedItem: null
+  }));
 
-  const [boxes] = useState([
-    { name: 'Squirtle', type: ItemTypes.WATER, url: Squirtle },
-    { name: 'Charmander', type: ItemTypes.FIRE, url: Charmander },
-    { name: 'Bulbasaur', type: ItemTypes.GRASS, url: Bulbasaur },
-    { name: 'Pikachu', type: ItemTypes.THUNDER, url: Pikachu },
-  ])
+  const [dustbins, setDustbins] = useState(initialDustbins);
+  
+  // Embaralha os boxes ao inicializar o estado
+  const [boxes] = useState(() => shuffleArray(response.map(item => ({
+    name: item.name,
+    type: item.type,
+    url: item.urlFront
+  }))));
 
-  const [droppedBoxNames, setDroppedBoxNames] = useState([])
+  const [droppedBoxNames, setDroppedBoxNames] = useState([]);
 
   const allDustbinsFilled = useCallback(() => {
     return dustbins.every(dustbin => dustbin.lastDroppedItem !== null);
-  }, [dustbins])
+  }, [dustbins]);
 
   useEffect(() => {
     if (allDustbinsFilled()) {
       alert("Todos os dustbins estão preenchidos!");
-    };
+    }
   }, [dustbins, allDustbinsFilled]);
 
-
   function isDropped(boxName) {
-    return droppedBoxNames.indexOf(boxName) > -1
+    return droppedBoxNames.includes(boxName);
   }
 
   const handleDrop = useCallback(
     (index, item) => {
-      const { name } = item
+      const { name } = item;
+      
       setDroppedBoxNames(
-        update(droppedBoxNames, name ? { $push: [name] } : { $push: [] }),
-      )
+        update(droppedBoxNames, name ? { $push: [name] } : { $push: [] })
+      );
+      
       setDustbins(
         update(dustbins, {
           [index]: {
-            lastDroppedItem: {
-              $set: item,
-            },
-          },
-        }),
-      )
+            lastDroppedItem: { $set: item }
+          }
+        })
+      );
     },
-    [droppedBoxNames, dustbins],
-  )
+    [droppedBoxNames, dustbins]
+  );
 
   return (
-    <div>
-      <div style={{ overflow: 'hidden', clear: 'both' }}>
+    <div className="game-dnd-container">
+      <div className="dustbins-boxes-container">
         {dustbins.map(({ accepts, lastDroppedItem }, index) => (
           <Dustbin
             className="dustbin"
@@ -69,12 +80,12 @@ export const Container = memo(function Container() {
             lastDroppedItem={lastDroppedItem}
             onDrop={(item) => handleDrop(index, item)}
             key={index}
-            item={boxes.find(item => item.type === accepts[0]).name}
+            item={response.find(item => item.type === accepts[0])} // Passa o objeto completo do item
           />
         ))}
       </div>
 
-      <div style={{ overflow: 'hidden', clear: 'both' }}>
+      <div className="dustbins-boxes-container">
         {boxes.map(({ name, type, url }, index) => (
           <Box
             className="box"
@@ -87,5 +98,5 @@ export const Container = memo(function Container() {
         ))}
       </div>
     </div>
-  )
-})
+  );
+});

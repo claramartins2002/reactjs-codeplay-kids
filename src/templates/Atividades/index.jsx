@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tabs, Tab, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import './styles.css';
 import AtividadeCard from './components/AtividadeCard';
-import FormCriarAtividade from './components/FormCriarAtividade';
+import FormCriarAtividade from './components/FormCriarAtividade/FormCriarAtividade'; 
+import ApiService from '../../utils/ApiService';
 
 const Atividades = () => {
   // Define a aba inicial como "Criadas" (índice 0)
   const [selectedTab, setSelectedTab] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [atividades, setAtividades] = useState([])
 
   const stylesButton = {
     backgroundColor: '#7fe287',
@@ -23,41 +25,16 @@ const Atividades = () => {
     textTransform: 'none',
   };
 
-  // Array de objetos de atividades
-  const atividades = [
-    {
-      id: 1,
-      nome: 'Jogo da divisão',
-      categoria: 'Matemática',
-      data: '18 Jun',
-      horario: '09:00 - 10:00',
-      status: 'Criadas' // Pode ser 'Criadas' ou 'Finalizadas'
-    },
-    {
-      id: 2,
-      nome: 'Quebra cabeça',
-      categoria: 'Lógica',
-      data: '18 Jun',
-      horario: '09:00 - 10:00',
-      status: 'Criadas'
-    },
-    {
-      id: 3,
-      nome: 'Caça Palavras',
-      categoria: 'Português',
-      data: '18 Jun',
-      horario: '09:00 - 10:00',
-      status: 'Criadas'
-    },
-    {
-      id: 4,
-      nome: 'Jogo da Memória',
-      categoria: 'Lógica',
-      data: '20 Jun',
-      horario: '10:00 - 11:00',
-      status: 'Finalizadas'
-    }
-  ];
+  useEffect(() => {
+    const api = new ApiService();
+
+    // Obter turmas
+    api.getAtividadesByProfessor('1').then(async (response) => {
+      setAtividades(response)
+    });
+  }, []);
+
+  console.log(atividades);
 
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -65,8 +42,8 @@ const Atividades = () => {
 
   const atividadesFiltradas = atividades
     .filter(atividade => 
-      (selectedTab === 0 && atividade.status === 'Criadas') ||
-      (selectedTab === 1 && atividade.status === 'Finalizadas')
+      (selectedTab === 0 && atividade.status === 1) ||
+      (selectedTab === 1 && atividade.status === 0)
     )
     .filter(atividade => 
       atividade.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -97,14 +74,23 @@ const Atividades = () => {
         <Tab label="Finalizadas" />
       </Tabs>
 
-      {/* Campo de busca com ícone */}
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Buscar atividades por nome ou categoria..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+      <div className="header-atividades-container">
+        {/* Campo de busca com ícone */}
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Buscar atividades por nome ou categoria..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+        
+        {/* Botão de Nova Atividade */}
+        {selectedTab === 0 && (
+          <Button variant="contained" startIcon={<Add />} sx={stylesButton} onClick={() => setIsFormOpen(true)}>
+          Nova atividade
+          </Button>
+        )}
       </div>
 
       {/* Renderizar atividades filtradas */}
@@ -120,13 +106,6 @@ const Atividades = () => {
           )}
         </div>
       </div>
-
-      {/* Botão de Nova Atividade */}
-      {selectedTab === 0 && (
-        <Button variant="contained" startIcon={<Add />} sx={stylesButton} onClick={() => setIsFormOpen(true)}>
-         Nova atividade
-        </Button>
-      )}
 
       {/* Formulário de Criar Atividade (Modal) */}
       {isFormOpen && <FormCriarAtividade onClose={() => setIsFormOpen(false)} />}

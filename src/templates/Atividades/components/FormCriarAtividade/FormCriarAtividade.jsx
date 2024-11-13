@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { FiCalendar, FiClock } from "react-icons/fi";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { IoArrowForward } from "react-icons/io5";
-import pencil from '../images/pencil_8289173.png';
 import './FormCriarAtividade.css';
 import { Stepper, Step, StepLabel, Button, Card, CardContent, Typography } from '@mui/material';
 
@@ -74,13 +73,13 @@ const FormCriarAtividade = ({ onClose }) => {
   };
 
   return (
-    <div className="form-overlay">
-      <div className="form-header">
-        <img src={pencil} alt="" />
+    <div className="form-atividade-overlay">
+      <div className="form-atividade-header">
+        <img src='https://cdn-icons-png.freepik.com/128/7583/7583670.png' alt="" />
         <h2>Criar Atividade</h2>
       </div>
-      <div className="form-container">
-        <Stepper activeStep={activeStep} style={{maxWidth: '500px'}}>
+      <div className="form-atividade-container">
+        <Stepper activeStep={activeStep} style={{maxWidth: '500px', margin: 'auto'}}>
           {steps.map((label, index) => (
             <Step key={index}>
               <StepLabel><span style={{fontFamily: 'Coming Soon'}}>{label}</span></StepLabel>
@@ -90,7 +89,7 @@ const FormCriarAtividade = ({ onClose }) => {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           {activeStep === 0 && (
-            <div className="activity-selection" style={{margin: '20px'}}>
+            <div className="activity-selection">
               <div className="activity-cards">
                 {activityTypes.map((activity) => (
                   <Card 
@@ -100,6 +99,7 @@ const FormCriarAtividade = ({ onClose }) => {
                       margin: '10px',
                       cursor: 'pointer',
                       borderRadius: '20px',
+                      maxWidth: '100%',
                       border: selectedActivityType === activity.value ? '2px solid #7AD487' : '2px solid transparent',
                       backgroundColor: selectedActivityType === activity.value ? '#c4ecca' : '#FFF' 
                     }}
@@ -125,7 +125,7 @@ const FormCriarAtividade = ({ onClose }) => {
           
           {activeStep === 1 && (
             <>
-              <div className="form-group">
+              <div className="form-atividade-group">
                 <label>Nome da atividade *</label>
                 <input 
                   type="text" 
@@ -133,7 +133,7 @@ const FormCriarAtividade = ({ onClose }) => {
                 />
                 {errors.nomeAtividade && <span className="error">Este campo é obrigatório</span>}
               </div>
-              <div className="form-group">
+              <div className="form-atividade-group">
                 <label>Selecione o jogo *</label>
                 <select {...register('jogo', { required: true })}>
                   <option value="">Selecione...</option>
@@ -143,7 +143,7 @@ const FormCriarAtividade = ({ onClose }) => {
                 </select>
                 {errors.jogo && <span className="error">Este campo é obrigatório</span>}
               </div>
-              <div className="form-group">
+              <div className="form-atividade-group">
                 <label>Selecione a turma *</label>
                 <select {...register('turma', { required: true })}>
                   <option value="">Selecione...</option>
@@ -153,7 +153,7 @@ const FormCriarAtividade = ({ onClose }) => {
                 </select>
                 {errors.turma && <span className="error">Este campo é obrigatório</span>}
               </div>
-              <div className="form-group">
+              <div className="form-atividade-group">
                 <label>Data</label>
                 <div className="input-with-icon">
                   <FiCalendar />
@@ -163,7 +163,7 @@ const FormCriarAtividade = ({ onClose }) => {
                   />
                 </div>
               </div>
-              <div className="form-group">
+              <div className="form-atividade-group">
                 <label>Horário</label>
                 <div className="input-with-icon">
                   <FiClock />
@@ -173,7 +173,7 @@ const FormCriarAtividade = ({ onClose }) => {
                   />
                 </div>
               </div>
-              <div className="form-group">
+              <div className="form-atividade-group">
                 <label>Observações</label>
                 <textarea 
                   {...register('observacoes')} 

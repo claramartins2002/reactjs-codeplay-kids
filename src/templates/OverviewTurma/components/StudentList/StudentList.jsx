@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// StudentList.jsx
+import React, { useState, useMemo } from 'react';
 import {
   Avatar,
   List,
@@ -7,27 +8,29 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  TextField,
-  Button,
-  Stack,
   Dialog,
   DialogTitle,
   DialogContent,
   Tooltip,
+  Typography
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { HiOutlineChartBar } from "react-icons/hi";
-import { PiPencilSimpleBold } from "react-icons/pi";
-import { RiCloseLargeFill } from "react-icons/ri";
-import { MdUploadFile } from "react-icons/md";
-import { Add, MoreVert } from '@mui/icons-material';
-import avatar from './images/avatar_aluno.png';
+import { BarChart, Edit, Close, MoreVert } from '@mui/icons-material';
 import StudentPerformance from '../StudentsPerformance/StudentsPerformance';
+import StudentListHeader from '../StudentListHeader';
+import ColorUtils from '../../../../utils/Colors';
 
-const StudentList = ({studentsData}) => {
+const StudentList = ({ studentsData, onAddClick }) => {
   const [students, setStudents] = useState(studentsData);
   const [searchTerm, setSearchTerm] = useState('');
   const [openModal, setOpenModal] = useState(null);
+
+  // Memorizar uma cor fixa para cada aluno usando useMemo
+  const studentColors = useMemo(() => {
+    return studentsData.reduce((colors, student) => {
+      colors[student.id] = ColorUtils.getRandomColor(500);
+      return colors;
+    }, {});
+  }, [studentsData]);
 
   const stylesButton = {
     backgroundColor: '#EB9EE8',
@@ -45,34 +48,17 @@ const StudentList = ({studentsData}) => {
     },
   };
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+  console.log(students)
 
-  const handleOpenModal = (studentId) => {
-    setOpenModal(studentId); // Armazena o ID do aluno no estado
-  };
+  const handleSearchChange = (e) => setSearchTerm(e.target.value);
+  const handleUploadChange = (event) => console.log(event.target.files);
 
-  const handleCloseModal = () => {
-    setOpenModal(null); // Fecha o modal
-  };
+  const handleOpenModal = (studentId) => setOpenModal(studentId);
+  const handleCloseModal = () => setOpenModal(null);
 
-  const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-  });
-  
-
-  const filteredStudents = Array.isArray(students) ? students.filter(student =>
-    student.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ) : [];
+  const filteredStudents = Array.isArray(students)
+    ? students.filter(student => student.nome && student.nome.toLowerCase().includes(searchTerm.toLowerCase()))
+    : [];
 
   return (
     <div style={{ 
@@ -86,127 +72,92 @@ const StudentList = ({studentsData}) => {
         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
       }}
     >
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
-        <TextField
-          variant="outlined"
-          placeholder="Buscar aluno"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          size="small"
-          sx={{ backgroundColor: '#FFF' }}
-        />
-        <Stack direction="row" spacing={2}>
-          <Button variant="contained" startIcon={<Add />} sx={stylesButton}>
-            Adicionar
-          </Button>
-
-          <Button
-            component="label"
-            role={undefined}
-            variant="contained"
-            tabIndex={-1}
-            startIcon={<MdUploadFile />}
-            sx={stylesButton}
-          >
-            Upload
-            <VisuallyHiddenInput
-              type="file"
-              onChange={(event) => console.log(event.target.files)}
-              multiple
-            />
-          </Button>
-        </Stack>
-      </Stack>
+      <StudentListHeader
+        searchTerm={searchTerm}
+        onSearchChange={handleSearchChange}
+        onAddClick={onAddClick}
+        onUploadChange={handleUploadChange}
+        buttonStyles={stylesButton}
+      />
 
       <List>
         {filteredStudents.length > 0 ? (
-          filteredStudents.map((student) => (
-            <React.Fragment key={student.id}>
-              <ListItem sx={{ bgcolor: '#fff', mb: 1, borderRadius: '20px' }}>
-                <ListItemAvatar>
-                  <Avatar alt={student.name} src={avatar} />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={student.name}
-                  secondary={student.status}
-                  primaryTypographyProps={{
-                    style: { color: student.statusColor, fontFamily: 'Irish Grover', fontSize: '21px' },
-                  }}
-                  secondaryTypographyProps={{
-                    style: { color: student.statusColor, fontFamily: 'Coming Soon' },
-                  }}
-                />
-                <ListItemSecondaryAction>
-                  <Tooltip title="Desempenho">
-                    <IconButton
-                      edge="end"
-                      aria-label="bar-chart"
-                      sx={{ color: student.statusColor }}
-                      onClick={() => handleOpenModal(student.id)}
-                    >
-                      <HiOutlineChartBar />
-                    </IconButton>
-                  </Tooltip>
+          filteredStudents.map((student) => {
+            const color = studentColors[student.id];
 
-                  <Tooltip title="Editar">
-                    <IconButton edge="end" aria-label="edit" sx={{ color: student.statusColor }}>
-                      <PiPencilSimpleBold />
-                    </IconButton>
-                  </Tooltip>
-
-                  <IconButton edge="end" aria-label="more" sx={{ color: student.statusColor }}>
-                    <MoreVert />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-
-              {/* Dialog específico para cada aluno */}
-              <Dialog
-                open={openModal === student.id}
-                onClose={handleCloseModal}
-                maxWidth="sm"
-                fullWidth
-                PaperProps={{
-                  sx: {
-                    border: `1rem solid ${student.statusColor}`,
-                    borderRadius: '15px',
-                    padding: '20px',
-                    backgroundColor: '#fffdf9',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
-                    maxWidth: '900px'
-                  },
-                }}
-              >
-                <DialogTitle sx={{ fontFamily: 'Irish Grover', fontSize: '22px', fontWeight: 'bold' }}>
-                  Desempenho nas matérias
-                  <IconButton
-                    edge="end"
-                    color="inherit"
-                    onClick={handleCloseModal}
-                    aria-label="close"
-                    sx={{
-                      position: 'absolute',
-                      top: '5px',
-                      right: '15px',
+            return (
+              <React.Fragment key={student.id}>
+                <ListItem sx={{ bgcolor: '#fff', mb: 1, borderRadius: '20px' }}>
+                  <ListItemAvatar>
+                    <Avatar alt={student.nome} src={student.fotoUrl} />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={student.nome}
+                    secondary={student.status}
+                    primaryTypographyProps={{
+                      style: { color: color, fontFamily: 'Irish Grover', fontSize: '21px' },
                     }}
-                  >
-                    <RiCloseLargeFill />
-                  </IconButton>
-                </DialogTitle>
-                <DialogContent>
-                  <StudentPerformance student={student} />
-                </DialogContent>
-              </Dialog>
-            </React.Fragment>
-          ))
+                    secondaryTypographyProps={{
+                      style: { color: color, fontFamily: 'Coming Soon' },
+                    }}
+                  />
+                  <ListItemSecondaryAction>
+                    <Tooltip title="Desempenho">
+                      <IconButton
+                        edge="end"
+                        aria-label="bar-chart"
+                        sx={{ color: color }}
+                        onClick={() => handleOpenModal(student.id)}
+                      >
+                        <BarChart />
+                      </IconButton>
+                    </Tooltip>
+
+                    <Tooltip title="Editar">
+                      <IconButton edge="end" aria-label="edit" sx={{ color: color }}>
+                        <Edit />
+                      </IconButton>
+                    </Tooltip>
+
+                    <IconButton edge="end" aria-label="more" sx={{ color: color }}>
+                      <MoreVert />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+
+                <Dialog
+                  open={openModal === student.id}
+                  onClose={handleCloseModal}
+                  maxWidth="sm"
+                  fullWidth
+                  PaperProps={{
+                    sx: {
+                      border: `1rem solid ${color}`,
+                      bgcolor: '#FBF7F5',
+                      borderRadius: '20px',
+                    },
+                  }}
+                >
+                  <DialogTitle>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="h6" style={{ color: color, fontWeight: 'bold', fontFamily: 'Irish Grover', fontSize: '20px' }}>
+                      Desempenho de {student.nome}
+                    </Typography>
+                      <IconButton onClick={handleCloseModal}>
+                        <Close />
+                      </IconButton>
+                    </div>
+                  </DialogTitle>
+                  <DialogContent>
+                    <StudentPerformance student={student} color={color} />
+                  </DialogContent>
+                </Dialog>
+              </React.Fragment>
+            );
+          })
         ) : (
-          <ListItem>
-            <ListItemText 
-              primaryTypographyProps={{
-                style: { fontFamily: 'Coming Soon' },
-              }}
-              primary="Nenhum aluno encontrado." 
-            />
+          <ListItem sx={{ bgcolor: '#fff', mb: 1, borderRadius: '20px' }}>
+            <ListItemText primary="Nenhum aluno encontrado." />
           </ListItem>
         )}
       </List>

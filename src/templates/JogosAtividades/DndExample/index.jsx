@@ -4,11 +4,9 @@ import { Container } from "./components/Container";
 
 function DndExample() {
   return (
-    <div className="dnd-example">
-      <DndProvider backend={HTML5Backend}>
-        <Container/>
-      </DndProvider>
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <Container/>
+    </DndProvider>
   )
 }
 

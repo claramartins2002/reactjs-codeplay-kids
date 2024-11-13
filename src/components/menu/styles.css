@@ -125,7 +125,6 @@ li {
   align-items: center;
   width: 100%;
   position: relative;
-  border-bottom: 1rem solid #ff8543;
 }
 .header__middle__logo > a > h1 {
   color: #07a8ff;
@@ -191,6 +190,7 @@ li {
 .is-active {
   color: #FF8543 !important;
   background-color: #FFFFFF;
+  border-bottom: 0.35rem solid #FF8543;
 }
 .header__middle__logo img{
   max-width: 120px;

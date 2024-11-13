@@ -9,9 +9,9 @@ const AtividadeCard = ({ atividade }) => {
       <div className="info-icon"><CgInfo/></div>
       <div className="game-icon"><GrGamepad/></div>
       <h3>{atividade.nome}</h3>
-      <p className="categoria">{atividade.categoria}</p>
+      <p className="categoria">{atividade.descricao}</p>
       <div className="details">
-        <span className="data">{atividade.data}</span>
+        <span className="data">{atividade.dataCriacao}</span>
         <span className="horario">{atividade.horario}</span>
       </div>
     </div>

@@ -16,7 +16,7 @@ export const Box = memo(function Box ({ name, type, isDropped, srcImage }) {
   
   return (
     <div ref={drag} className="box" style={{ opacity }} data-testid="box">
-      <img src={srcImage} alt="" />
+      <img className="box-img" src={srcImage} alt="" />
     </div>
   )
 })
