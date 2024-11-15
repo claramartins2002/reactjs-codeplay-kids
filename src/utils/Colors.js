@@ -6,7 +6,7 @@ const colorPalettes = [
   green, lightGreen, lime, amber, orange, deepOrange, brown, blueGrey
 ];
 
-class ColorUtils {
+export default class ColorUtils {
   /**
    * Gera uma cor aleatória com intensidade específica
    * @param {number} shade - Intensidade desejada (por exemplo, 500, 700)
@@ -24,5 +24,3 @@ class ColorUtils {
     return selectedPalette[shade]
   }
 }
-
-export default ColorUtils;

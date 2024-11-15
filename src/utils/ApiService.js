@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class ApiService {
+export default class ApiService {
   constructor() {
     this.baseUrl = 'http://127.0.0.1:8080/';
     this.axiosInstance = axios.create({
@@ -16,6 +16,16 @@ class ApiService {
   async get(entity) {
     try {
       const response = await this.axiosInstance.get(entity);
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  // Método para buscar dados
+  async getById(entity, id) {
+    try {
+      const response = await this.axiosInstance.get(`${entity}/${id}`);
       return response.data;
     } catch (error) {
       return error;
@@ -50,25 +60,27 @@ class ApiService {
     }
   }
 
-  // Método para inserir dados
-  async save(entity, data) {
+  async post(entity, data) {
     try {
       const response = await this.axiosInstance.post(entity, data);
-      console.log(response.data);
+      console.log("Resposta da API:", response.data);
+      return response.data;
     } catch (error) {
-      console.log(error);
+      console.error("Erro ao enviar dados:", error);
+      throw error;
     }
   }
 
   // Método para atualizar dados
-  async update(id, entity, data) {
+  async put(id, entity, data) {
     try {
-      const response = await this.axiosInstance.put(entity, data);
-      console.log(response.data);
+      const response = await this.axiosInstance.put(`${entity}/${id}`, data);
+      console.log("Dados atualizados:", response.data);
+      return response.data;
     } catch (error) {
-      console.log(error);
+      console.error("Erro ao atualizar dados:", error);
+      throw error;
     }
   }
 }
 
-export default ApiService;

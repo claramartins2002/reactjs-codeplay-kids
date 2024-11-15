@@ -1,4 +1,4 @@
-// StudentListHeader.jsx
+// ListaAlunosHeader.jsx
 import { Stack, TextField, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import { MdUploadFile } from "react-icons/md";
@@ -16,7 +16,23 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-const StudentListHeader = ({ searchTerm, onSearchChange, onAddClick, onUploadChange, buttonStyles }) => {
+const stylesButton = {
+  backgroundColor: '#EB9EE8',
+  color: '#fff',
+  fontSize: '19px',
+  margin: '0',
+  fontFamily: 'Irish Grover',
+  padding: '10px 20px',
+  borderRadius: '30px',
+  boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+  textTransform: 'none',
+  '&:hover': {
+    backgroundColor: '#fff',
+    color: '#EB9EE8',
+  },
+};
+
+const ListaAlunosHeader = ({ searchTerm, onSearchChange, onAddClick, onUploadChange }) => {
   return (
     <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
       <TextField
@@ -28,7 +44,7 @@ const StudentListHeader = ({ searchTerm, onSearchChange, onAddClick, onUploadCha
         sx={{ backgroundColor: '#FFF' }}
       />
       <Stack direction="row" spacing={2}>
-        <Button variant="contained" startIcon={<Add />} sx={buttonStyles} onClick={onAddClick}>
+        <Button variant="contained" startIcon={<Add />} sx={stylesButton} onClick={onAddClick}>
           Adicionar
         </Button>
 
@@ -36,7 +52,7 @@ const StudentListHeader = ({ searchTerm, onSearchChange, onAddClick, onUploadCha
           component="label"
           variant="contained"
           startIcon={<MdUploadFile />}
-          sx={buttonStyles}
+          sx={stylesButton}
         >
           Upload
           <VisuallyHiddenInput
@@ -50,4 +66,4 @@ const StudentListHeader = ({ searchTerm, onSearchChange, onAddClick, onUploadCha
   );
 };
 
-export default StudentListHeader;
+export default ListaAlunosHeader;
