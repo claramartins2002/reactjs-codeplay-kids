@@ -3,7 +3,7 @@ import React from 'react';
 import GenericForm from '../../GenericForm/GenericForm';
 import ApiService from '../../../utils/ApiService';
 
-const FormCriarTurma = ({ onClose, onTurmaCreated, initialData }) => {
+const FormTurma = ({ onClose, onTurmaCreated, initialData }) => {
   const fields = [
     { name: 'nome', label: 'Nome da turma', required: true },
     { name: 'descricao', label: 'Descrição', type: 'textarea' }
@@ -43,4 +43,4 @@ const FormCriarTurma = ({ onClose, onTurmaCreated, initialData }) => {
   );
 };
 
-export default FormCriarTurma;
+export default FormTurma;

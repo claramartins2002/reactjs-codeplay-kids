@@ -7,8 +7,8 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import backgroundTurma from './images/background_turma.png';
 import { Menu, MenuItem, Dialog } from '@mui/material';
 import useFetchTurma from '../../utils/hooks/useFetchTurma';
-import FormCriarTurma from '../../components/turmas/FormCriarTurma/FormCriarTurma';
-import FormCriarAluno from '../../components/alunos/FormCriarAluno/FormCriarAluno';
+import FormCriarTurma from '../../components/turmas/FormTurma/FormTurma';
+import FormCriarAluno from '../../components/alunos/FormAluno/FormAluno';
 import ListaAlunos from '../../components/alunos/ListaAlunos/ListaAlunos';
 
 const Turma = () => {

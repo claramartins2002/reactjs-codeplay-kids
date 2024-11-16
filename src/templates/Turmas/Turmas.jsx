@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TurmaCardList from '../../components/cards/turmas/TurmasCardList';
 import ApiService from '../../utils/ApiService';
-import FormCriarTurma from '../../components/turmas/FormCriarTurma/FormCriarTurma';
+import FormCriarTurma from '../../components/turmas/FormTurma/FormTurma';
 import HeaderTurmas from '../../components/turmas/HeaderTurmas'
 
 const Turmas = () => {

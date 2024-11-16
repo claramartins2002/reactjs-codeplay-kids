@@ -4,7 +4,7 @@ import StudentListItem from '../StudentListItem/StudentListItem';
 import useStudentColors from '../../../utils/hooks/useStudentsColor';
 import StudentDialog from '../StudentDialog/StudentDialog';
 import ListaAlunosHeader from '../ListaAlunosHeader/ListaAlunosHeader';
-import FormCriarAluno from '../FormCriarAluno/FormCriarAluno';
+import FormCriarAluno from '../FormAluno/FormAluno';
 import './ListaAlunos.css';
 import useFetchTurma from '../../../utils/hooks/useFetchTurma';
 
@@ -16,8 +16,6 @@ const ListaAlunos = ({ turmaId, onAddClick }) => {
   // Usando o hook useFetchTurma para obter turma e alunos
   const { turma, alunos, loading, error, refetch } = useFetchTurma(turmaId);
   const studentColors = useStudentColors(alunos);
-
-  console.log(alunos);
 
   const filteredStudents = useMemo(() => (
     alunos.filter(student => student.nome?.toLowerCase().includes(searchTerm.toLowerCase()))

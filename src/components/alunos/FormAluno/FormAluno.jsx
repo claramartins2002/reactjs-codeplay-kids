@@ -3,9 +3,8 @@ import React from 'react';
 import GenericForm from '../../GenericForm/GenericForm';
 import ApiService from '../../../utils/ApiService';
 import GerarUsuario from '../../../utils/GerarUsuario';
-import './FormCriarAluno.css';
 
-const FormCriarAluno = ({ onClose, onAlunoCreated, initialData, turma }) => {
+const FormAluno = ({ onClose, onAlunoCreated, initialData, turma }) => {
   const fields = [
     { name: 'nome', label: 'Nome do Aluno', required: true },
     { name: 'dataNascimento', label: 'Data de Nascimento', type: 'date', required: true },
@@ -41,4 +40,4 @@ const FormCriarAluno = ({ onClose, onAlunoCreated, initialData, turma }) => {
   );
 };
 
-export default FormCriarAluno;
+export default FormAluno;
