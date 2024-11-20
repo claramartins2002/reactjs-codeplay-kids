@@ -169,6 +169,6 @@ textarea {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  outline: 2px solid #e084dd;
+  outline: 2px solid #a0bbf7;
   outline-offset: 2px;
 }

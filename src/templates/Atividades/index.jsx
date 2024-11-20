@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Tabs, Tab, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import './styles.css';
 import AtividadeCard from './components/AtividadeCard';
-import FormCriarAtividade from './components/FormCriarAtividade/FormCriarAtividade'; 
-import ApiService from '../../utils/ApiService';
+import useFetchAtividades from '../../utils/hooks/useFetchAtividades';
+import FormCriarAtividade from '../Atividades/components/FormCriarAtividade/FormCriarAtividade'
+import dayjs from 'dayjs';
 
 const Atividades = () => {
-  // Define a aba inicial como "Criadas" (índice 0)
   const [selectedTab, setSelectedTab] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [atividades, setAtividades] = useState([])
 
   const stylesButton = {
     backgroundColor: '#7fe287',
@@ -25,26 +24,26 @@ const Atividades = () => {
     textTransform: 'none',
   };
 
-  useEffect(() => {
-    const api = new ApiService();
+  const { atividades, refetch } = useFetchAtividades();
 
-    // Obter turmas
-    api.getAtividadesByProfessor('1').then(async (response) => {
-      setAtividades(response)
-    });
-  }, []);
-
-  console.log(atividades);
+  const onAtividadeCreated = () => {
+    refetch();
+  };
 
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
 
   const atividadesFiltradas = atividades
-    .filter(atividade => 
-      (selectedTab === 0 && atividade.status === 1) ||
-      (selectedTab === 1 && atividade.status === 0)
-    )
+    .filter(atividade => {
+      const dataEncerramento = dayjs(atividade.dataEncerramento, "DD/MM/YYYY");
+      const isFinalizada = dataEncerramento.isBefore(dayjs());
+
+      return (
+        (selectedTab === 0 && !isFinalizada) || // Atividades criadas (não finalizadas)
+        (selectedTab === 1 && isFinalizada) // Atividades finalizadas
+      );
+    })
     .filter(atividade => 
       atividade.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
       atividade.categoria.toLowerCase().includes(searchTerm.toLowerCase())
@@ -52,7 +51,6 @@ const Atividades = () => {
 
   return (
     <div className="atividades-container">
-      {/* Tabs de "Criadas" e "Finalizadas" */}
       <Tabs
         value={selectedTab}
         onChange={handleChange}
@@ -75,7 +73,6 @@ const Atividades = () => {
       </Tabs>
 
       <div className="header-atividades-container">
-        {/* Campo de busca com ícone */}
         <div className="search-bar">
           <input
             type="text"
@@ -85,21 +82,19 @@ const Atividades = () => {
           />
         </div>
         
-        {/* Botão de Nova Atividade */}
         {selectedTab === 0 && (
           <Button variant="contained" startIcon={<Add />} sx={stylesButton} onClick={() => setIsFormOpen(true)}>
-          Nova atividade
+            Nova atividade
           </Button>
         )}
       </div>
 
-      {/* Renderizar atividades filtradas */}
       <div className="atividades-list">
         <h2>{selectedTab === 0 ? 'Aqui estão as atividades já criadas!' : 'Aqui estão as atividades finalizadas!'}</h2>
         <div className="atividade-cards-container">
           {atividadesFiltradas.length > 0 ? (
             atividadesFiltradas.map((atividade) => (
-              <AtividadeCard key={atividade.id} atividade={atividade} />
+              <AtividadeCard key={atividade.id} atividade={atividade} onAtividadeCreated={onAtividadeCreated}/>
             ))
           ) : (
             <p>Nenhuma atividade encontrada</p>
@@ -107,8 +102,7 @@ const Atividades = () => {
         </div>
       </div>
 
-      {/* Formulário de Criar Atividade (Modal) */}
-      {isFormOpen && <FormCriarAtividade onClose={() => setIsFormOpen(false)} />}
+      {isFormOpen && <FormCriarAtividade onClose={() => setIsFormOpen(false)} onAtividadeCreated={onAtividadeCreated} />}
     </div>
   );
 };

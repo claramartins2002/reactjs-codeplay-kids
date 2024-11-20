@@ -18,11 +18,10 @@ const FormTurma = ({ onClose, onTurmaCreated, initialData }) => {
     }; 
 
     const requestData = { ...data, professor: professorData };
-    const apiService = new ApiService();
 
     const apiCall = initialData
-      ? apiService.post('turma', { ...requestData, id: initialData.id })
-      : apiService.post("turma", requestData);
+      ? new ApiService().post('turma', { ...requestData, id: initialData.id })
+      : new ApiService().post("turma", requestData);
 
     apiCall
       .then(() => {

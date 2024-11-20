@@ -21,15 +21,24 @@
   border-radius: 12px;
   padding: 20px;
   width: 400px;
-  max-width: 100%; /* Garante que não ultrapasse o tamanho da tela */
+  max-width: 100%;
   position: relative;
   border: #7AD487 solid 1rem;
   border-top-width: 2rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: auto;
+  max-height: 90vh; /* Limita a altura do formulário */
+  display: flex;
+  flex-direction: column;
+  font-family: 'Coming Soon';
 }
 
 .form-atividade-container form {
   margin-top: 10px;
+}
+
+.form-atividade-container span {
+  font-family: 'Coming Soon';
 }
 
 .form-atividade-header {
@@ -43,6 +52,7 @@
   align-items: center;
   border: 3px solid #7AD487;
   margin-left: 12%;
+  font-family: 'Irish Grover';
 }
 
 .form-atividade-header img {
@@ -62,8 +72,8 @@
 /* Definir o tamanho mínimo da tela para desktops */
 @media (min-width: 768px) {
   .form-atividade-container {
-    width: 50vw; /* Ajusta a largura de acordo com a tela */
-    max-width: 40%;
+    width: 50vw;
+    max-width: 90vh;
     max-height: 90%;
   }
 }
@@ -184,9 +194,35 @@ textarea {
   display: flex;
 }
 
+.button-container {
+  position: sticky;
+  bottom: 0;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end; /* Alinha os botões à direita */
+  gap: 10px;
+}
+
+.btn-form-atividade {
+  font-family: 'Irish Grover';
+  padding: 12px 20px;
+  border-radius: 30px;
+  width: 25%;
+  font-size: 1.1rem;
+  background-color: #FFF;
+}
+
+.btn-form-atividade .criar {
+  background-color: #7AD487;
+  color: #fff;
+  border: none;
+}
+
 .activity-cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Divide em 2 colunas */
-  gap: 20px; /* Ajusta o espaço entre os cards */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
   margin-top: 20px;
+  overflow: hidden;
+  flex-grow: 1; /* Permite que o conteúdo ocupe o máximo de espaço possível */
 }

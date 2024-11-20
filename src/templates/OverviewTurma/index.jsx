@@ -2,10 +2,9 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './styles.css';
-import Tooltip from '@mui/material/Tooltip';
 import { FaEllipsisVertical } from "react-icons/fa6";
 import backgroundTurma from './images/background_turma.png';
-import { Menu, MenuItem, Dialog } from '@mui/material';
+import { Menu, MenuItem, Dialog, Tooltip } from '@mui/material';
 import useFetchTurma from '../../utils/hooks/useFetchTurma';
 import FormCriarTurma from '../../components/turmas/FormTurma/FormTurma';
 import FormCriarAluno from '../../components/alunos/FormAluno/FormAluno';
@@ -19,7 +18,7 @@ const Turma = () => {
   const [turmaToEdit, setTurmaToEdit] = useState(null);
   const [formType, setFormType] = useState('');
 
-  const { turma, alunos, loading, error, refetch } = useFetchTurma(state.dataTurma.id);
+  const { turma, loading, error, refetch } = useFetchTurma(state.dataTurma.id);
 
   const onAlunoCreated = () => {
     refetch(); // Recarrega a lista de alunos ao criar um novo aluno
