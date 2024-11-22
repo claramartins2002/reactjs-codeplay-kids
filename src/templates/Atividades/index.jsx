@@ -36,7 +36,7 @@ const Atividades = () => {
 
   const atividadesFiltradas = atividades
     .filter(atividade => {
-      const dataEncerramento = dayjs(atividade.dataEncerramento, "DD/MM/YYYY");
+      const dataEncerramento = dayjs(atividade.dataEncerramento, "YYYY-MM-DD");
       const isFinalizada = dataEncerramento.isBefore(dayjs());
 
       return (

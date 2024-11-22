@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { RiCloseLine } from "react-icons/ri";
 import { IoArrowForward } from "react-icons/io5";
-import { Stepper, Step, StepLabel, Button } from '@mui/material';
+import { Stepper, Step, StepLabel, Button, Snackbar, Alert } from '@mui/material';
 import './FormCriarAtividade.css';
 
 import DetalhesAtividadeForm from '../DetalhesAtividadeForm/DetalhesAtividadesForm';
@@ -27,6 +27,7 @@ const FormCriarAtividade = ({ onClose, onAtividadeCreated, atividade }) => {
 
   const [activeStep, setActiveStep] = useState(0);
   const [selectedActivityType, setSelectedActivityType] = useState(null);
+  const [successAlert, setSuccessAlert] = useState(false); // Estado para exibir o alert de sucesso
   const { turmas } = useFetchTurmas();
   const { jogos } = useFetchJogos();
 
@@ -36,11 +37,20 @@ const FormCriarAtividade = ({ onClose, onAtividadeCreated, atividade }) => {
   useEffect(() => {
     if (isEditing && atividade) {
       setValue('nome', atividade.nome);
-      // setValue('turma', atividade.turma?.id || '');
       setValue('descricao', atividade.descricao);
       setSelectedActivityType(atividade.jogo?.nome || null);
+      setValue('dataCriacao', atividade.dataCriacao);
+      setValue('dataEncerramento', atividade.dataEncerramento);
     }
   }, [atividade, setValue, isEditing]);
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSuccessAlert(false);
+  };
 
   const steps = ["Tipo de Atividade", "Detalhes da Atividade"];
 
@@ -67,8 +77,8 @@ const FormCriarAtividade = ({ onClose, onAtividadeCreated, atividade }) => {
     };
 
     const request = isEditing
-    ? new ApiService().post('atividade', { ...requestData, id: atividade.id })
-    : new ApiService().post("atividade", requestData);
+      ? new ApiService().post('atividade', { ...requestData, id: atividade.id })
+      : new ApiService().post("atividade", requestData);
 
     request
       .then(() => {
@@ -76,6 +86,8 @@ const FormCriarAtividade = ({ onClose, onAtividadeCreated, atividade }) => {
         onClose();
       })
       .catch(error => console.error("Erro ao salvar atividade:", error));
+
+    setSuccessAlert(true); // Exibe o alert de sucesso
   };
 
   return (
@@ -104,6 +116,8 @@ const FormCriarAtividade = ({ onClose, onAtividadeCreated, atividade }) => {
               errors={errors} 
               turmasOptions={turmas}
               setValue={setValue}
+              atividade={atividade}
+              isEditing={isEditing}
             />
           )}
 
@@ -142,6 +156,17 @@ const FormCriarAtividade = ({ onClose, onAtividadeCreated, atividade }) => {
             )}
           </div>
         </form>
+
+        <Snackbar open={successAlert} autoHideDuration={6000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            variant="filled"
+            sx={{ width: '100%' }}
+          >
+            This is a success Alert inside a Snackbar!
+          </Alert>
+      </Snackbar>
       </div>
     </div>
   );

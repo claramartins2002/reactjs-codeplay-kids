@@ -3,6 +3,7 @@ import { GrGamepad } from "react-icons/gr";
 import { IconButton, Menu, MenuItem, Dialog } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import './AtividadeCard.css';
+import dayjs from 'dayjs';
 import FormCriarAtividade from './FormCriarAtividade/FormCriarAtividade';
 
 const AtividadeCard = ({ atividade, onAtividadeCreated }) => {
@@ -51,7 +52,7 @@ const AtividadeCard = ({ atividade, onAtividadeCreated }) => {
       <h3>{atividade.nome}</h3>
       <p className="categoria">{atividade.jogo.nome}</p>
       <div className="details">
-        <span className="data">{atividade.dataCriacao}</span>
+        <span className="data">{dayjs(atividade.dataEncerramento).format("DD/MM/YYYY")}</span>
         <span className="turma">{atividade.turma.nome}</span>
       </div>
 

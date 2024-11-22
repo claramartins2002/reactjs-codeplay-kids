@@ -105,9 +105,7 @@
   font-size: 1rem; /* Usa rem para tamanho de fonte */
 }
 
-.form-atividade-group input,
-.form-atividade-group select,
-.form-atividade-group textarea {
+.form-atividade-group .input-atividade {
   width: 100%;
   padding: 8px;
   border-radius: 4px;
@@ -155,9 +153,7 @@
     font-size: 0.9rem;
   }
 
-  .form-atividade-group input,
-  .form-atividade-group select,
-  .form-atividade-group textarea {
+  .form-atividade-group .input-atividade {
     font-size: 0.9rem;
   }
 
@@ -182,9 +178,7 @@ textarea {
 }
 
 /* Melhorar a visibilidade de foco para acessibilidade */
-.form-atividade-group input:focus,
-.form-atividade-group select:focus,
-.form-atividade-group textarea:focus {
+.form-atividade-group .input-atividade:focus{
   outline: 2px solid #4caf50;
   outline-offset: 2px;
 }
