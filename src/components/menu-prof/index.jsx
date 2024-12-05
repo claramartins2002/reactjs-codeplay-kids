@@ -1,25 +1,22 @@
-
-
-import { MdDensityMedium,MdOutlineHome,MdPeople,MdOutlineLeaderboard,MdNotificationsNone } from 'react-icons/md';
+import React from 'react';
 import './styles.css';
-import { slide as Menu } from 'react-burger-menu'
 
 const NavbarProf = () => {
-
- return (
+  return (
     <header className="header__middle_prof">
-        <div className="container_prof">
+      <div className="container_prof">
+        <span>Olá Profª Gisele</span>
 
-        <Menu>
-        <a id="dashboard" className="menu-item" href="/Overview"><MdOutlineHome /> Overview</a>
-        <a id="turmas" className="menu-item" href="/Turmas"><MdPeople /> Minhas turmas</a>
-        <a id="relatorios" className="menu-item" href="/Relatorios"><MdOutlineLeaderboard /> Relatórios</a>
-        <a id="notificacoes" className="menu-item" href="/Atividades"><MdNotificationsNone /> Atividades</a>
-      </Menu> 
-      <MdDensityMedium/>   Olá Prof Gisele
-	    </div>
+        <div className="search-expanding">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Buscar..."
+          />
+        </div>
+      </div>
     </header>
-    )
+  );
 }
 
 export default NavbarProf;

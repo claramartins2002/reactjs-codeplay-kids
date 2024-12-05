@@ -1,0 +1,29 @@
+.drawing-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.drawing-title {
+  text-align: center;
+}
+
+.toolbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.awesomeContainer {
+  margin: auto;
+  background-color: rgb(52, 52, 52);
+  border-radius: 20px;
+}

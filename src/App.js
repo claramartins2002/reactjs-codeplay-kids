@@ -6,16 +6,22 @@ import Home from './templates/Home';
 import Estudos from './templates/Estudos';
 import Jogos from './templates/Jogos';
 import Login from './templates/Login';
-import MemoryCardGame from './templates/MemoryCardGame';
-import PuzzleGame from './templates/QuebraCabeca';
-import DndExample from './templates/DndExample';
-import MathGame from './templates/MathGame';
-import CrossWord from './templates/Crossword';
-import CacaPalavras from './templates/CacaPalavras';
+import MemoryCardGame from './templates/JogosAtividades/MemoryCardGame';
+import PuzzleGame from './templates/JogosAtividades/QuebraCabeca';
+import DndExample from './templates/JogosAtividades/DndExample';
+import CacaPalavras from './templates/JogosAtividades/CacaPalavras';
 import FormAluno from './templates/FormAluno';
 import Dashboard from './templates/Dashboard';
 import Overview from './templates/Overview';
-import Turmas from './templates/Turmas';
+import Atividades from './templates/Atividades';
+import Turma from './templates/OverviewTurma';
+import MathGame from './templates/JogosAtividades/MathGame2/MathGame';
+import ImageWordAssociationGame from './templates/JogosAtividades/ImageWordAssociationGame/ImageWordAssociationGame';
+import ShapeColorGame from './templates/JogosAtividades/ShapeColorGame/ShapeColorGame';
+import CountingGame from './templates/JogosAtividades/CountingGame/CountingGame';
+import DrawingApp from './templates/JogosAtividades/Drawing/DrawingApp'
+import CrosswordComponent from './templates/JogosAtividades/Crossword';
+import Turmas from './templates/Turmas/Turmas';
 
 function App() {
   const { isAuthenticated, loading } = useContext(AuthContext); // Acessa o estado de autenticação e carregamento
@@ -37,6 +43,8 @@ function App() {
         <Route path="/estudos" element={isAuthenticated ? <Estudos /> : <Navigate to="/login" />} />
         <Route path="/jogos" element={isAuthenticated ? <Jogos /> : <Navigate to="/login" />} />
         <Route path="/Overview" element={isAuthenticated ? <Overview /> : <Navigate to="/login" />} />
+        <Route path="/atividades" element={isAuthenticated ? <Atividades /> : <Navigate to="/login" />} />
+        <Route path="/turmas/:id" element={isAuthenticated ? <Turma /> : <Navigate to="/login" />} />
 
         <Route path="/Relatorios" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/Turmas" element={isAuthenticated ? <Turmas /> : <Navigate to="/login" />} />
@@ -48,8 +56,12 @@ function App() {
         <Route path="/jogos/quebra-cabeca" element={isAuthenticated ? <PuzzleGame /> : <Navigate to="/login" />} />
         <Route path="/jogos/drag-n-drop" element={isAuthenticated ? <DndExample /> : <Navigate to="/login" />} />
         <Route path="/jogos/math-game" element={isAuthenticated ? <MathGame /> : <Navigate to="/login" />} />
-        <Route path="/jogos/crossword" element={isAuthenticated ? <CrossWord /> : <Navigate to="/login" />} />
+        <Route path="/jogos/crossword" element={isAuthenticated ? <CrosswordComponent /> : <Navigate to="/login" />} />
         <Route path="/jogos/caca-palavras" element={isAuthenticated ? <CacaPalavras /> : <Navigate to="/login" />} />
+        <Route path="/jogos/imagem-palavra-associacao" element={isAuthenticated ? <ImageWordAssociationGame /> : <Navigate to="/login" />} />
+        <Route path="/jogos/shape-color" element={isAuthenticated ? <ShapeColorGame /> : <Navigate to="/login" />} />
+        <Route path="/jogos/counting" element={isAuthenticated ? <CountingGame /> : <Navigate to="/login" />} />
+        <Route path="/jogos/drawing" element={isAuthenticated ? <DrawingApp /> : <Navigate to="/login" />} />
       </Routes>
     </Router>
 

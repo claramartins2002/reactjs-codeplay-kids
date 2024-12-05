@@ -19,7 +19,7 @@ const CardMinhasAtividades = () => {
                 <h6>{tarefa.turma}, {tarefa.horario}</h6>
                 
                 </span> {/* Descrição da tarefa */}
-             <span id="span-data-atividades"><h3>></h3></span> {/* Descrição da tarefa */}
+             <span id="span-data-atividades"><h3></h3></span> {/* Descrição da tarefa */}
           </MDBListGroupItem>
         ))}
       </MDBListGroup>
