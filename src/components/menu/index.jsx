@@ -72,7 +72,7 @@ const Navbarmenu = () => {
                 </li> 
 
                 <li className="menu-item " >
-                  <NavLink className={({ isActive }) => isActive ? 'is-active' : ''} to={`/Jogos`}><GrGamepad/> Atividades </NavLink> 
+                  <NavLink className={({ isActive }) => isActive ? 'is-active' : ''} to={`/Atividades`}><GrGamepad/> Atividades </NavLink> 
                 </li>
 
                 <li className="menu-item " >
@@ -99,15 +99,7 @@ const Navbarmenu = () => {
               }
               onClick={handleMenuOpen}
               variant="outlined"
-              sx={{
-                fontSize: '1.1rem',
-                padding: '0.5rem 1rem',
-                height: 'auto',
-                borderRadius: '30px',
-                fontFamily: 'Coming Soon',
-                borderColor: '#FFF',
-                color: '#FFF'
-              }}
+              className='user-menu-chip'
             />
             <Menu
               anchorEl={anchorEl}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tabs, Tab, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import './styles.css';
@@ -24,7 +24,11 @@ const Atividades = () => {
     textTransform: 'none',
   };
 
-  const { atividades, refetch } = useFetchAtividades();
+  const { atividades, refetch, fetchAtividadesByProfessor } = useFetchAtividades();
+
+  useEffect(() => {
+    fetchAtividadesByProfessor();
+    }, [fetchAtividadesByProfessor]);
 
   const onAtividadeCreated = () => {
     refetch();

@@ -27,7 +27,7 @@ const useFetchTurmas = () => {
   };
 
   useEffect(() => {
-    fetchTurmas(); // Chama fetchTurmas ao montar o componente
+    fetchTurmas();
   }, []);
 
   // Retorna os dados e a função fetchTurmas como refetch

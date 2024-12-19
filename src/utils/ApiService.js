@@ -82,5 +82,16 @@ export default class ApiService {
       throw error;
     }
   }
+
+  async getRelatoriosByAluno(idAluno) {
+    try {
+      const response = await this.axiosInstance.get(`relatorio/getByAluno/${idAluno}`);
+      console.log("Relatórios do aluno:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar dados:", error);
+      throw error;
+    }
+  }
 }
 

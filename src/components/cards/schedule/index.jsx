@@ -1,55 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
+import 'dayjs/locale/pt-br';
 import './styles.css';
-import { MdOutlineWatchLater } from "react-icons/md";
+import EventIcon from '@mui/icons-material/Event';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { Chip, Stack, Button, ButtonGroup } from '@mui/material';
+import useFetchAtividades from '../../../utils/hooks/useFetchAtividades';
+import ColorUtils from '../../../utils/Colors';
 
 const { RangePicker } = DatePicker;
 
-// Constante com as atividades (data fictícia para exemplo)
-const atividades = [
-    {
-        id: 1,
-        dia: 'Seg',
-        data: '2024-09-16',
-        nome: 'Jogo da divisão',
-        turma: '3º ano A - Escola A',
-        horario: '10:00 - 11:00',
-        status: 'agendada'
-    },
-    {
-        id: 2,
-        dia: 'Ter',
-        data: '2024-09-17',
-        nome: 'Quebra Cabeça',
-        turma: '2º ano A - Escola A',
-        horario: '09:00 - 10:00',
-        status: 'concluida'
-    },
-    {
-        id: 3,
-        dia: 'Qua',
-        data: '2024-09-18',
-        nome: 'Jogo das vogais',
-        turma: '1º ano A - Escola B',
-        horario: '13:00 - 14:00',
-        status: 'agendada'
-    },
-    {
-        id: 4,
-        dia: 'Sex',
-        data: '2024-09-20',
-        nome: 'Desafio de Matemática',
-        turma: '4º ano B - Escola C',
-        horario: '14:00 - 15:00',
-        status: 'concluida'
-    }
-];
-
 const Schedule = () => {
-  const [dateRange, setDateRange] = useState([dayjs('2024-09-16'), dayjs('2024-09-20')]);
+  const startOfWeek = dayjs().startOf('week');
+  const endOfWeek = dayjs().endOf('week');
+
+  const [dateRange, setDateRange] = useState([startOfWeek, endOfWeek]);
   const [filteredActivities, setFilteredActivities] = useState([]);
+  const [daysInRange, setDaysInRange] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(dayjs().format('ddd, DD'));
+
+  const style = {
+    borderRadius: '1rem',
+    fontFamily: 'Coming Soon',
+    fontColor: '#FFF',
+    background: '#ffd0aa'
+  };
+
+  const styleChip = {
+    fontFamily: 'Coming Soon',
+    fontSize: '15px',
+    color: '#fff'
+  }
+
+  const theme = createTheme({
+    palette: {
+      ochre: {
+        main: '#FFF',
+        light: '#ffd5b1',
+        dark: '#fe9c51',
+        contrastText: '#ffd5b1',
+      },
+    },
+  });
+
+  const { atividades, fetchAtividadesByProfessor } = useFetchAtividades();
+
+  useEffect(() => {
+    fetchAtividadesByProfessor();
+    }, [fetchAtividadesByProfessor]);
+
+  dayjs.locale('pt-br');
 
   const navigate = useNavigate();
 
@@ -58,25 +60,55 @@ const Schedule = () => {
     const [start, end] = dateRange;
 
     const filtered = atividades.filter((atividade) => {
-      const activityDate = dayjs(atividade.data);
-      return activityDate.isAfter(start.subtract(1, 'day')) && activityDate.isBefore(end.add(1, 'day'));
+      const creationDate = dayjs(atividade.dataCriacao);
+      return creationDate.isAfter(start.subtract(1, 'day')) && creationDate.isBefore(end.add(1, 'day'));
     });
 
     setFilteredActivities(filtered);
   };
 
-  // Atualiza as atividades sempre que as datas de filtro são alteradas
+  // Função para gerar os dias dentro do intervalo
+  const generateDaysInRange = () => {
+    const [start, end] = dateRange;
+    const days = [];
+
+    let current = start;
+    while (current.isBefore(end) || current.isSame(end)) {
+      days.push(current);
+      current = current.add(1, 'day');
+    }
+
+    setDaysInRange(days);
+  };
+
+  // Atualiza os dias e as atividades quando o intervalo de datas muda
   useEffect(() => {
     filterActivities();
-  }, [dateRange]);
+    generateDaysInRange();
+    setSelectedDay(dayjs().format('ddd, DD')); // Reseta para o dia atual
+  }, [dateRange, atividades]);
+
+  // Filtra as atividades pelo dia selecionado
+  const activitiesForSelectedDay = filteredActivities.filter((atividade) =>
+    dayjs(atividade.dataCriacao).format('ddd, DD') === selectedDay
+  );
 
   return (
     <div className="schedule-container">
       <div className="header">
-        <h2>Minhas atividades</h2>
+        <h2>
+          <img
+            className="icon-overview"
+            src="https://cdn-icons-png.freepik.com/128/9079/9079277.png"
+            alt=""
+          />{' '}
+          Minhas atividades
+        </h2>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <RangePicker
             value={dateRange}
+            variant="filled"
+            style={style}
             onChange={(dates) => {
               if (dates) {
                 const [start, end] = dates;
@@ -87,28 +119,85 @@ const Schedule = () => {
           />
         </div>
       </div>
-      <div className="week-days">
-        {filteredActivities.length > 0 ? (
-          filteredActivities.map((atividade) => (
-            <div className="day" key={atividade.id}>
-              <span className="date">
-                {`${atividade.dia} ${dayjs(atividade.data).format('DD')}`}
-              </span>
-              <div className="activity">
-                <a href="#">{atividade.nome}</a>
-                <div className="date-activity">
-                  <p className='info-activity'>{atividade.turma}</p>
-                  <span className='info-activity'><MdOutlineWatchLater style={{width: '20px', height: '20px',}}/> {atividade.horario}</span>
-                  <button className={`status ${atividade.status}`}>
-                    {atividade.status === 'agendada' ? 'Agendada' : 'Concluída'}
-                  </button>
+      <div className="day-buttons-container">
+        <ThemeProvider theme={theme}>
+          <ButtonGroup
+            sx={{
+              display: 'flex',
+              overflowX: 'auto',
+              whiteSpace: 'nowrap',
+              padding: '10px',
+              scrollbarWidth: 'thin',
+              justifyContent: 'center',
+              '&::-webkit-scrollbar': {
+                height: '6px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                background: '#888',
+                borderRadius: '10px',
+              },
+            }}
+          >
+            {daysInRange.map((day) => (
+              <Button
+                className="day-button-schedule"
+                key={day.format('YYYY-MM-DD')}
+                variant={day.format('ddd, DD') === selectedDay ? 'contained' : 'outlined'}
+                color="ochre"
+                onClick={() => setSelectedDay(day.format('ddd, DD'))}
+              >
+                <div className="content-day-button-schedule">
+                  <span style={{fontFamily: 'Irish Grover', fontSize: '20px'}}>{day.format('DD')}</span>
+                  <span style={{ fontSize: '15px', fontFamily: 'Coming Soon' }}>
+                    {day.format('ddd')}
+                  </span>
                 </div>
-                
+              </Button>
+            ))}
+          </ButtonGroup>
+        </ThemeProvider>
+      </div>
+      <div className="week-days">
+        {activitiesForSelectedDay.length > 0 ? (
+          activitiesForSelectedDay.map((atividade) => {
+            const activityColor = ColorUtils.getRandomColor();
+
+            return (
+              <div className="day" key={atividade.id}>
+                <div className="activity" style={{border: `1px solid ${activityColor}80`}}>
+                  <a href="#" style={{ color: activityColor }}>
+                    {atividade.nome}
+                  </a>
+                  <div className="jogo-info" style={{ color: `${activityColor}80` }}>
+                    <span>{atividade.jogo.nome}</span>
+                  </div>
+                  <div className="date-activity">
+                    <Stack direction="row" spacing={1}>
+                      <Chip
+                        sx={{...styleChip, backgroundColor: `${activityColor}80`}}
+                        label={atividade.turma.nome}
+                      />
+                      <Chip
+                        icon={<EventIcon color="action" />}
+                        label={dayjs(atividade.dataEncerramento).format('DD/MM/YYYY')}
+                        sx={{...styleChip, backgroundColor: `${activityColor}80`}}
+                      />
+                    </Stack>
+                    <button
+                      className="activity-schedule-status"
+                      style={{backgroundColor: activityColor}}
+                    >
+                      {dayjs(atividade.dataEncerramento).isBefore(dayjs())
+                        ? 'Encerrada'
+                        : 'Ativa'}
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
-          <p>Nenhuma atividade encontrada para o período selecionado.</p>
+          <p style={{fontFamily: 'Coming Soon'}}>Nenhuma atividade encontrada para o dia selecionado.</p>
         )}
         <div className="view-activities">
           <button onClick={() => navigate('/atividades')}>Ver atividades</button>

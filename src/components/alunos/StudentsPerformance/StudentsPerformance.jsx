@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   Accordion,
   AccordionSummary,
@@ -12,8 +12,11 @@ import {
   Tooltip,
   IconButton
 } from '@mui/material';
+import './styles.css';
 import { ExpandMore, MenuBookOutlined, InfoOutlined } from '@mui/icons-material';
-import { Line } from 'react-chartjs-2';
+import { Line, Pie } from 'react-chartjs-2';
+import useFetchRelatorios from '../../../utils/hooks/useFetchRelatorios';
+import useFetchAtividades from '../../../utils/hooks/useFetchAtividades';
 
 const subjectsData = [
   { id: 1, name: 'Português', color: '#ffebee', fontColor: '#FF8158' },
@@ -112,6 +115,26 @@ const averageTimeDataMap = {
 };
 
 const StudentPerformance = ({ student }) => {
+  const {
+    relatorios,
+    loading,
+    error,
+    fetchRelatoriosByAluno,
+  } = useFetchRelatorios();
+
+  const { atividades, fetchAtividadesByTurma } = useFetchAtividades();
+
+  useEffect(() => {
+    fetchRelatoriosByAluno(student.id);
+    fetchAtividadesByTurma(student.turma.id)
+  }, [fetchRelatoriosByAluno, fetchAtividadesByTurma]);
+
+  const tiposAtividade = relatorios.map(relatorio => relatorio.tipoAtividade);
+
+  console.log(relatorios);
+  console.log(relatorios.length);
+  console.log(tiposAtividade);
+  
   return (
     <Box
       sx={{

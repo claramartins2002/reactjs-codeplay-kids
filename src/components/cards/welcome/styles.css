@@ -1,0 +1,12 @@
+.welcome-message-container {
+  border-radius: 20px;
+  background-color: #ff8086;
+  width: 50%;
+  height: 20%;
+}
+
+.welcome-message-text {
+  font-family: 'Irish Grover';
+  color: #FFF;
+  font-size: 20px;
+}

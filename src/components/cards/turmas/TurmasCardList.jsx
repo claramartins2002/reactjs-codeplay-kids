@@ -27,7 +27,7 @@ const TurmaCardList = ({ turmas }) => {
             margin: '20px auto'
           }}>
             <MDBCardBody>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div className='turmas-card-body'>
                 <h2 id='h2-turma' style={{ margin: 0 }}>{turma.nome}</h2>
                 <img src={imagensTurmas[index]} alt="Imagem Randômica" style={{ width: '100px', height: '100px', borderRadius: '8px' }} />
               </div>

@@ -26,6 +26,12 @@
 .icon {
   font-size: 30px;
 }
+
+.icon-overview {
+  width: 32px;
+  height: 32px;
+}
+
 .pill-notification {
   background-color: #fdecb0;
   border-radius: 12px;

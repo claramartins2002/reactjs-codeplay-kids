@@ -9,7 +9,7 @@ const StudentDialog = ({ open, student, color, onClose }) => (
     onClose={onClose}
     maxWidth="sm"
     fullWidth
-    PaperProps={{ sx: { border: `1rem solid ${color}`, bgcolor: '#FBF7F5', borderRadius: '20px' } }}
+    PaperProps={{ sx: { border: `1rem solid ${color}`, bgcolor: '#FBF7F5', borderRadius: '20px', maxWidth: '50%' } }}
   >
     <DialogTitle>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

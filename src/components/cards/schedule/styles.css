@@ -6,11 +6,30 @@
   margin: auto;
 }
 
+.day-button-schedule {
+  min-width: 60px !important;
+  text-align: center !important;
+  margin: 5px !important;
+  border: none !important;
+  border-radius: 10px !important;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+}
+
+.content-day-button-schedule {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-overview {
+  width: 32px;
+  height: 32px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.5em;
+  font-size: 1.2em;
   color: #fff;
 }
 
@@ -48,6 +67,10 @@
   font-family: 'Irish Grover';
 }
 
+.jogo-info span {
+  font-family: 'Coming Soon';
+}
+
 .date-activity {
   display: flex;
   justify-content: space-between;
@@ -58,7 +81,6 @@
 .activity {
   background-color: #FFF;
   padding: 10px;
-  border: 1px solid #C5E1A5;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;
@@ -81,9 +103,10 @@
   font-family: 'Coming Soon';
 }
 
-.status {
+.activity-schedule-status {
   padding: 5px 10px;
-  border-radius: 15px;
+  border-radius: 20px;
+  font-family: 'Coming Soon';
   border: none;
   color: #fff;
   cursor: pointer;

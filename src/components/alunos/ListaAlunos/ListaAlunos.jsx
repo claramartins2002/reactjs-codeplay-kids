@@ -7,6 +7,7 @@ import ListaAlunosHeader from '../ListaAlunosHeader/ListaAlunosHeader';
 import FormCriarAluno from '../FormAluno/FormAluno';
 import './ListaAlunos.css';
 import useFetchTurma from '../../../utils/hooks/useFetchTurma';
+import CircularIndeterminate from '../../Carregando';
 
 const ListaAlunos = ({ turmaId, onAddClick }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -39,52 +40,75 @@ const ListaAlunos = ({ turmaId, onAddClick }) => {
   };
 
   return (
-    <div className="student-list-container">
-      <ListaAlunosHeader
-        searchTerm={searchTerm}
-        onSearchChange={handleSearchChange}
-        onAddClick={onAddClick}
-      />
-      {loading ? (
-        <div>Carregando alunos...</div>
-      ) : error ? (
-        <div>{error}</div>
-      ) : (
-        <List>
-          {filteredStudents.length ? (
-            filteredStudents.map((student) => (
-              <StudentListItem
-                key={student.id}
-                student={student}
-                color={studentColors[student.id]}
-                onEdit={() => openEditForm(student)}
-                onPerformance={openPerformanceDialogHandler} // Passa a função para abrir o diálogo de desempenho
-              />
-            ))
-          ) : (
-            <ListItem className="empty-student-list">
-              <ListItemText primary="Nenhum aluno encontrado." />
-            </ListItem>
-          )}
-        </List>
-      )}
-      {openEditModal && (
-        <FormCriarAluno
-          onClose={() => setOpenEditModal(null)}
-          onAlunoCreated={onAlunoCreated} // Passa a função que recarrega os dados
-          initialData={openEditModal}
-          turma={turma}
+    <>
+      <div className="header-student-list-container">
+        <span>Alunos</span>
+      </div>
+      <div className="student-list-container">
+        <ListaAlunosHeader
+          searchTerm={searchTerm}
+          onSearchChange={handleSearchChange}
+          onAddClick={onAddClick}
         />
-      )}
-      {openPerformanceDialog && (
-        <StudentDialog
-          open={Boolean(openPerformanceDialog)}
-          student={openPerformanceDialog}
-          color={studentColors[openPerformanceDialog.id]}
-          onClose={() => setOpenPerformanceDialog(null)} // Função para fechar o dialog
-        />
-      )}
-    </div>
+        {loading ? (
+          <CircularIndeterminate/>
+        ) : error ? (
+          <div>{error}</div>
+        ) : (
+          <List
+            sx={{
+              maxHeight: '350px',
+              overflowY: 'auto',
+              padding: '20px',
+              '&::-webkit-scrollbar': {
+                width: '10px',
+                backgroundColor: '#F5F5F5',
+              },
+              '&::-webkit-scrollbar-track': {
+                backgroundColor: '#F5F5F5',
+                borderRadius: '10px',
+              },
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: '#EB9EE8',
+                borderRadius: '10px'
+              },
+            }}
+          >
+            {filteredStudents.length ? (
+              filteredStudents.map((student) => (
+                <StudentListItem
+                  key={student.id}
+                  student={student}
+                  color={studentColors[student.id]}
+                  onEdit={() => openEditForm(student)}
+                  onPerformance={openPerformanceDialogHandler} // Passa a função para abrir o diálogo de desempenho
+                />
+              ))
+            ) : (
+              <ListItem className="empty-student-list">
+                <ListItemText primary="Nenhum aluno encontrado." sx={{fontFamily: 'Coming Soon'}}/>
+              </ListItem>
+            )}
+          </List>
+        )}
+        {openEditModal && (
+          <FormCriarAluno
+            onClose={() => setOpenEditModal(null)}
+            onAlunoCreated={onAlunoCreated} // Passa a função que recarrega os dados
+            initialData={openEditModal}
+            turma={turma}
+          />
+        )}
+        {openPerformanceDialog && (
+          <StudentDialog
+            open={Boolean(openPerformanceDialog)}
+            student={openPerformanceDialog}
+            color={studentColors[openPerformanceDialog.id]}
+            onClose={() => setOpenPerformanceDialog(null)} // Função para fechar o dialog
+          />
+        )}
+      </div>
+    </>
   );
 };
 

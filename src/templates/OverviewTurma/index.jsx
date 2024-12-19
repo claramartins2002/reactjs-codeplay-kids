@@ -9,6 +9,7 @@ import useFetchTurma from '../../utils/hooks/useFetchTurma';
 import FormCriarTurma from '../../components/turmas/FormTurma/FormTurma';
 import FormCriarAluno from '../../components/alunos/FormAluno/FormAluno';
 import ListaAlunos from '../../components/alunos/ListaAlunos/ListaAlunos';
+import CircularIndeterminate from '../../components/Carregando';
 
 const Turma = () => {
   const location = useLocation();
@@ -44,7 +45,7 @@ const Turma = () => {
     setIsFormOpen(true);
   };
 
-  if (loading) return <div>Carregando...</div>;
+  if (loading) return <CircularIndeterminate/>;
   if (error) return <div>{error}</div>;
 
   return (
