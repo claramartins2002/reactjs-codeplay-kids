@@ -41,9 +41,6 @@ const ListaAlunos = ({ turmaId, onAddClick }) => {
 
   return (
     <>
-      <div className="header-student-list-container">
-        <span>Alunos</span>
-      </div>
       <div className="student-list-container">
         <ListaAlunosHeader
           searchTerm={searchTerm}

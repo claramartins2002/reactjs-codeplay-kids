@@ -4,15 +4,14 @@ import { IconButton, Menu, MenuItem, Dialog } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import './AtividadeCard.css';
 import dayjs from 'dayjs';
-import FormCriarAtividade from './FormCriarAtividade/FormCriarAtividade';
+import FormCriarAtividade from '../FormCriarAtividade/FormCriarAtividade';
+import { styleMenuItem } from '../../AtividadesStyles.js';
 
 const AtividadeCard = ({ atividade, onAtividadeCreated }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const openMenu = Boolean(anchorEl);
-
-  const styleMenuItem = { display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Coming Soon' }
-
+  
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

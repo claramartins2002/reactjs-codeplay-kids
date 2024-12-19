@@ -1,15 +1,17 @@
-// Turma.jsx
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './styles.css';
 import { FaEllipsisVertical } from "react-icons/fa6";
 import backgroundTurma from './images/background_turma.png';
-import { Menu, MenuItem, Dialog, Tooltip } from '@mui/material';
+import { Menu, MenuItem, Dialog, Tooltip, Tabs, Tab, Box } from '@mui/material';
 import useFetchTurma from '../../utils/hooks/useFetchTurma';
 import FormCriarTurma from '../../components/turmas/FormTurma/FormTurma';
 import FormCriarAluno from '../../components/alunos/FormAluno/FormAluno';
 import ListaAlunos from '../../components/alunos/ListaAlunos/ListaAlunos';
 import CircularIndeterminate from '../../components/Carregando';
+import { tabsStyles, menuStyles, dialogStyles, BoxStyles } from './TurmaStyles.js'
+import ListaAtividades from '../Atividades/components/ListaAtividades/ListaAtividades.jsx';
+import EstatisticasTurma from './components/EstatisticasTurma/EstatisticasTurma.jsx';
 
 const Turma = () => {
   const location = useLocation();
@@ -18,6 +20,7 @@ const Turma = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [turmaToEdit, setTurmaToEdit] = useState(null);
   const [formType, setFormType] = useState('');
+  const [selectedTab, setSelectedTab] = useState(0);
 
   const { turma, loading, error, refetch } = useFetchTurma(state.dataTurma.id);
 
@@ -45,7 +48,11 @@ const Turma = () => {
     setIsFormOpen(true);
   };
 
-  if (loading) return <CircularIndeterminate/>;
+  const handleTabChange = (event, newValue) => {
+    setSelectedTab(newValue);
+  };
+
+  if (loading) return <CircularIndeterminate />;
   if (error) return <div>{error}</div>;
 
   return (
@@ -57,14 +64,14 @@ const Turma = () => {
             <p>{turma.descricao}</p>
           </div>
           <div className="banner-image">
-            <img src={backgroundTurma} alt="Imagem do Banner"/>
+            <img src={backgroundTurma} alt="Imagem do Banner" />
           </div>
 
           <Tooltip title="Mais opções">
-            <FaEllipsisVertical 
-              className="banner-icon" 
-              onClick={handleMenuOpen} 
-              style={{ cursor: 'pointer' }} 
+            <FaEllipsisVertical
+              className="banner-icon"
+              onClick={handleMenuOpen}
+              style={{ cursor: 'pointer' }}
             />
           </Tooltip>
 
@@ -72,23 +79,38 @@ const Turma = () => {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
-            sx={{ fontFamily: 'Coming Soon' }}
+            sx={menuStyles.menu}
           >
-            <MenuItem 
+            <MenuItem
               onClick={openEditForm}
-              sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'Coming Soon' }}
+              sx={menuStyles.menuItem}
             >
               Editar turma
             </MenuItem>
           </Menu>
         </div>
       </div>
-      
-      <ListaAlunos 
-        turmaId={turma.id} 
-        onAddClick={openAddStudentForm}
-      />
-      
+
+      <Box sx={BoxStyles.box}>
+        <Tabs
+          value={selectedTab}
+          onChange={handleTabChange}
+          textColor="primary"
+          indicatorColor="primary"
+          aria-label="tabs"
+          sx={tabsStyles(selectedTab)}
+        >
+          <Tab label="Alunos" />
+          <Tab label="Atividades" />
+          <Tab label="Relatórios" />
+        </Tabs>
+        <Box sx={{ p: 3 }}>
+          {selectedTab === 0 && ( <ListaAlunos turmaId={turma.id} onAddClick={openAddStudentForm} /> )}
+          {selectedTab === 1 && ( <ListaAtividades turmaId={turma.id} /> )}
+          {selectedTab === 2 && ( <EstatisticasTurma /> )}
+        </Box>
+      </Box>
+
       <Dialog
         open={isFormOpen}
         onClose={() => {
@@ -97,28 +119,21 @@ const Turma = () => {
         }}
         maxWidth="sm"
         fullWidth
-        PaperProps={{
-          sx: {
-            padding: '20px',
-            bgcolor: '#FBF7F5',
-            borderRadius: '10px',
-            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
-          },
-        }}
-      > 
+        PaperProps={{ sx: dialogStyles.dialogPaper }}
+      >
         {formType === 'turma' ? (
-          <FormCriarTurma 
+          <FormCriarTurma
             onClose={() => {
               setIsFormOpen(false);
               setTurmaToEdit(null);
             }}
             initialData={turmaToEdit}
-            onTurmaCreated={refetch} // Recarrega a turma ao editar
+            onTurmaCreated={refetch}
           />
         ) : (
           <FormCriarAluno
             onClose={() => setIsFormOpen(false)}
-            onAlunoCreated={onAlunoCreated} // Recarrega a lista de alunos ao criar um novo aluno
+            onAlunoCreated={onAlunoCreated}
             turma={turma}
           />
         )}

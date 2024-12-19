@@ -4,11 +4,13 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/pt-br';
 import './styles.css';
 import EventIcon from '@mui/icons-material/Event';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { Chip, Stack, Button, ButtonGroup } from '@mui/material';
 import useFetchAtividades from '../../../utils/hooks/useFetchAtividades';
 import ColorUtils from '../../../utils/Colors';
+import { styleChip, ButtonGroupStyle, theme } from './ScheduleStyles';
+
 
 const { RangePicker } = DatePicker;
 
@@ -27,23 +29,6 @@ const Schedule = () => {
     fontColor: '#FFF',
     background: '#ffd0aa'
   };
-
-  const styleChip = {
-    fontFamily: 'Coming Soon',
-    fontSize: '15px',
-    color: '#fff'
-  }
-
-  const theme = createTheme({
-    palette: {
-      ochre: {
-        main: '#FFF',
-        light: '#ffd5b1',
-        dark: '#fe9c51',
-        contrastText: '#ffd5b1',
-      },
-    },
-  });
 
   const { atividades, fetchAtividadesByProfessor } = useFetchAtividades();
 
@@ -122,21 +107,7 @@ const Schedule = () => {
       <div className="day-buttons-container">
         <ThemeProvider theme={theme}>
           <ButtonGroup
-            sx={{
-              display: 'flex',
-              overflowX: 'auto',
-              whiteSpace: 'nowrap',
-              padding: '10px',
-              scrollbarWidth: 'thin',
-              justifyContent: 'center',
-              '&::-webkit-scrollbar': {
-                height: '6px',
-              },
-              '&::-webkit-scrollbar-thumb': {
-                background: '#888',
-                borderRadius: '10px',
-              },
-            }}
+            sx={ButtonGroupStyle}
           >
             {daysInRange.map((day) => (
               <Button
