@@ -2,13 +2,15 @@
 
 /* Estilos gerais do container */
 .atividades-container {
-  max-width: 1200px;
-  margin: 20px auto;
+  max-width: 50%;
+  margin: 0 auto;
   padding: 20px;
   background-color: #f5f9ff;
   border-radius: 10px;
   font-family: 'Irish Grover', sans-serif;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border: 1rem solid #7AD487;
 }
 
 /* Lista de atividades */
@@ -51,11 +53,6 @@
   color: #777;
 }
 
-.atividades-container {
-  padding: 20px;
-  border: 1rem solid #7AD487;
-}
-
 .atividades-list h2 {
   font-size: 1.5rem;
   margin-bottom: 10px;
@@ -74,7 +71,6 @@
 }
 
 .nova-atividade-btn {
-  margin-top: 20px;
   background-color: #7AD487;
 	border-bottom: 5px solid #669644;
   color: white;

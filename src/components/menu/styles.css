@@ -60,6 +60,17 @@ ul.main-menu>li.menu-item:first-child {
 .menu-item {
   line-height: 23px;
 }
+
+.user-menu-chip {
+  font-size:1.1rem !important;
+  padding: 0.5rem 1rem !important;
+  height: auto !important;
+  border-radius: 30px !important;
+  font-family: 'Coming Soon' !important;
+  border-color: #FFF !important;
+  color: #FFF !important;
+}
+
 li {
   list-style-type: none;
 }

@@ -22,13 +22,14 @@ import CountingGame from './templates/JogosAtividades/CountingGame/CountingGame'
 import DrawingApp from './templates/JogosAtividades/Drawing/DrawingApp'
 import CrosswordComponent from './templates/JogosAtividades/Crossword';
 import Turmas from './templates/Turmas/Turmas';
+import CircularIndeterminate from './components/Carregando';
 
 function App() {
   const { isAuthenticated, loading } = useContext(AuthContext); // Acessa o estado de autenticação e carregamento
   console.log(isAuthenticated);
   if (loading) {
     // Exibe uma tela de carregamento enquanto o estado de autenticação é verificado
-    return <div>Carregando...</div>;
+    return <CircularIndeterminate/>
   }
   return (
 <div>

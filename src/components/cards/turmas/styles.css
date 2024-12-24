@@ -6,7 +6,13 @@
   font-size: 30pt;
 }
 
-img {
+.turmas-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.turmas-card-body img {
   width: 250px;
   height: 100px;
   margin-bottom: 0;

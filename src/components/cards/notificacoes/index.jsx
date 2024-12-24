@@ -16,7 +16,7 @@ function NotificacoesCard() {
     <>    
       <div className="notifications-container">
         <div className="notifications-container-header">
-          <h2>Notificações</h2>
+          <h2> <img className='icon-overview'  src="https://cdn-icons-png.freepik.com/128/874/874569.png" alt="" /> Notificações</h2>
         </div>
         <div className="notifications">
         <Box
