@@ -107,7 +107,7 @@ const Turma = () => {
         <Box sx={{ p: 3 }}>
           {selectedTab === 0 && ( <ListaAlunos turmaId={turma.id} onAddClick={openAddStudentForm} /> )}
           {selectedTab === 1 && ( <ListaAtividades turmaId={turma.id} /> )}
-          {selectedTab === 2 && ( <EstatisticasTurma /> )}
+          {selectedTab === 2 && ( <EstatisticasTurma turmaId={turma.id} /> )}
         </Box>
       </Box>
 
