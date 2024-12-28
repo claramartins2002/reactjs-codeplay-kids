@@ -7,16 +7,15 @@ import GraficoDistribuicaoJogos from './components/GraficoDistribuicaoJogos';
 import GraficoTempoAtividades from './components/GraficoTempoAtividades';
 import GraficoPontuacaoAtividades from './components/GraficoPontuacaoAtividades';
 import GraficoRankingDificuldade from './components/GraficoRankingDificuldade';
-import GraficoDistribuicaoDesempenho from './components/GraficoDistribuicaoDesempenho';
 import GraficoEngajamento from './components/GraficoEngajamento';
-import GraficoEvolucaoTurma from './components/GraficoEvolucaoTurma';
 import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   calcularMediaAcertosErros,
   calcularMediaTempoGasto,
   calcularMediaPontuacao,
-  calcularProgressoAtividades,
   calcularQuantidadePorJogo
 } from './utils/calculosEstatisticas';
 import useFetchRelatorios from '../../../../utils/hooks/useFetchRelatorios';
@@ -41,14 +40,9 @@ const EstatisticasTurma = ({ turmaId }) => {
   const mediaTempoGasto = calcularMediaTempoGasto(relatoriosMatematica);
   const mediaPontuacao = calcularMediaPontuacao(relatoriosMatematica);
 
-  const dadosDesempenho = [
+  const dadosDesempenhoMatematica = [
     { name: 'Tempo Médio (segundos)', valor: mediaTempoGasto },
     { name: 'Média de Pontuação', valor: mediaPontuacao },
-  ];
-
-  const dadosAcertosErros = [
-    { name: 'Acertos', valor: mediaAcertosErros.acertos },
-    { name: 'Erros', valor: mediaAcertosErros.erros },
   ];
 
   const dadosJogos = calcularQuantidadePorJogo(atividades);
@@ -63,10 +57,12 @@ const EstatisticasTurma = ({ turmaId }) => {
         <>
           <div className="info-basica">
             <div className="quantidade-alunos-turma">
-              <span>Alunos: {alunos.length}</span>
+              <span className="texto-info-basica"><GroupOutlinedIcon /> Alunos</span>
+              <span className="texto-info-basica">{alunos.length}</span>
             </div>
             <div className="quantidade-atividades-turma">
-              <span>Atividades: {atividades.length}</span>
+              <span className="texto-info-basica"><MenuBookOutlinedIcon/> Atividades</span>
+              <span className="texto-info-basica">{atividades.length}</span>
             </div>
           </div>
 
@@ -83,12 +79,11 @@ const EstatisticasTurma = ({ turmaId }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <div className="graficos-matematica">
-                  <GraficoDesempenho dadosDesempenho={dadosDesempenho} />
+                  <GraficoDesempenho dadosDesempenho={dadosDesempenhoMatematica} />
                   <GraficoAcertosErros relatorios={relatoriosMatematica} />
                   <GraficoTempoAtividades relatorios={relatoriosMatematica} />
                   <GraficoPontuacaoAtividades relatorios={relatoriosMatematica} />
                   <GraficoRankingDificuldade relatorios={relatoriosMatematica} />
-                  <GraficoDistribuicaoDesempenho relatorios={relatoriosMatematica} />
                 </div>
               </AccordionDetails>
             </Accordion>
@@ -106,7 +101,6 @@ const EstatisticasTurma = ({ turmaId }) => {
               <AccordionDetails>
                 <div className="graficos-gerais">
                   <GraficoEngajamento relatorios={relatorios} alunos={alunos} />
-                  <GraficoEvolucaoTurma relatorios={relatorios} />
                   <GraficoDistribuicaoJogos dadosJogos={dadosJogos} />
                 </div>
               </AccordionDetails>

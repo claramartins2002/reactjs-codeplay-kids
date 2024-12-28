@@ -8,6 +8,7 @@ import FormCriarAluno from '../FormAluno/FormAluno';
 import './ListaAlunos.css';
 import useFetchTurma from '../../../utils/hooks/useFetchTurma';
 import CircularIndeterminate from '../../Carregando';
+import { ListStyles } from '../AlunosStyles';
 
 const ListaAlunos = ({ turmaId, onAddClick }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -52,25 +53,7 @@ const ListaAlunos = ({ turmaId, onAddClick }) => {
         ) : error ? (
           <div>{error}</div>
         ) : (
-          <List
-            sx={{
-              maxHeight: '350px',
-              overflowY: 'auto',
-              padding: '20px',
-              '&::-webkit-scrollbar': {
-                width: '10px',
-                backgroundColor: '#F5F5F5',
-              },
-              '&::-webkit-scrollbar-track': {
-                backgroundColor: '#F5F5F5',
-                borderRadius: '10px',
-              },
-              '&::-webkit-scrollbar-thumb': {
-                backgroundColor: '#EB9EE8',
-                borderRadius: '10px'
-              },
-            }}
-          >
+          <List sx={ListStyles}>
             {filteredStudents.length ? (
               filteredStudents.map((student) => (
                 <StudentListItem

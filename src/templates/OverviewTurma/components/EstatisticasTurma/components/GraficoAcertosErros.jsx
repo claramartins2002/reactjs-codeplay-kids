@@ -16,22 +16,16 @@ ChartJS.register(
 );
 
 const GraficoAcertosErros = ({ relatorios }) => {
-  const [atividadeSelecionada, setAtividadeSelecionada] = useState('todas');
+  const [operacaoSelecionada, setOperacaoSelecionada] = useState('todas');
 
-  // Obtém lista única de atividades
-  const atividades = [...new Set(relatorios.map(r => r.atividade.id))].map(id => {
-    const relatorio = relatorios.find(r => r.atividade.id === id);
-    return {
-      id: id,
-      nome: relatorio.atividade.nome
-    };
-  });
+  // Obtém lista única de operações matemáticas
+  const operacoes = [...new Set(relatorios.map(r => r.atividade.jogo.nome))].sort();
 
-  // Calcula acertos e erros com base na atividade selecionada
+  // Calcula acertos e erros com base na operação selecionada
   const calcularAcertosErros = () => {
-    const relatoriosFiltrados = atividadeSelecionada === 'todas' 
+    const relatoriosFiltrados = operacaoSelecionada === 'todas' 
       ? relatorios
-      : relatorios.filter(r => r.atividade.id === atividadeSelecionada);
+      : relatorios.filter(r => r.atividade.jogo.nome === operacaoSelecionada);
 
     return relatoriosFiltrados.reduce((acc, relatorio) => ({
       acertos: acc.acertos + relatorio.acertos,
@@ -49,9 +43,10 @@ const GraficoAcertosErros = ({ relatorios }) => {
       },
       title: {
         display: true,
-        text: 'Acertos vs Erros',
+        text: `Acertos vs Erros ${operacaoSelecionada !== 'todas' ? `- ${operacaoSelecionada}` : ''}`,
         font: {
-          size: 16
+          size: 16,
+          family: 'Coming Soon'
         },
         padding: {
           bottom: 10
@@ -82,32 +77,36 @@ const GraficoAcertosErros = ({ relatorios }) => {
 
   return (
     <div className="grafico grafico-pequeno" style={{ position: 'relative' }}>
-      <InfoTooltip text="Apresenta a proporção entre acertos e erros nas atividades." />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
+        <InfoTooltip text="Apresenta a proporção entre acertos e erros nas atividades matemáticas." />
+      </div>
+
       <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel id="atividade-select-label">Atividade</InputLabel>
+        <InputLabel id="operacao-select-label">Operação Matemática</InputLabel>
         <Select
-          labelId="atividade-select-label"
-          value={atividadeSelecionada}
-          label="Atividade"
-          onChange={(e) => setAtividadeSelecionada(e.target.value)}
+          labelId="operacao-select-label"
+          value={operacaoSelecionada}
+          label="Operação Matemática"
+          onChange={(e) => setOperacaoSelecionada(e.target.value)}
           sx={{
             fontFamily: 'Coming Soon',
             backgroundColor: 'white',
             '& .MuiSelect-select': {
               paddingY: 1
-            }
+            },
+            width: '90%'
           }}
         >
           <MenuItem value="todas" sx={{ fontFamily: 'Coming Soon' }}>
-            Todas as Atividades
+            Todas as Operações
           </MenuItem>
-          {atividades.map((atividade) => (
+          {operacoes.map((operacao) => (
             <MenuItem 
-              key={atividade.id} 
-              value={atividade.id}
+              key={operacao} 
+              value={operacao}
               sx={{ fontFamily: 'Coming Soon' }}
             >
-              {atividade.nome}
+              {operacao}
             </MenuItem>
           ))}
         </Select>
@@ -117,4 +116,4 @@ const GraficoAcertosErros = ({ relatorios }) => {
   );
 };
 
-export default GraficoAcertosErros; 
+export default GraficoAcertosErros;

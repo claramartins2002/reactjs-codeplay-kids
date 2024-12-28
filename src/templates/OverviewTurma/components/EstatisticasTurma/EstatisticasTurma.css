@@ -16,10 +16,30 @@
   margin-bottom: 30px;
 }
 
+.texto-info-basica {
+  font-family: 'Coming Soon';
+}
+
+.quantidade-alunos-turma, .quantidade-atividades-turma {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 25px;
+  border-radius: 15px;
+  color: #fff;
+}
+
+.quantidade-alunos-turma {
+  background: #70b4ff;
+}
+
+.quantidade-atividades-turma {
+  background: #f8625e;
+}
+
 .graficos-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
   justify-content: center;
 }
 
@@ -28,14 +48,19 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  width: 500px;
-  height: 400px;
+  width: 90%;
+  height: 35%;
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   border: 0.5rem solid #FFB347;
   margin: 10px;
   position: relative;
+}
+
+.filtro-grafico {
+  flex-direction: column;
 }
 
 .grafico h3 {
@@ -46,15 +71,13 @@
 
 .grafico.grafico-pequeno {
   width: 400px;
-  height: 350px;
+  height: 280px;
 }
 
 .graficos-matematica, .graficos-gerais {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
   justify-content: center;
-  padding: 20px 0;
 }
 
 .MuiAccordion-root {

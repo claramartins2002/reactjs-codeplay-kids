@@ -27,3 +27,21 @@ export const VisuallyHiddenInput = styled('input')({
   whiteSpace: 'nowrap',
   width: 1,
 });
+
+export const ListStyles = {
+  maxHeight: '350px',
+  overflowY: 'auto',
+  padding: '20px',
+  '&::-webkit-scrollbar': {
+    width: '10px',
+    backgroundColor: '#F5F5F5',
+  },
+  '&::-webkit-scrollbar-track': {
+    backgroundColor: '#F5F5F5',
+    borderRadius: '10px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#EB9EE8',
+    borderRadius: '10px'
+  },
+}

@@ -19,7 +19,7 @@ ChartJS.register(
   Legend
 );
 
-const GraficoDesempenho = ({ dadosDesempenho }) => {
+const GraficoDesempenho = ({ dadosDesempenho, isMatematica }) => {
   const options = {
     responsive: true,
     plugins: {
@@ -28,9 +28,10 @@ const GraficoDesempenho = ({ dadosDesempenho }) => {
       },
       title: {
         display: true,
-        text: 'Desempenho Geral',
+        text: isMatematica ? 'Desempenho Geral em Matemática' : 'Desempenho Geral',
         font: {
-          size: 16
+          size: 16,
+          family: 'Coming Soon'
         }
       },
     },

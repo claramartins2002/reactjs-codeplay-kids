@@ -42,7 +42,7 @@ const GraficoDistribuicaoJogos = ({ dadosJogos }) => {
   };
 
   return (
-    <div className="grafico">
+    <div className="grafico grafico-pequeno">
       <Pie options={options} data={data} />
     </div>
   );

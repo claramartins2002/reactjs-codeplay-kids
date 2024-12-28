@@ -6,10 +6,12 @@ import './AtividadeCard.css';
 import dayjs from 'dayjs';
 import FormCriarAtividade from '../FormCriarAtividade/FormCriarAtividade';
 import { styleMenuItem } from '../../AtividadesStyles.js';
+import RelatoriosAtividades from '../RelatoriosAtividade/RelatoriosAtividade.jsx';
 
 const AtividadeCard = ({ atividade, onAtividadeCreated }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialogEdit, setOpenDialogEdit] = useState(false);
+  const [openDialogStats, setOpenDialogStats] = useState(false);
   const openMenu = Boolean(anchorEl);
   
   const handleMenuClick = (event) => {
@@ -21,12 +23,21 @@ const AtividadeCard = ({ atividade, onAtividadeCreated }) => {
   };
 
   const handleEditClick = () => {
-    setOpenDialog(true);
+    setOpenDialogEdit(true);
     handleMenuClose();
   };
 
-  const handleDialogClose = () => {
-    setOpenDialog(false);
+  const handleStatsClick = () => {
+    setOpenDialogStats(true);
+    handleMenuClose();
+  };
+
+  const handleEditDialogClose = () => {
+    setOpenDialogEdit(false);
+  };
+
+  const handleStatsDialogClose = () => {
+    setOpenDialogStats(false);
   };
 
   return (
@@ -45,7 +56,7 @@ const AtividadeCard = ({ atividade, onAtividadeCreated }) => {
           onClose={handleMenuClose}
         >
           <MenuItem onClick={handleEditClick} sx={styleMenuItem}>Editar</MenuItem>
-          <MenuItem onClick={handleMenuClose} sx={styleMenuItem}>Ver relatório</MenuItem>
+          <MenuItem onClick={handleStatsClick} sx={styleMenuItem}>Ver relatório</MenuItem>
         </Menu>
       </div>
       <h3>{atividade.nome}</h3>
@@ -55,11 +66,18 @@ const AtividadeCard = ({ atividade, onAtividadeCreated }) => {
         <span className="turma">{atividade.turma.nome}</span>
       </div>
 
-      <Dialog open={openDialog} onClose={handleDialogClose} fullWidth maxWidth="md">
+      <Dialog open={openDialogEdit} onClose={handleEditDialogClose} fullWidth maxWidth="md">
         <FormCriarAtividade 
-          onClose={handleDialogClose}
+          onClose={handleEditDialogClose}
           onAtividadeCreated={onAtividadeCreated}
           atividade={atividade}
+        />
+      </Dialog>
+
+      <Dialog open={openDialogStats} onClose={handleStatsDialogClose} fullWidth maxWidth="md">
+        <RelatoriosAtividades 
+          atividade={atividade} 
+          onClose={handleStatsDialogClose}
         />
       </Dialog>
     </div>
