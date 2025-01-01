@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext'; // Importa o contexto de autenticação
 import Navbarmenu from './components/menu';
-import Home from './templates/Home';
 import Estudos from './templates/Estudos';
 import Jogos from './templates/Jogos';
 import Login from './templates/Login';
@@ -40,7 +39,7 @@ function App() {
 
         {/* Rotas Menu*/}
         <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/" />} /> {/* Impede de ir para login se já estiver autenticado */}
-        <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/" element={isAuthenticated ? <Overview /> : <Navigate to="/login" />} />
         <Route path="/estudos" element={isAuthenticated ? <Estudos /> : <Navigate to="/login" />} />
         <Route path="/jogos" element={isAuthenticated ? <Jogos /> : <Navigate to="/login" />} />
         <Route path="/Overview" element={isAuthenticated ? <Overview /> : <Navigate to="/login" />} />

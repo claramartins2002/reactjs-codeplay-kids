@@ -23,12 +23,19 @@ const FormTurma = ({ onClose, onTurmaCreated, initialData }) => {
       ? new ApiService().post('turma', { ...requestData, id: initialData.id })
       : new ApiService().post("turma", requestData);
 
-    apiCall
+      apiCall
       .then(() => {
         onTurmaCreated();
-        console.log(initialData ? "Turma editada com sucesso" : "Turma criada com sucesso");
+        alert(initialData 
+          ? 'Turma editada com sucesso!' 
+          : 'Turma criada com sucesso!'
+        );
+        onClose(); // Fecha o formulário após o sucesso
       })
-      .catch(error => console.error("Erro ao salvar turma:", error));
+      .catch((error) => {
+        console.error('Erro ao salvar turma:', error);
+        alert('Erro ao salvar a turma. Por favor, tente novamente.');
+      });
   };
 
   return (
