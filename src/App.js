@@ -10,7 +10,6 @@ import PuzzleGame from './templates/JogosAtividades/QuebraCabeca';
 import DndExample from './templates/JogosAtividades/DndExample';
 import CacaPalavras from './templates/JogosAtividades/CacaPalavras';
 import FormAluno from './templates/FormAluno';
-import Dashboard from './templates/Dashboard';
 import Overview from './templates/Overview';
 import Atividades from './templates/Atividades';
 import Turma from './templates/OverviewTurma';
@@ -46,7 +45,6 @@ function App() {
         <Route path="/atividades" element={isAuthenticated ? <Atividades /> : <Navigate to="/login" />} />
         <Route path="/turmas/:id" element={isAuthenticated ? <Turma /> : <Navigate to="/login" />} />
 
-        <Route path="/Relatorios" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />} />
         <Route path="/Turmas" element={isAuthenticated ? <Turmas /> : <Navigate to="/login" />} />
 
         <Route path="/alunos/editar" element={isAuthenticated ? <FormAluno/> : <Navigate to="/login" />} />

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Accordion,
   AccordionSummary,
@@ -9,132 +9,71 @@ import {
   Box,
   Grid,
   Paper,
-  Tooltip,
-  IconButton
 } from '@mui/material';
-import './styles.css';
-import { ExpandMore, MenuBookOutlined, InfoOutlined } from '@mui/icons-material';
-import { Line, Pie } from 'react-chartjs-2';
-import useFetchRelatorios from '../../../utils/hooks/useFetchRelatorios';
-import useFetchAtividades from '../../../utils/hooks/useFetchAtividades';
+import { ExpandMore, MenuBookOutlined } from '@mui/icons-material';
+import { Line } from 'react-chartjs-2';
+import ApiService from '../../../utils/ApiService';
 
 const subjectsData = [
-  { id: 1, name: 'Português', color: '#ffebee', fontColor: '#FF8158' },
-  { id: 2, name: 'Matemática', color: '#e8f5e9', fontColor: '#86D718' },
-  { id: 3, name: 'Raciocínio Lógico', color: '#fff8e1', fontColor: '#FFC329' },
+  { name: 'Português', color: '#ffebee', fontColor: '#FF8158' },
+  { name: 'Matemática', color: '#e8f5e9', fontColor: '#86D718' },
+  { name: 'Raciocínio Lógico', color: '#fff8e1', fontColor: '#FFC329' },
 ];
 
-const sparklineDataMap = {
-  'Português': {
-    labels: ['Ativ. 1', 'Ativ. 2', 'Ativ. 3', 'Ativ. 4', 'Ativ. 5'],
-    datasets: [
-      {
-        label: 'Notas atividades anteriores',
-        data: [8, 7, 9, 6, 8],
-        borderColor: '#FF8158',
-        backgroundColor: 'rgba(255, 129, 88, 0.2)',
-        tension: 0.3,
-        pointRadius: 3,
-        pointBackgroundColor: '#FF8158',
-      }
-    ]
-  },
-  'Matemática': {
-    labels: ['Ativ. 1', 'Ativ. 2', 'Ativ. 3', 'Ativ. 4', 'Ativ. 5'],
-    datasets: [
-      {
-        label: 'Notas atividades anteriores',
-        data: [9, 6, 8, 7, 9],
-        borderColor: '#86D718',
-        backgroundColor: 'rgba(134, 215, 24, 0.2)',
-        tension: 0.3,
-        pointRadius: 3,
-        pointBackgroundColor: '#86D718',
-      }
-    ]
-  },
-  'Raciocínio Lógico': {
-    labels: ['Ativ. 1', 'Ativ. 2', 'Ativ. 3', 'Ativ. 4', 'Ativ. 5'],
-    datasets: [
-      {
-        label: 'Notas atividades anteriores',
-        data: [7, 8, 6, 7, 8],
-        borderColor: '#FFC329',
-        backgroundColor: 'rgba(255, 195, 41, 0.2)',
-        tension: 0.3,
-        pointRadius: 3,
-        pointBackgroundColor: '#FFC329',
-      }
-    ]
-  }
-};
-
-const averageTimeDataMap = {
-  'Português': {
-    labels: ['Ativ. 1', 'Ativ. 2', 'Ativ. 3', 'Ativ. 4', 'Ativ. 5'],
-    datasets: [
-      {
-        label: 'Tempo médio (minutos)',
-        data: [5, 6, 4, 8, 7],
-        borderColor: '#FF8158',
-        backgroundColor: 'rgba(255, 129, 88, 0.2)',
-        tension: 0.3,
-        pointRadius: 3,
-        pointBackgroundColor: '#FF8158',
-      }
-    ]
-  },
-  'Matemática': {
-    labels: ['Ativ. 1', 'Ativ. 2', 'Ativ. 3', 'Ativ. 4', 'Ativ. 5'],
-    datasets: [
-      {
-        label: 'Tempo médio (minutos)',
-        data: [7, 5, 6, 7, 6],
-        borderColor: '#86D718',
-        backgroundColor: 'rgba(134, 215, 24, 0.2)',
-        tension: 0.3,
-        pointRadius: 3,
-        pointBackgroundColor: '#86D718',
-      }
-    ]
-  },
-  'Raciocínio Lógico': {
-    labels: ['Ativ. 1', 'Ativ. 2', 'Ativ. 3', 'Ativ. 4', 'Ativ. 5'],
-    datasets: [
-      {
-        label: 'Tempo médio (minutos)',
-        data: [6, 7, 5, 6, 7],
-        borderColor: '#FFC329',
-        backgroundColor: 'rgba(255, 195, 41, 0.2)',
-        tension: 0.3,
-        pointRadius: 3,
-        pointBackgroundColor: '#FFC329',
-      }
-    ]
-  }
-};
-
 const StudentPerformance = ({ student }) => {
-  const {
-    relatorios,
-    loading,
-    error,
-    fetchRelatoriosByAluno,
-  } = useFetchRelatorios();
-
-  const { atividades, fetchAtividadesByTurma } = useFetchAtividades();
+  const [performanceData, setPerformanceData] = useState([]);
+  const apiService = new ApiService();
 
   useEffect(() => {
-    fetchRelatoriosByAluno(student.id);
-    fetchAtividadesByTurma(student.turma.id)
-  }, [fetchRelatoriosByAluno, fetchAtividadesByTurma]);
+    const fetchPerformance = async () => {
+      try {
+        const response = await apiService.get(`desempenho/aluno/${student.id}`);
+        setPerformanceData(response.desempenho || []);
+      } catch (error) {
+        console.error('Erro ao buscar desempenho:', error);
+      }
+    };
 
-  const tiposAtividade = relatorios.map(relatorio => relatorio.tipoAtividade);
+    fetchPerformance();
+  }, [student.id, apiService]);
 
-  console.log(relatorios);
-  console.log(relatorios.length);
-  console.log(tiposAtividade);
-  
+  const generateSparklineData = (subject) => {
+    const subjectData = performanceData?.find((item) => item.tipo === subject.name) || {};
+    return {
+      labels: subjectData.notas ? subjectData.notas.map((_, index) => `Ativ. ${index + 1}`) : [],
+      datasets: [
+        {
+          label: 'Notas atividades',
+          data: subjectData.notas || [],
+          borderColor: subject.fontColor,
+          backgroundColor: `${subject.fontColor}33`, // Transparência no fundo
+          tension: 0.3,
+          pointRadius: 3,
+          pointBackgroundColor: subject.fontColor,
+        },
+      ],
+    };
+  };
+
+  const generateTimeData = (subject) => {
+    const subjectData = performanceData?.find((item) => item.tipo === subject.name) || {};
+    return {
+      labels: subjectData.tempo ? subjectData.tempo.map((_, index) => `Ativ. ${index + 1}`) : [],
+      datasets: [
+        {
+          label: 'Tempo gasto (segundos)',
+          data: subjectData.tempo || [],
+          borderColor: subject.fontColor,
+          backgroundColor: `${subject.fontColor}33`,
+          tension: 0.3,
+          pointRadius: 3,
+          pointBackgroundColor: subject.fontColor,
+        },
+      ],
+    };
+  };
+
+  // Corrigido: todo o JSX agora está dentro da função do componente.
   return (
     <Box
       sx={{
@@ -145,10 +84,12 @@ const StudentPerformance = ({ student }) => {
         boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
       }}
     >
-      <div>
-        {subjectsData.map((subject) => (
+      {subjectsData.map((subject) => {
+        const subjectPerformance = performanceData?.find((item) => item.tipo === subject.name);
+
+        return (
           <Accordion
-            key={subject.id}
+            key={subject.name}
             sx={{
               backgroundColor: subject.color,
               borderRadius: '10px',
@@ -158,14 +99,14 @@ const StudentPerformance = ({ student }) => {
           >
             <AccordionSummary
               expandIcon={<ExpandMore style={{ color: subject.fontColor }} />}
-              aria-controls={`panel-${subject.id}-content`}
-              id={`panel-${subject.id}-header`}
+              aria-controls={`panel-${subject.name}-content`}
+              id={`panel-${subject.name}-header`}
             >
               <Stack direction="row" alignItems="center" spacing={2}>
                 <Avatar sx={{ bgcolor: subject.fontColor }}>
                   <MenuBookOutlined />
                 </Avatar>
-                <Typography variant="h6" style={{ fontWeight: 'bold', color: subject.fontColor, fontFamily: 'Irish Grover' }}>
+                <Typography variant="h6" style={{ fontWeight: 'bold', color: subject.fontColor }}>
                   {subject.name}
                 </Typography>
               </Stack>
@@ -173,39 +114,23 @@ const StudentPerformance = ({ student }) => {
             <AccordionDetails>
               <Grid container spacing={3}>
                 <Grid item xs={3}>
-                  <Paper sx={{ padding: 1, height: '120px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', textAlign: 'center', fontFamily: 'Irish Grover' }}>
-                    <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
-                      <Typography variant="body2" style={{ fontWeight: 'bold', color: '#424242' }}>Atividades Finalizadas</Typography>
-                      <Tooltip title="Quantidade de atividades concluídas pelo aluno.">
-                        <IconButton size="small">
-                          <InfoOutlined fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    </Stack>
-                    <Typography variant="h5" style={{ color: subject.fontColor }}>20/25</Typography>
-                  </Paper>
-                  <Paper sx={{ padding: 1, height: '120px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', mt: 2, textAlign: 'center', fontFamily: 'Irish Grover' }}>
-                    <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
-                      <Typography variant="body2" style={{ fontWeight: 'bold', color: '#424242' }}>Persistência e Resiliência</Typography>
-                      <Tooltip title="Indicador de esforço e resiliência ao completar atividades.">
-                        <IconButton size="small">
-                          <InfoOutlined fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
-                    </Stack>
-                    <Typography variant="h5" style={{ color: subject.fontColor }}>5</Typography>
+                  <Paper sx={{ padding: 1, height: '120px', borderRadius: '10px', textAlign: 'center' }}>
+                    <Typography variant="body2" style={{ fontWeight: 'bold' }}>Atividades Finalizadas</Typography>
+                    <Typography variant="h5" style={{ color: subject.fontColor }}>
+                      {subjectPerformance?.notas?.length || '0'}
+                    </Typography>
                   </Paper>
                 </Grid>
                 <Grid item xs={9}>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
-                      <Paper sx={{ height: '280px', padding: 2, borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-                        <Line data={sparklineDataMap[subject.name]} options={{ maintainAspectRatio: false, scales: { y: { display: false }, x: { display: false } } }} />
+                      <Paper sx={{ height: '280px', padding: 2, borderRadius: '10px' }}>
+                        <Line data={generateSparklineData(subject)} options={{ maintainAspectRatio: false }} />
                       </Paper>
                     </Grid>
                     <Grid item xs={6}>
-                      <Paper sx={{ height: '280px', padding: 2, borderRadius: '10px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-                        <Line data={averageTimeDataMap[subject.name]} options={{ maintainAspectRatio: false, scales: { y: { display: false }, x: { display: false } } }} />
+                      <Paper sx={{ height: '280px', padding: 2, borderRadius: '10px' }}>
+                        <Line data={generateTimeData(subject)} options={{ maintainAspectRatio: false }} />
                       </Paper>
                     </Grid>
                   </Grid>
@@ -213,8 +138,8 @@ const StudentPerformance = ({ student }) => {
               </Grid>
             </AccordionDetails>
           </Accordion>
-        ))}
-      </div>
+        );
+      })}
     </Box>
   );
 };

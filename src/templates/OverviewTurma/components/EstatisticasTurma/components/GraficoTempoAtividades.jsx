@@ -105,7 +105,7 @@ const GraficoTempoAtividades = ({ relatorios }) => {
   return (
     <div className="grafico" style={{ position: 'relative' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
-        <InfoTooltip text="Mostra o tempo médio gasto pelos alunos em cada atividade." />
+        <InfoTooltip text="Mostra o tempo gasto pelos alunos em cada atividade, contabilizado em segundos." />
       </div>
 
       <FormControl fullWidth sx={{ mb: 2 }}>

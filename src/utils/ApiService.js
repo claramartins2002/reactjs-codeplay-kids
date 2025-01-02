@@ -85,7 +85,7 @@ export default class ApiService {
 
   async getRelatoriosByAluno(idAluno) {
     try {
-      const response = await this.axiosInstance.get(`relatorio/getByAluno/${idAluno}`);
+      const response = await this.axiosInstance.get(`desempenho/aluno/${idAluno}`);
       console.log("Relatórios do aluno:", response.data);
       return response.data;
     } catch (error) {
