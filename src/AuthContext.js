@@ -1,7 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
+import ApiService from './utils/ApiService';
 
 // Cria o contexto de autenticação
 export const AuthContext = createContext();
+
+const apiService = new ApiService();
 
 export const AuthProvider = ({ children }) => {
   // Inicializa o estado com base no valor armazenado no localStorage
@@ -11,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   });
   const [loading, setLoading] = useState(true); // Estado de carregamento
   const [professorName, setProfessorName] = useState(localStorage.getItem('professorName') || null); // Armazena o nome do professor
+  const [professorId, setProfessorId] = useState(localStorage.getItem('professorId') || null); // Armazena o nome do professor
   const [error, setError] = useState(null); // Estado para capturar erros no login
 
 
@@ -23,9 +27,12 @@ useEffect(() => {
   if (professorName) {
     console.log(`Professor name atualizado: ${professorName}`);
   }
+  if (professorId) {
+    console.log(`Professor id atualizado: ${professorId}`);
+  }
   
   
-}, [professorName]);
+}, [professorName, professorId]);
 
 const login = async (email, senha) => {
   try {
@@ -50,10 +57,13 @@ const login = async (email, senha) => {
     if (data) {
       localStorage.setItem('loggedIn', 'true');
       localStorage.setItem('professorName', data.nome);
+      localStorage.setItem('professorId', data.id);
       setIsAuthenticated(true);
       setProfessorName(data.nome);
+      setProfessorId(data.id);
 
       console.log('Nome do professor definido:', data.nome);
+      console.log('Id do professor definido '+data.id);
     } else {
       throw new Error(data.message || 'Credenciais inválidas.');
     }
@@ -66,16 +76,35 @@ const login = async (email, senha) => {
 };
 
 
-  const logout = () => {
-    // Simula o logout
+const logout = async () => {
+  try {
+    // Verifique se o professorId está definido
+    if (!professorId) {
+      console.error('Erro: professorId não está definido.');
+      return;
+    }
+
+    // Enviar requisição para marcar notificações como lidas
+    await apiService.get(`relatorio/marcar-como-notificado/${professorId}`);
+
+    console.log('Notificações marcadas como lidas com sucesso.');
+  } catch (error) {
+    console.error('Erro ao marcar notificações como lidas:', error);
+  } finally {
+    // Certifique-se de limpar o estado após a requisição
     localStorage.removeItem('loggedIn');
-    setIsAuthenticated(false);
     localStorage.removeItem('professorName');
+    localStorage.removeItem('professorId');
     setProfessorName(null);
-  };
+    setProfessorId(null);
+    setIsAuthenticated(false); // Atualiza o estado de autenticação apenas no final
+  }
+};
+
+
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, loading, professorName }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, loading, professorName, professorId }}>
       {children}
     </AuthContext.Provider>
   );
