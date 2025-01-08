@@ -14,7 +14,7 @@ const ListaAlunos = ({ turmaId, onAddClick }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [openEditModal, setOpenEditModal] = useState(null);
   const [openPerformanceDialog, setOpenPerformanceDialog] = useState(null);
-  
+
   // Usando o hook useFetchTurma para obter turma e alunos
   const { turma, alunos, loading, error, refetch } = useFetchTurma(turmaId);
   const studentColors = useStudentColors(alunos);
@@ -35,6 +35,27 @@ const ListaAlunos = ({ turmaId, onAddClick }) => {
     setOpenEditModal(null); // Garante que apenas o Desempenho estará aberto
   };
 
+  const handleDeleteStudent = async (student) => {
+    const confirmDelete = window.confirm(`Tem certeza de que deseja deletar o aluno ${student.nome}?`);
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://localhost:8080/aluno/${student.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao deletar o aluno. Por favor, tente novamente.');
+      }
+
+      alert(`Aluno ${student.nome} deletado com sucesso!`);
+      refetch(); // Atualiza a lista de alunos
+    } catch (error) {
+      console.error('Erro ao deletar aluno:', error);
+      alert('Não foi possível deletar o aluno. Tente novamente mais tarde.');
+    }
+  };
+
   // Função chamada após a criação ou edição de um aluno
   const onAlunoCreated = () => {
     refetch(); // Recarrega os dados da turma e alunos após a criação ou edição de um aluno
@@ -49,7 +70,7 @@ const ListaAlunos = ({ turmaId, onAddClick }) => {
           onAddClick={onAddClick}
         />
         {loading ? (
-          <CircularIndeterminate/>
+          <CircularIndeterminate />
         ) : error ? (
           <div>{error}</div>
         ) : (
@@ -62,11 +83,12 @@ const ListaAlunos = ({ turmaId, onAddClick }) => {
                   color={studentColors[student.id]}
                   onEdit={() => openEditForm(student)}
                   onPerformance={openPerformanceDialogHandler} // Passa a função para abrir o diálogo de desempenho
+                  onDelete={handleDeleteStudent} // Passa a função de deletar
                 />
               ))
             ) : (
               <ListItem className="empty-student-list">
-                <ListItemText primary="Nenhum aluno encontrado." sx={{fontFamily: 'Coming Soon'}}/>
+                <ListItemText primary="Nenhum aluno encontrado." sx={{ fontFamily: 'Coming Soon' }} />
               </ListItem>
             )}
           </List>

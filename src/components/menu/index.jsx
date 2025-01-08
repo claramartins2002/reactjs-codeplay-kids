@@ -1,6 +1,6 @@
 import React,{useContext, useState} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
-import {FiAlignRight,FiXCircle, FiChevronDown, FiUser, FiSettings, FiBell, FiLogOut } from "react-icons/fi";
+import {FiAlignRight,FiXCircle, FiChevronDown, FiUser, FiBookOpen , FiBell, FiLogOut } from "react-icons/fi";
 import logo from '../../img/logo.png';
 import { PiUsersFour, PiHouse } from "react-icons/pi";
 import { GrGamepad } from "react-icons/gr";
@@ -25,6 +25,8 @@ const Navbarmenu = () => {
   const [isMenu, setisMenu] = useState(false);
   const [isResponsiveclose, setResponsiveclose] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+      const { professorName } = useContext(AuthContext);
+  
   const toggleClass = () => {
     setisMenu(isMenu === false ? true : false);
     setResponsiveclose(isResponsiveclose === false ? true : false);
@@ -80,7 +82,6 @@ const Navbarmenu = () => {
                 </li>
               </ul>
 
-              {/* a ideia é colocar o logout no menu do professor, aqui não ficou bom (mas funciona) */}
             </nav>     
           </div>
 
@@ -93,7 +94,7 @@ const Navbarmenu = () => {
               }
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <span>Olá, usuário</span>
+                  <span>{professorName}</span>
                   <FiChevronDown style={{ color: '#FFF' }} />
                 </Box>
               }
@@ -108,14 +109,14 @@ const Navbarmenu = () => {
               sx={{ fontFamily: 'Coming Soon' }}
             >
               <MenuItem 
-                onClick={handleMenuClose}
+                onClick={() => {handleMenuClose(); navigate('/atividades')}}
                 sx={menuItemStyles}
               >
-                <FiSettings />
-                <span>Configurações</span>
+                <FiBookOpen  />
+                <span>Atividades</span>
               </MenuItem>
               <MenuItem 
-                onClick={handleMenuClose}
+                onClick={() => {handleMenuClose(); navigate('/overview')}}
                 sx={menuItemStyles}
               >
                 <FiBell />

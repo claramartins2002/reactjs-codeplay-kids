@@ -1,17 +1,20 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useContext } from 'react';
 import ApiService from '../ApiService';
+import { AuthContext } from '../../AuthContext';
 
 const useFetchAtividades = () => {
   const [atividades, setAtividades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { professorId} = useContext(AuthContext);
+
 
   const fetchAtividadesByProfessor = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const api = new ApiService();
-      const response = await api.getAtividadesByProfessor('1');
+      const response = await api.getAtividadesByProfessor(professorId);
       setAtividades(response);
     } catch (error) {
       setError("Erro ao buscar atividades");

@@ -19,14 +19,21 @@ const FormAluno = ({ onClose, onAlunoCreated, initialData, turma }) => {
 
     const apiCall = initialData
       ? apiService.post('aluno', { ...requestData, id: initialData.id })
-      : apiService.post("aluno", requestData);
+      : apiService.post('aluno', requestData);
 
     apiCall
       .then(() => {
         onAlunoCreated();
-        console.log(initialData ? "Aluno editado com sucesso" : "Aluno criado com sucesso");
+        alert(initialData 
+          ? 'Aluno editado com sucesso!' 
+          : 'Aluno criado com sucesso!'
+        );
+        onClose(); // Fecha o formulário após o sucesso
       })
-      .catch(error => console.error("Erro ao salvar aluno:", error));
+      .catch((error) => {
+        console.error('Erro ao salvar aluno:', error);
+        alert('Erro ao salvar o aluno. Por favor, tente novamente.');
+      });
   };
 
   return (

@@ -68,7 +68,7 @@ const ListaAlunosAtividade = ({ relatorios }) => {
                   <div style={{ display: 'flex', alignItems: 'center', marginRight: '15px' }}>
                     <CheckCircleOutlineIcon sx={{ color: '#c8b7f9', marginRight: '5px' }} />
                     <Typography sx={ListStyles.typographyListitem}>
-                      {relatorio.acertos}/{relatorio.tentativas} ({Math.round((relatorio.acertos / relatorio.tentativas) * 100)}%)
+                      {relatorio.acertos}/{relatorio.tentativas} ({Math.round((relatorio.acertos / 15) * 100)}%)
                     </Typography>
                   </div>
                 </Tooltip>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import TurmaCardList from '../../components/cards/turmas/TurmasCardList';
 import FormCriarTurma from '../../components/turmas/FormTurma/FormTurma';
-import HeaderTurmas from '../../components/turmas/HeaderTurmas'
 import useFetchTurmas from '../../utils/hooks/useFetchTurmas';
 
 const Turmas = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
+  
 
   // Usa o hook useFetchTurmas para obter todas as turmas
   const { turmas, refetch } = useFetchTurmas();
@@ -19,15 +19,11 @@ const Turmas = () => {
     refetch(); // Recarrega as turmas após a criação de uma nova turma
   };
 
+
+
   return (
     <>
-      {/* <NavbarProf /> */}
-      <HeaderTurmas
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-        onAddClick={() => setIsFormOpen(true)}
-        saudacao="Olá Profª Gisele"
-      />
+ 
       {isFormOpen && (
         <FormCriarTurma 
           onClose={() => setIsFormOpen(false)} 
