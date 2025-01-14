@@ -21,7 +21,7 @@ const RelatoriosAtividades = ({ atividade, onClose }) => {
 
   // Calcula a média de pontuação
   const calcularMediaPontuacao = () => {
-    if (relatorios.length === 0) return 0;
+    if (relatorios.length === 0) return null;
     const soma = relatorios.reduce((acc, rel) => acc + rel.pontuacao, 0);
     return (soma / relatorios.length).toFixed(1);
   };
@@ -32,12 +32,12 @@ const RelatoriosAtividades = ({ atividade, onClose }) => {
     return ((relatorios.length / alunos.length) * 100).toFixed(0);
   };
 
-  console.log(relatorios);
+  const mediaPontuacao = calcularMediaPontuacao();
 
   return (
     <div className="estatisticas-atividade-overlay">
       <div className="estatisticas-atividade-container">
-      <IconButton
+        <IconButton
           onClick={onClose}
           sx={{
             position: 'absolute',
@@ -84,13 +84,15 @@ const RelatoriosAtividades = ({ atividade, onClose }) => {
               </div>
             </div>
             
-            <div className="info-card">
-              <StarBorderOutlinedIcon sx={{color: '#c8b7f9', background: '#f2edfd', fontSize: '60px', borderRadius: '50%', padding: '10px'}}/>
-              <div>
-                <div className="label">Pontuação Média</div>
-                <div className="valor">{calcularMediaPontuacao()}</div>
+            {mediaPontuacao !== '0.0' && (
+              <div className="info-card">
+                <StarBorderOutlinedIcon sx={{color: '#c8b7f9', background: '#f2edfd', fontSize: '60px', borderRadius: '50%', padding: '10px'}}/>
+                <div>
+                  <div className="label">Pontuação Média</div>
+                  <div className="valor">{mediaPontuacao}</div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 

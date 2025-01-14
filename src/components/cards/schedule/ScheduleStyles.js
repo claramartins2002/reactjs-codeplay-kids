@@ -6,6 +6,29 @@ export const styleChip = {
   color: '#fff'
 }
 
+export const weekDaysBox = {
+  backgroundColor: '#fff',
+  borderRadius: '10px',
+  padding: '15px',
+  marginTop: '20px',
+
+  maxHeight: '300px',
+  overflowY: 'auto',
+  '&::-webkit-scrollbar': {
+    width: '10px',
+    backgroundColor: '#F5F5F5',
+    borderRadius: '10px'
+  },
+  '&::-webkit-scrollbar-track': {
+    backgroundColor: '#F5F5F5',
+    borderRadius: '10px',
+  },
+  '&::-webkit-scrollbar-thumb': {
+    backgroundColor: '#ff7d00',
+    borderRadius: '10px',
+  },
+}
+
 export const ButtonGroupStyle = {
   display: 'flex',
   overflowX: 'auto',

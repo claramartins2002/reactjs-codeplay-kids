@@ -55,32 +55,38 @@ const ListaAlunosAtividade = ({ relatorios }) => {
               />
 
               <ListItemSecondaryAction sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                <Tooltip title="Pontuação">
-                  <div style={{ display: 'flex', alignItems: 'center', marginRight: '15px' }}>
-                    <StarOutlineIcon sx={{ color: '#c8b7f9', marginRight: '5px' }} />
-                    <Typography sx={ListStyles.typographyListitem}>
-                      {relatorio.pontuacao}
-                    </Typography>
-                  </div>
-                </Tooltip>
+                {relatorio.pontuacao !== null && (
+                  <Tooltip title="Pontuação">
+                    <div style={{ display: 'flex', alignItems: 'center', marginRight: '15px' }}>
+                      <StarOutlineIcon sx={{ color: '#c8b7f9', marginRight: '5px' }} />
+                      <Typography sx={ListStyles.typographyListitem}>
+                        {relatorio.pontuacao}
+                      </Typography>
+                    </div>
+                  </Tooltip>
+                )}
 
-                <Tooltip title="Acertos">
-                  <div style={{ display: 'flex', alignItems: 'center', marginRight: '15px' }}>
-                    <CheckCircleOutlineIcon sx={{ color: '#c8b7f9', marginRight: '5px' }} />
-                    <Typography sx={ListStyles.typographyListitem}>
-                      {relatorio.acertos}/{relatorio.tentativas} ({Math.round((relatorio.acertos / 15) * 100)}%)
-                    </Typography>
-                  </div>
-                </Tooltip>
+                {relatorio.acertos !== null && (
+                  <Tooltip title="Acertos">
+                    <div style={{ display: 'flex', alignItems: 'center', marginRight: '15px' }}>
+                      <CheckCircleOutlineIcon sx={{ color: '#c8b7f9', marginRight: '5px' }} />
+                      <Typography sx={ListStyles.typographyListitem}>
+                        {relatorio.acertos}/{relatorio.tentativas} ({Math.round((relatorio.acertos / 15) * 100)}%)
+                      </Typography>
+                    </div>
+                  </Tooltip>
+                )}
 
-                <Tooltip title="Tempo">
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <AccessTimeIcon sx={{ color: '#c8b7f9', marginRight: '5px' }} />
-                    <Typography sx={ListStyles.typographyListitem}>
-                      {formatarTempo(relatorio.tempoGasto)}
-                    </Typography>
-                  </div>
-                </Tooltip>
+                {relatorio.tempoGasto !== null && (
+                  <Tooltip title="Tempo">
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <AccessTimeIcon sx={{ color: '#c8b7f9', marginRight: '5px' }} />
+                      <Typography sx={ListStyles.typographyListitem}>
+                        {formatarTempo(relatorio.tempoGasto)}
+                      </Typography>
+                    </div>
+                  </Tooltip>
+                )}
               </ListItemSecondaryAction>
             </ListItem>
           ))}
@@ -89,4 +95,4 @@ const ListaAlunosAtividade = ({ relatorios }) => {
   );
 };
 
-export default ListaAlunosAtividade; 
+export default ListaAlunosAtividade;

@@ -8,15 +8,7 @@ const NavbarProf = () => {
   return (
     <header className="header__middle_prof">
       <div className="container_prof">
-        <span>Olá Prof {professorName}</span>
-
-        <div className="search-expanding">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Buscar..."
-          />
-        </div>
+        <span style={{margin: '0 15px'}}>Olá Prof {professorName}</span>
       </div>
     </header>
   );

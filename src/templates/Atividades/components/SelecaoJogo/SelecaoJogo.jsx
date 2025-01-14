@@ -22,7 +22,7 @@ const SelecaoJogo = ({ selectedActivityType, setSelectedActivityType, jogos }) =
             backgroundColor: selectedActivityType === activity.nome ? '#c4ecca' : '#FFF'
           }}
         >
-          <CardContent>
+          <CardContent sx={{display: 'flex', flexDirection: 'column'}}>
             <img src={activity.icone} alt={`${activity.nome} icon`} style={{ width: '50px', height: '50px', margin: '0 auto' }} />
             <Typography variant="h6" style={{ textAlign: 'center', fontWeight: 'bold', fontFamily: 'Irish Grover' }}>
               {activity.nome}

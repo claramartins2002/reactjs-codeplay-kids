@@ -6,10 +6,10 @@ import './styles.css';
 import EventIcon from '@mui/icons-material/Event';
 import { ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { Chip, Stack, Button, ButtonGroup } from '@mui/material';
+import { Chip, Stack, Button, ButtonGroup, Box } from '@mui/material';
 import useFetchAtividades from '../../../utils/hooks/useFetchAtividades';
 import ColorUtils from '../../../utils/Colors';
-import { styleChip, ButtonGroupStyle, theme } from './ScheduleStyles';
+import { styleChip, ButtonGroupStyle, theme, weekDaysBox } from './ScheduleStyles';
 
 
 const { RangePicker } = DatePicker;
@@ -128,7 +128,7 @@ const Schedule = () => {
           </ButtonGroup>
         </ThemeProvider>
       </div>
-      <div className="week-days">
+      <Box sx={weekDaysBox}>
         {activitiesForSelectedDay.length > 0 ? (
           activitiesForSelectedDay.map((atividade) => {
             const activityColor = ColorUtils.getRandomColor();
@@ -170,9 +170,9 @@ const Schedule = () => {
         ) : (
           <p style={{fontFamily: 'Coming Soon'}}>Nenhuma atividade encontrada para o dia selecionado.</p>
         )}
-        <div className="view-activities">
-          <button onClick={() => navigate('/atividades')}>Ver atividades</button>
-        </div>
+      </Box>
+      <div className="view-activities">
+        <button onClick={() => navigate('/atividades')}>Ver atividades</button>
       </div>
     </div>
   );

@@ -11,8 +11,9 @@ import {
   Paper,
 } from '@mui/material';
 import { ExpandMore, MenuBookOutlined } from '@mui/icons-material';
-import { Line } from 'react-chartjs-2';
 import ApiService from '../../../utils/ApiService';
+import { styles } from './styles';
+import { Line } from 'react-chartjs-2';
 
 const subjectsData = [
   { name: 'Português', color: '#ffebee', fontColor: '#FF8158' },
@@ -20,7 +21,7 @@ const subjectsData = [
   { name: 'Raciocínio Lógico', color: '#fff8e1', fontColor: '#FFC329' },
 ];
 
-const StudentPerformance = ({ student }) => {
+export const StudentPerformance = ({ student }) => {
   const [performanceData, setPerformanceData] = useState([]);
   const apiService = new ApiService();
 
@@ -28,6 +29,7 @@ const StudentPerformance = ({ student }) => {
     const fetchPerformance = async () => {
       try {
         const response = await apiService.get(`desempenho/aluno/${student.id}`);
+        console.log(response);
         setPerformanceData(response.desempenho || []);
       } catch (error) {
         console.error('Erro ao buscar desempenho:', error);
@@ -73,30 +75,29 @@ const StudentPerformance = ({ student }) => {
     };
   };
 
+  const stylesPaper = {
+    padding: 2,
+    height: '120px',
+    borderRadius: '10px',
+    textAlign: 'center',
+    margin: '5px'
+  }
+
+  const stylesPaperChart = {
+    height: '280px',
+    padding: 2,
+    borderRadius: '10px',
+    margin: '5px'
+  }
+
   // Corrigido: todo o JSX agora está dentro da função do componente.
   return (
-    <Box
-      sx={{
-        width: '100%',
-        padding: '20px',
-        backgroundColor: '#f9fbff',
-        borderRadius: '10px',
-        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
-      }}
-    >
+    <Box sx={styles.box}>
       {subjectsData.map((subject) => {
         const subjectPerformance = performanceData?.find((item) => item.tipo === subject.name);
 
         return (
-          <Accordion
-            key={subject.name}
-            sx={{
-              backgroundColor: subject.color,
-              borderRadius: '10px',
-              mb: 1,
-              '&:before': { display: 'none' },
-            }}
-          >
+          <Accordion key={subject.name} sx={styles.accordion(subject.color)}>
             <AccordionSummary
               expandIcon={<ExpandMore style={{ color: subject.fontColor }} />}
               aria-controls={`panel-${subject.name}-content`}
@@ -106,42 +107,54 @@ const StudentPerformance = ({ student }) => {
                 <Avatar sx={{ bgcolor: subject.fontColor }}>
                   <MenuBookOutlined />
                 </Avatar>
-                <Typography variant="h6" style={{ fontWeight: 'bold', color: subject.fontColor }}>
+                <Typography variant="h6" style={{ fontWeight: 'bold', color: subject.fontColor, fontFamily: 'Irish Grover' }}>
                   {subject.name}
                 </Typography>
               </Stack>
             </AccordionSummary>
             <AccordionDetails>
-              <Grid container spacing={3}>
-                <Grid item xs={3}>
-                  <Paper sx={{ padding: 1, height: '120px', borderRadius: '10px', textAlign: 'center' }}>
-                    <Typography variant="body2" style={{ fontWeight: 'bold' }}>Atividades Finalizadas</Typography>
-                    <Typography variant="h5" style={{ color: subject.fontColor }}>
+              <div style={{display: 'flex', flexDirection: 'column'}}>
+                {/* Quadros menores */}
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                  <Paper sx={stylesPaper}>
+                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                      Atividades Finalizadas
+                    </Typography>
+                    <Typography variant="h5" sx={{ color: subject.fontColor }}>
                       {subjectPerformance?.notas?.length || '0'}
                     </Typography>
                   </Paper>
-                </Grid>
-                <Grid item xs={9}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                      <Paper sx={{ height: '280px', padding: 2, borderRadius: '10px' }}>
-                        <Line data={generateSparklineData(subject)} options={{ maintainAspectRatio: false }} />
-                      </Paper>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Paper sx={{ height: '280px', padding: 2, borderRadius: '10px' }}>
-                        <Line data={generateTimeData(subject)} options={{ maintainAspectRatio: false }} />
-                      </Paper>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
+                  <Paper sx={stylesPaper}>
+                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                      Persistência e Resiliência
+                    </Typography>
+                    <Typography variant="h5" sx={{ color: subject.fontColor }}>
+                      {subjectPerformance?.persistenciaEResiliencia || '0'}
+                    </Typography>
+                  </Paper>
+                </div>
+
+                {/* Gráficos maiores */}
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                  <Paper sx={stylesPaperChart} >
+                    <Line
+                      data={generateSparklineData(subject)}
+                      options={{ maintainAspectRatio: false }}
+                    />
+                  </Paper>
+                  <Paper sx={stylesPaperChart} >
+                    <Line
+                      data={generateTimeData(subject)}
+                      options={{ maintainAspectRatio: false }}
+                    />
+                  </Paper>
+                </div>
+              </div>
             </AccordionDetails>
+
           </Accordion>
         );
       })}
     </Box>
   );
 };
-
-export default StudentPerformance;

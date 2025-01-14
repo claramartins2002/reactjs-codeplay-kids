@@ -36,13 +36,20 @@ const EstatisticasTurma = ({ turmaId }) => {
     relatorio.tipoAtividade === 'Operações Matemáticas'
   );
 
-  const mediaAcertosErros = calcularMediaAcertosErros(relatoriosMatematica);
-  const mediaTempoGasto = calcularMediaTempoGasto(relatoriosMatematica);
-  const mediaPontuacao = calcularMediaPontuacao(relatoriosMatematica);
+  const relatoriosPortugues = relatorios.filter(relatorio =>
+    ['Caça Palavras', 'Palavras Cruzadas', 'Soletrando'].includes(relatorio.tipoAtividade)
+  );
 
+  const relatoriosOutrasAtiv = relatorios.filter(relatorio =>
+    ['Quebra Cabeça', 'Relógio', 'Quantas frutas têm ?', 'Jogo da Memória', 'Formas e Cores'].includes(relatorio.tipoAtividade)
+  );
+
+  const mediaAcertosErros = calcularMediaAcertosErros(relatoriosMatematica);
+  const mediaTempoGastoMath = calcularMediaTempoGasto(relatoriosMatematica);
+  const mediaPontuacaoMath = calcularMediaPontuacao(relatoriosMatematica);
   const dadosDesempenhoMatematica = [
-    { name: 'Tempo Médio (segundos)', valor: mediaTempoGasto },
-    { name: 'Média de Pontuação', valor: mediaPontuacao },
+    { name: 'Tempo Médio (segundos)', valor: mediaTempoGastoMath },
+    { name: 'Média de Pontuação', valor: mediaPontuacaoMath },
   ];
 
   const dadosJogos = calcularQuantidadePorJogo(atividades);
@@ -66,29 +73,7 @@ const EstatisticasTurma = ({ turmaId }) => {
             </div>
           </div>
 
-          <div className="graficos-container">
-            <Accordion defaultExpanded>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="matematica-content"
-                id="matematica-header"
-              >
-                <Typography sx={{ fontFamily: 'Coming Soon', fontSize: '1.2rem' }}>
-                  Matemática
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <div className="graficos-matematica">
-                  <GraficoDesempenho dadosDesempenho={dadosDesempenhoMatematica} />
-                  <GraficoAcertosErros relatorios={relatoriosMatematica} />
-                  <GraficoTempoAtividades relatorios={relatoriosMatematica} />
-                  <GraficoPontuacaoAtividades relatorios={relatoriosMatematica} />
-                  <GraficoRankingDificuldade relatorios={relatoriosMatematica} />
-                </div>
-              </AccordionDetails>
-            </Accordion>
-
-            <Accordion defaultExpanded>
+          <Accordion sx={{ minWidth: '100%'}}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="geral-content"
@@ -102,6 +87,64 @@ const EstatisticasTurma = ({ turmaId }) => {
                 <div className="graficos-gerais">
                   <GraficoEngajamento relatorios={relatorios} alunos={alunos} />
                   <GraficoDistribuicaoJogos dadosJogos={dadosJogos} />
+                </div>
+              </AccordionDetails>
+            </Accordion>
+
+          <div className="graficos-container">
+            <Accordion sx={{ minWidth: '100%'}}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="matematica-content"
+                id="matematica-header"
+              >
+                <Typography sx={{ fontFamily: 'Coming Soon', fontSize: '1.2rem' }}>
+                  Matemática
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="graficos-matematica">
+                  <GraficoDesempenho dadosDesempenho={dadosDesempenhoMatematica} />
+                  <GraficoAcertosErros relatorios={relatoriosMatematica} />
+                  <GraficoTempoAtividades relatorios={relatoriosMatematica}/>
+                  <GraficoPontuacaoAtividades relatorios={relatoriosMatematica} />
+                  <GraficoRankingDificuldade relatorios={relatoriosMatematica} />
+                </div>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion sx={{ minWidth: '100%'}}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="geral-content"
+                id="geral-header"
+              >
+                <Typography sx={{ fontFamily: 'Coming Soon', fontSize: '1.2rem' }}>
+                  Português
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="graficos-gerais">
+                  <GraficoTempoAtividades relatorios={relatoriosPortugues}/>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+
+
+            <Accordion sx={{ minWidth: '100%'}}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="geral-content"
+                id="geral-header"
+              >
+                <Typography sx={{ fontFamily: 'Coming Soon', fontSize: '1.2rem' }}>
+                  Outras atividades
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <div className="graficos-gerais">
+                  <GraficoTempoAtividades relatorios={relatoriosOutrasAtiv}/>
+                  <GraficoPontuacaoAtividades relatorios={relatoriosOutrasAtiv} />
                 </div>
               </AccordionDetails>
             </Accordion>

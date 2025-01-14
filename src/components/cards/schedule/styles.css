@@ -1,9 +1,10 @@
 .schedule-container {
   background-color: #ffb980;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 20px;
   max-width: 600px;
   margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .day-button-schedule {

@@ -1,0 +1,39 @@
+.search-bar-turmas {
+  padding: 10px;
+  font-size: 16px;
+  flex: 1;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.search-bar-turmas:focus {
+  outline: 2px solid #eaa4d8;
+  outline-offset: 2px;
+}
+
+.container-bar-btn-turmas {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin: auto;
+}
+
+.btn-add-turma {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #eaa4d8;
+  font-family: Irish Grover;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-transform: none;
+  transition: all .3s ease-out;
+}
+
+.btn-add-turma:hover {
+  background-color: #fff;
+  color: #eaa4d8;
+  box-shadow: 0px 4px 10px rgba(234, 164, 216, .6);
+}

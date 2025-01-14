@@ -109,11 +109,11 @@ const GraficoPontuacaoAtividades = ({ relatorios }) => {
       </div>
 
       <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel id="operacao-select-label">Operação Matemática</InputLabel>
+        <InputLabel id="operacao-select-label">Tipo de Atividade</InputLabel>
         <Select
           labelId="operacao-select-label"
           value={operacaoSelecionada}
-          label="Operação Matemática"
+          label="Tipo de Atividade"
           onChange={(e) => setOperacaoSelecionada(e.target.value)}
           sx={{
             fontFamily: 'Coming Soon',
@@ -125,7 +125,7 @@ const GraficoPontuacaoAtividades = ({ relatorios }) => {
           }}
         >
           <MenuItem value="todas" sx={{ fontFamily: 'Coming Soon' }}>
-            Todas as Operações
+            Todas as Atividades
           </MenuItem>
           {operacoes.map((operacao) => (
             <MenuItem 

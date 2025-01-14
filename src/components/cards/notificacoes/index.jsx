@@ -102,7 +102,7 @@ const NotificacoesCard = () => {
               ))}
             </List>
           ) : (
-            <p>Nenhuma notificação encontrada.</p>
+            <p style={{fontFamily: 'Coming Soon'}}>Nenhuma notificação encontrada.</p>
           )}
         </Box>
       </div>

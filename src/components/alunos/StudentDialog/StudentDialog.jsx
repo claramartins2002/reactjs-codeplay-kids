@@ -1,7 +1,7 @@
 // StudentDialog.jsx
 import { IconButton, Dialog, DialogTitle, DialogContent, Typography } from '@mui/material';
 import { Close } from '@mui/icons-material';
-import StudentPerformance from '../StudentsPerformance/StudentsPerformance';
+import {StudentPerformance} from '../StudentsPerformance/StudentsPerformance';
 
 const StudentDialog = ({ open, student, color, onClose }) => (
   <Dialog

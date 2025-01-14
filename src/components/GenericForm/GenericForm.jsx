@@ -1,9 +1,9 @@
 // components/GenericForm/GenericForm.jsx
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { RiCloseLargeFill } from "react-icons/ri";
+import { RiCloseLine } from "react-icons/ri";
 import { IoArrowForward } from "react-icons/io5";
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import './GenericForm.css';
 
 const GenericForm = ({ title, fields, initialData, onClose, onSubmit }) => {
@@ -57,9 +57,20 @@ const GenericForm = ({ title, fields, initialData, onClose, onSubmit }) => {
             </Button>
           </div>
         </form>
-        <button onClick={onClose} className="btn-fechar">
-          <RiCloseLargeFill />
-        </button>
+        <IconButton
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: '0',
+            top: '0',
+            color: '#87A2FF',
+            '&:hover': {
+              backgroundColor: 'rgba(135, 162, 255, .1)'
+            }
+          }}
+        >
+          <RiCloseLine />
+        </IconButton>
       </div>
     </div>
   );

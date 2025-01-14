@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { RiCloseLine } from "react-icons/ri";
 import { IoArrowForward } from "react-icons/io5";
-import { Stepper, Step, StepLabel, Button, Snackbar, Alert } from '@mui/material';
+import { Stepper, Step, StepLabel, Button, Snackbar, Alert, IconButton } from '@mui/material';
 import './FormCriarAtividade.css';
 
 import DetalhesAtividadeForm from '../DetalhesAtividadeForm/DetalhesAtividadesForm';
@@ -16,9 +16,6 @@ const FormHeader = ({ onClose, isEditing }) => (
   <div className="form-atividade-header">
     <img src='https://cdn-icons-png.freepik.com/128/7583/7583670.png' alt="Icone de Atividade" />
     <h2>{isEditing ? 'Editar Atividade' : 'Criar Atividade'}</h2>
-    <button onClick={onClose} className="btn-fechar">
-      <RiCloseLine />
-    </button>
   </div>
 );
 
@@ -92,8 +89,23 @@ const FormCriarAtividade = ({ onClose, onAtividadeCreated, atividade }) => {
 
   return (
     <div className="form-atividade-overlay">
+      
       <FormHeader onClose={onClose} isEditing={isEditing} />
       <div className="form-atividade-container">
+        <IconButton
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: '0',
+            top: '0',
+            color: '#45a049',
+            '&:hover': {
+              backgroundColor: 'rgba(69, 160, 73, .1)'
+            }
+          }}
+        >
+          <RiCloseLine />
+        </IconButton>
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => (
             <Step key={index}>
@@ -164,7 +176,7 @@ const FormCriarAtividade = ({ onClose, onAtividadeCreated, atividade }) => {
             variant="filled"
             sx={{ width: '100%' }}
           >
-            This is a success Alert inside a Snackbar!
+            Atividade criada com sucesso!
           </Alert>
       </Snackbar>
       </div>
